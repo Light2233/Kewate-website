@@ -1,0 +1,162 @@
+/* Обнуляющий стиль */
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+*{
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  background-color: white;
+  position: relative;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  background: transparent;
+}
+input:-webkit-autofill {
+  transition: all 5000s ease-in-out 0s;
+}
+
+
+/* root */
+
+:root{
+    /* colors */
+    --main:#4641FB;
+    --dark:#171717;
+    --white:#ffff;
+    --light:#E2EBF4;
+    --gray:#A7AFB7;
+}
+
+/* font */
+
+*{
+    font-family: Manrope;
+}
+
+/* font-size */
+
+.h1{
+    font-size: 80px;
+    font-weight: 600;
+    line-height: 112px;
+}
+.h2{
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 76px;
+}
+.h3{
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 44px;
+}
+
+.sub_h1{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 44px;
+}
+.sub_h2{
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+}
+.sub_h3{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
