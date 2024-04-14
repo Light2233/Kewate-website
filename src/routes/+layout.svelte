@@ -13,7 +13,7 @@
             <a href="" class="nav_link sub_h3">О Kewate</a>
         </div>
         <div class="application_btn">
-            <button class="sub_h3">Обсудить проект</button>
+            <button class="sub_h3 default_btn">Обсудить проект</button>
         </div>
     </div>
 </header>
@@ -28,6 +28,7 @@
         position: fixed;
         width: 100%;
         max-height: 84px;
+        z-index: 99;
     }
     .header_content{
         max-width: 686px;
@@ -40,11 +41,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background: var(--white);
     }
     .application_btn button{
         background: var(--main);
-        border-radius: 16px;
-        padding: 12px 16px;
         color: var(--white);
     }
     .nav{
