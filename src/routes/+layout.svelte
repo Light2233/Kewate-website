@@ -42,13 +42,29 @@
         </div>
         <div class="line"></div>
         <div class="company_info">
-
+            <div class="about_company">
+                <p class="main_sm2 gray">© 2024, Kewate. Все права защищены</p>
+                <div class="">
+                    <p class="main_sm2 gray">Общество с ограниченной ответственностью «Kewate»</p>
+                    <p class="main_sm2 gray">ОГРН 10103013013010301, юридический адрес 19419491</p>
+                    <p class="main_sm2 gray">г.Москва, ул. Арбузная д.228</p>
+                </div>
+            </div>
+            <div class="policy">
+                <a href="#" class=" main_sm2 gray">Политика конфиденциальности</a>
+                <a href="#" class=" main_sm2 gray">Реквизиты</a>
+            </div>
         </div>
     </div>
 </footer>
 
 
 <style lang="less">
+
+    .gray{
+        color: #969696;
+    }
+
     /* Header */
     header{
         margin: 0 auto;
@@ -134,6 +150,26 @@
         height: 1px;
         background: #00000033;
         margin: 40px 0px;
+    }
+    .company_info{
+        display: flex;
+        justify-content: space-between;
+    }
+    .about_company{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .about_company div{
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px;
+    }
+    .policy{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        row-gap: 8px;
     }
 
 </style>
