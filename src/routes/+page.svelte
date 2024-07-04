@@ -3,6 +3,9 @@
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import arrow_right from "$lib/assets/arrow_right.svg"
     import k from "$lib/assets/k.svg"
+    import check_mark from "$lib/assets/check_mark.svg"
+
+    import { priceFormat } from "$lib/client/formarters"
 
     import {fade,slide} from "svelte/transition"
 
@@ -28,6 +31,73 @@
             impuct: "Повысили продажи на 120 %",
         },        
     ]
+
+    let websites = [
+        {
+            name:"Одностраничный сайт",
+            desc:"Подойдёт для бизнеса, мероприятий и рекламы",
+            functions:[
+                {
+                    name:"Разработка за 2 недели"
+                },
+                {
+                    name:"Консультация со специалистами"
+                },
+                {
+                    name:"Настройка SEO-оптимизации"
+                },
+                {
+                    name:"Адаптация под все устройства"
+                }
+            ],
+            price:50000,
+            oldprice:55350,
+        },
+        {
+            name:"Многостраничный сайт",
+            desc:"Для крупных компаний, информационных ресурсов, различных агентств",
+            functions:[
+                {
+                    name:"Разработка за 3 недели"
+                },
+                {
+                    name:"Консультация со специалистами"
+                },
+                {
+                    name:"Настройка SEO-оптимизации"
+                },
+                {
+                    name:"Адаптация под все устройства"
+                }
+            ],
+            price:undefined,
+            oldprice:60000
+        },
+        {
+            name:"Интернет-магазин",
+            desc:"Даст толчок для развития бизнеса, автоматизирует работу и повысит продажи",
+            functions:[
+                {
+                    name:"Разработка за 1 месяц"
+                },
+                {
+                    name:"Консультация со специалистами"
+                },
+                {
+                    name:"Настройка SEO-оптимизации"
+                },
+                {
+                    name:"Адаптация под все устройства"
+                },
+                {
+                    name:"Платформа для управления магазином"
+                }
+            ],
+            price:100000,
+            oldprice:120000,
+        }
+    ]
+
     let projectImage =  arrow_right;
     let projectSelected = 0;
 </script>
@@ -266,6 +336,49 @@
                 <p class="header3">Возможность отредактировать сайт в любое время</p>
                 <p class="main_sm2 gray">За небольшую доплату отредактируем любой раздел сайта. Если требуются регулярные изменения — есть ежемесячная подписка</p>
             </div>
+        </div>
+    </section>
+    <section class="websites section_pd">
+        <p class="header2 white">
+            Выберите сайт под разные нужды
+            <span class="title_promotion main_sm2 white">
+                🔥 Получи скидку 5% за отзыв
+            </span>
+        </p>
+        <div class="websites_table">
+            {#each websites as website}
+                <div class="website">
+                    <div class="website_info">
+                        <p class="header3">{ website.name }</p>
+                        <p class="main_sm2 gray">{ website.desc }</p>
+                        <div class="functions">
+                            {#each website.functions as fun}
+                                <div class="function main_sm2_bold">
+                                    <img src="{ check_mark  }" alt="">
+                                    { fun.name }
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
+                    <div class="website_end_content">
+                        <div class="promotion">
+                            <p class="main_sm2_bold">🔥 Оплата частями</p>
+                            <p class="gray">50 % до и 50% после</p>
+                        </div>
+                        <div class="price_div">
+                            <div class="price">
+                                <p class="header3">{website.name == "Многостраничный сайт" ? "от " : ""}{priceFormat(website.price ? website.price : website.oldprice)}</p>
+                                {#if website.price}
+                                    <p class="oldprice gray"><span></span>{priceFormat( website.oldprice) }</p>
+                                {/if}
+                            </div>
+                            <button>Заказать</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            {/each}
+            
         </div>
     </section>
 </div>
@@ -618,5 +731,124 @@
     }
     .standard_item p{
         width: 90%;
+    }
+
+    /* Sixth section */
+
+    .websites .header2{
+        max-width: 40%;
+        position: relative;
+    }
+    .websites{
+        background: var(--dark);
+        border-radius: 32px;
+        padding: 40px 50px;
+    }
+    .oldprice{
+        font-family: 'TT';
+        font-size: 14px;
+        font-weight: 450;
+        line-height: 17.5px;
+    }
+    .websites_table{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        column-gap: 20px;
+        margin-top: 40px;
+    }
+    .website{
+        background: white;
+        border-radius: 24px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        max-height: 480px;
+    }
+    .website_info{
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+    .function img{
+        width: 20px;
+        height: 20px;
+        
+    }
+    .functions{
+        display: flex;
+        flex-direction: column;
+        row-gap: 14px;
+        margin-top: 12px;
+    }
+    .function{
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        
+    }
+    .price_div{
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+    }
+    .price_div button{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 21.86px;
+        color: white;
+        padding: 12px 0px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--dark);
+        border-radius: 16px;
+        cursor: pointer;
+    }
+    .price{
+        width: fit-content;
+        display: flex;
+        align-items: end;
+        column-gap: 4px;
+        text-wrap: nowrap;
+    }
+    .oldprice{
+        position: relative;
+    }
+    .oldprice span{
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: var(--gray);
+        position: absolute;
+        bottom: 8px;
+    }
+    .promotion{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #EDF7F5;
+        padding: 12px;
+        border-radius: 16px;
+        margin-bottom: 12px;
+    }
+    .promotion .gray{
+        font-family: 'TT light';
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+    }
+    .title_promotion{
+        background: #FFFFFF1F;
+        padding: 8px 12px;
+        border-radius: 24px;
+        position: absolute;
+        top: 0;
+        right: -105px;
+        backdrop-filter: blur(10px);
     }
 </style>
