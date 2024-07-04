@@ -150,8 +150,122 @@
             <p class="main_sm2 whiteop">ЭТАПЫ РАЗРАБОТКИ САЙТА</p>
             <p class="header2">Уделяем внимание срокам разработки</p>
         </div>
-        <div class="graph">
-            
+        <div class="graph_div">
+            <div class="first_stage stage">
+                <div class="graph">
+                    <div class="time">
+                        <p class="main_sm2 gray">1 НЕДЕЛЯ</p>
+                    </div>
+                    <div class="step"> 
+                        <p class="step_title main_sm_medium">Исследование продукта</p>
+                        <p class="main_sm2 gray">Включение в разработку, планирование работ</p>
+                        <hr class="border02">
+                    </div>
+                    <div class="progress_bar progress_bar_head main_sm_medium white">
+                        10%
+                    </div>
+                    <div class="status_div">
+                        <hr class="border03">
+                        <div class="status"><p class="main_sm2">Обсуждение работ</p></div>
+                        
+                    </div>
+                </div>
+                <div class="graph intermediate">
+                    <div class="step"> 
+                        <p class="step_title main_sm_medium">Разработка дизайна</p>
+                        <p class="main_sm2 gray">Утверждение концепции, подбор визуального стиля, разработка готового результата</p>
+                        <hr class="border02">
+                    </div>
+                    <div class="progress_bar progress30 progress_bar_head main_sm_medium white">
+                        30%
+                    </div>
+                    <div class="status_div">
+                        <hr class="border03">
+                        <div class="status"><p class="main_sm2">Утверждение дизайна</p></div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="second_stage stage">
+                <div class="graph">
+                    <div class="time">
+                        <p class="main_sm2 gray">2 НЕДЕЛЯ</p>
+                    </div>
+                    <div class="step"> 
+                        <p class="step_title main_sm_medium">Разработка технической части</p>
+                        <p class="main_sm2 gray">Перенос дизайна в код, оптимизация сайта и настройка продвижения</p>
+                        <hr class="border02">
+                    </div>
+                    <div class="progress_bar progress_bar_head main_sm_medium white">
+                        30%
+                    </div>
+                    <div class="status_div status_center">
+                        <hr class="border03">
+                        <div class="status"><p class="main_sm2">Утверждение вёрстки</p></div>
+                        
+                    </div>
+                </div>
+                <div class="graph intermediate">
+                    <div class="step"> 
+                        <p class="step_title main_sm_medium">Контрольное тестирование</p>
+                        <p class="main_sm2 gray">Проверка соответствия итоговой версии с макетом, поиск багов и недоработок</p>
+                        <hr class="border02">
+                    </div>
+                    <div class="progress_bar progress15 main_sm_medium white">
+                        15%
+                    </div>
+                    <div class="status_div">
+                    </div>
+                </div>
+                <div class="graph intermediate">
+                    <div class="step"> 
+                        <p class="step_title main_sm_medium">Исправление ошибок</p>
+                        <p class="main_sm2 gray">Исправляем все найденные ошибки и доводим сайт до идеала</p>
+                        <hr class="border02">
+                    </div>
+                    <div class="progress_bar progress15 main_sm_medium white progress_end">
+                        15%
+                    </div>
+                    <div class="status_div">
+                        <hr class="border03">
+                        <div class="status"><p class="main_sm2">Сдача проекта</p></div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="advantages">
+            <div class="advantage">
+                <p class="main_sm_medium">Всегда на связи</p>
+                <p class="main_sm2 gray">Отвечаем в любое время суток в Телеграме или по телефону</p>
+            </div>
+            <div class="line"></div>
+            <div class="advantage">
+                <p class="main_sm_medium">Регулярно показываем результат</p>
+                <p class="main_sm2 gray">Выходим на недельный спринт и показываем результат в конце недели</p>
+            </div>
+            <div class="line"></div>
+            <div class="advantage">
+                <p class="main_sm_medium">Прозрачная разработка</p>
+                <p class="main_sm2 gray">Предоставляем доступ ко всем рабочим файлам и исследованиям</p>
+            </div>
+        </div>
+    </section>
+    <section class="section_pd you_get">
+        <p class="header2">Резюмируем: в итоге, вы получаете</p>
+        <div class="standard">
+            <div class="standard_item">
+                <p class="header3">Сайт на Javascript с адаптацией под все устройства</p>
+                <p class="main_sm2 gray">Разработаем сайт так, чтобы он красиво выглядел как на компьютерах, так и на телефонах и планшетах</p>
+            </div>
+            <div class="standard_item">
+                <p class="header3">Настроенную SEO оптимизацию и доступ к рекламному кабинету</p>
+                <p class="main_sm2 gray">Мы всё настроим и покажем вам, как пользоваться рекламным кабинетом для продвижения сайта</p>
+            </div>
+            <div class="standard_item">
+                <p class="header3">Возможность отредактировать сайт в любое время</p>
+                <p class="main_sm2 gray">За небольшую доплату отредактируем любой раздел сайта. Если требуются регулярные изменения — есть ежемесячная подписка</p>
+            </div>
         </div>
     </section>
 </div>
@@ -341,5 +455,142 @@
         background: white;
         border-radius: 32px;
         padding: 72px 50px;
+
     }
+    .advantages{
+        display: flex;
+    }
+    .advantage{
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        padding: 20px 0px;
+        max-width: 372px;
+        width: 100%;
+    }
+    .line{
+        content: "";
+        background: rgba(0, 0, 0, 0.24);
+        height: 100rem;
+        max-height: 113px;
+        width: 1px;
+        margin: 0 16px;
+    }
+    .stages_title{
+        width: 50%;
+    }
+    .stage{
+        display: flex;
+        flex-direction: column;
+    }
+    .graph{
+        width: 100%;
+        display: flex;
+        align-items: end;
+    }
+    .graph_div{
+        padding: 72px 100px;
+    }
+    .step{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        justify-content: end;
+    }
+    .status{
+        background: var(--green);
+        padding: 8px 0px;
+        border-radius: 8px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        max-height: 36px;
+        margin-left: 15px;
+    }
+    .status_div{
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        align-items: end;
+        
+    }
+    .time{
+        margin-right: 20px;
+        width: fit-content;
+        display: flex;
+        flex-wrap: nowrap;
+        text-wrap: nowrap;
+        height: 100%;
+    }
+    .first_stage .time{
+        max-height: 74px;
+        height: 100%;
+        height: 73px;
+    }
+    .border02 {
+        height: 1px;
+        background-image: linear-gradient(90deg, #00000024, #00000024 50%, transparent 50%, transparent 50%);
+        background-size: 22px 1px;
+        border: none;
+        margin-top: 12px;
+        background-position: -1%;
+    }
+    .border03 {
+        height: 1px;
+        width: 8px;
+        background-image: linear-gradient(90deg, #00000024, #00000024 50%, transparent 50%, transparent 50%);
+        background-size: 26px 1px;
+        border: none;
+        margin-top: 12px;
+        background-position: 0;
+    }
+    .progress_bar{
+        background: var(--blue);
+        height: 100%;
+        width: 100%;
+        max-width: 80px;
+        padding: 20px 23px;
+        text-align: center;
+    }
+    .progress_bar_head{
+        border-radius: 12px 12px 0px 0px;
+        height: 100px;
+    }
+    .intermediate .step{
+        margin-left: 80px;
+    }
+    .progress30{
+        height: 300px;
+        border-radius: 0;
+        margin-top: 4px;
+    }
+    .step p{
+        max-width: 380px;
+    }
+    
+    .second_stage .progress_bar_head{
+        height: 300px;
+        margin-top: 4px;
+        border-radius: 0px;
+    }
+    .second_stage .time{
+        height: 93px;
+    }
+    .progress15{
+        height: 142px;
+        margin-top: 4px;
+    }
+    .status_center{
+        position: relative;
+        top: -150px;
+    }
+    .progress_end{
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* Fifth section */
+
 </style>

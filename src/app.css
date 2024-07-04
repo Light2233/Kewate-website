@@ -40,6 +40,10 @@ body{
 
 @font-face {
     font-family: "TT";
+    src: url("lib/font/TT Commons Regular.otf");
+}
+@font-face {
+    font-family: "TT light";
     src: url("lib/font/TT Commons Light.otf");
 }
 
@@ -54,7 +58,7 @@ body{
 .header2{
     font-family: 'TT' !important;
     font-size: 52px;
-    font-weight: 600;
+    font-weight: 900;
     line-height: 65px;
     
 }
@@ -72,25 +76,25 @@ body{
     line-height: 25px;
 }
 .main_sm{
-    font-family: 'TT' !important;
+    font-family: 'TT light' !important;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 25px;
 }
 .main_sm_medium{
-    font-family: 'TT' !important;
+    font-family: 'TT light' !important;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 25px;
 }
 .main_sm2{
-    font-family: 'TT' !important;
+    font-family: 'TT light' !important;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 100;
     line-height: 20px;
 }
 .main_sm2_bold{
-    font-family: 'TT' !important;
+    font-family: 'TT light' !important;
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
