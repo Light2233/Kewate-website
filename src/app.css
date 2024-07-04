@@ -1,0 +1,103 @@
+*, *:after, *:before {
+box-sizing: border-box;
+padding: 0;
+margin: 0;
+transition: .2s ease-in-out;
+-webkit-tap-highlight-color: transparent;
+}
+ul {
+list-style: none;
+}
+a {
+text-decoration: none;
+outline: none;
+}
+img {
+display: block;
+width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+font-weight: normal;
+letter-spacing: 1px;
+}
+body {
+font-size: 14px;
+line-height: 1;
+}
+
+header:after, .container:after, footer:after, .widget-posts-list li:after, #subscribe:after {
+content: "";
+display: table;
+clear: both;
+}
+button,input{
+    background: none;
+    border: none;
+}
+body{
+    background: #EDF7F5;
+}
+
+@font-face {
+    font-family: "TT";
+    src: url("lib/font/TT Commons Light.otf");
+}
+
+/* Font */
+
+.header1{
+    font-family: 'TT'!important;
+    font-size: 80px;
+    font-weight: 600;
+    line-height: 96px;
+}
+.header2{
+    font-family: 'TT' !important;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 65px;
+    
+}
+.header3{
+    font-family: 'TT' !important;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 32.5px;
+    letter-spacing: -0.01em;
+}
+.header4{
+    font-family: 'TT' !important;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 25px;
+}
+.main_sm{
+    font-family: 'TT' !important;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+}
+.main_sm_medium{
+    font-family: 'TT' !important;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+}
+.main_sm2{
+    font-family: 'TT' !important;
+    font-size: 16px;
+    font-weight: 450;
+    line-height: 20px;
+}
+.main_sm2_bold{
+    font-family: 'TT' !important;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
+:root{
+    --dark:#292D32;
+    --blue:#4F93E1;
+    --green:#1FC977;
+    --gray:#969696;
+}
