@@ -50,7 +50,7 @@ body{
 /* Font */
 
 .header1{
-    font-family: 'TT'!important;
+    font-family: 'TT light'!important;
     font-size: 80px;
     font-weight: 600;
     line-height: 96px;
@@ -58,7 +58,7 @@ body{
 .header2{
     font-family: 'TT' !important;
     font-size: 52px;
-    font-weight: 900;
+    font-weight: 600;
     line-height: 65px;
     
 }

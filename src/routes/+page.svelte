@@ -593,4 +593,30 @@
 
     /* Fifth section */
 
+    .you_get{
+        padding-top: 160px;
+        padding-bottom: 80px;
+    }
+    .you_get .header2 {
+        max-width: 43%;
+    }
+    .standard{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        column-gap: 20px;
+        margin-top: 40px;
+    }
+    .standard_item{
+        background: white;
+        padding: 20px;
+        height: 380px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 24px;
+        
+    }
+    .standard_item p{
+        width: 90%;
+    }
 </style>
