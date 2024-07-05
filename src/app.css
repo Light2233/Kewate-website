@@ -51,53 +51,54 @@ body{
 
 
 .header1{
-    font-family: 'TT light'!important;
+    font-family: 'Manrope'!important;
     font-size: 80px;
     font-weight: 600;
     line-height: 96px;
 }
+
 .header2{
-    font-family: 'TT' !important;
+    font-family: 'Manrope' !important;
     font-size: 52px;
     font-weight: 600;
     line-height: 65px;
     
 }
 .header3{
-    font-family: 'TT' !important;
+    font-family: 'Manrope' !important;
     font-size: 26px;
     font-weight: 600;
     line-height: 32.5px;
     letter-spacing: -0.01em;
 }
 .header4{
-    font-family: 'TT' !important;
+    font-family: 'Manrope' !important;
     font-size: 20px;
     font-weight: 500;
     line-height: 25px;
 }
 .main_sm{
-    font-family: 'TT light' !important;
+    font-family: 'Manrope' !important;
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 450;
     line-height: 25px;
 }
 .main_sm_medium{
-    font-family: 'TT light' !important;
+    font-family: 'Manrope' !important;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 25px;
 }
 .main_sm2{
-    font-family: 'TT light' !important;
+    font-family: 'Manrope' !important;
     font-size: 16px;
-    font-weight: 100;
+    font-weight: 450;
     line-height: 20px;
 }
 .main_sm2_bold{
-    font-family: 'TT' !important;
+    font-family: 'Manrope' !important;
     font-size: 16px;
-    font-weight: 900;
+    font-weight: 600;
     line-height: 20px;
 }
 :root{
@@ -105,4 +106,20 @@ body{
     --blue:#4F93E1;
     --green:#1FC977;
     --gray:#969696;
+}
+
+@media (max-width:1080px) {
+    .header1{
+        font-size: 40px;
+        line-height: 48px;
+    }
+    .header2{
+        font-size: 40px;
+        line-height: 50px;
+    }
+    .header3{
+        font-size: 26px;
+        line-height: 30px;
+        letter-spacing: -1%;
+    }
 }

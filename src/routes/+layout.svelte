@@ -38,7 +38,7 @@
                     </button>
                 </div>
             </div>
-            <p class="main_sm">Ответим в течение дня</p>
+            <p class="main_sm none">Ответим в течение дня</p>
         </div>
         <div class="line"></div>
         <div class="company_info">
@@ -76,6 +76,10 @@
         align-items: center;
         justify-content: space-between;
         padding: 16px 50px;
+        @media (max-width:800px) {
+            padding: 16px 16px; 
+            
+        }
     }
     .nav{
         flex-grow: 2;
@@ -84,6 +88,12 @@
         justify-content: end;
         column-gap: 40px;
         margin-right: 20px;
+        @media (max-width:800px) {
+            column-gap: 20px;
+        }
+        @media (max-width:700px) {
+            display: none;
+        }
     }
     .nav_link{
         font-family: "Manrope", sans-serif;
@@ -92,12 +102,20 @@
         line-height: 24px;
         color: var(--dark);
         padding: 6px 0px;
+        
     }
     header button{
         background: var(--dark);
         border-radius: 12px;
         padding: 8px 16px;
         color: #ffff;
+        cursor: pointer;
+    }
+    header button:hover{
+        background: rgba(41, 45, 50, 0.8);
+    }
+    header button:active{
+        background: rgba(41, 45, 50, 0.6);
     }
 
     /* Footer */
@@ -108,24 +126,49 @@
         background: white;
         border-radius: 32px 32px 0px 0px;
         padding: 40px 50px;
+        @media (max-width:800px) {
+            padding: 40px 16px;
+        }
     }
-    .nikolai{
-        display: flex;
-        column-gap: 12px;
-        width: 100%;
+   
+    .none{
+        @media (max-width:800px) {
+            display: none;
+        }
     }
     .nikolai img{
         height: 48px;
         width: 48px;
     }
-    .contacts div:first-child{
+    .contacts div:first-child:not(.nikolai){
         display: flex;
         justify-content: space-between;
         align-items: center;
+        @media (max-width:800px) {
+            flex-direction: column;
+            align-items: baseline;
+        }
+
     }
     .tg{
         display: flex;
         column-gap: 20px;
+        @media (max-width:800px) {
+            flex-direction: column;
+            align-items: baseline;
+        }
+    }
+    .nikolai{
+        display: flex;
+        column-gap: 12px;
+        width: 100%;
+        @media (max-width:800px) {
+            flex-direction: row;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
     }
     .tg_link{
         max-width: 280px;
@@ -139,6 +182,10 @@
         border-radius: 16px;
         max-height: 51px;
         cursor: pointer;
+        @media (max-width:420px) {
+            max-width: unset;
+            width: 100%;
+        }
     }
     .tg_link img{
         height: 20px;
@@ -154,11 +201,23 @@
     .company_info{
         display: flex;
         justify-content: space-between;
+        @media (max-width:800px) {
+            flex-direction: column;
+            align-items: baseline;
+            row-gap: 80px;
+        }
     }
     .about_company{
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        
+    }
+    .about_company p{
+        @media (max-width:420px) {
+            font-size: 14px !important;
+            line-height: 17.5px;
+        }
     }
     .about_company div{
         display: flex;
@@ -170,6 +229,18 @@
         flex-direction: column;
         align-items: end;
         row-gap: 8px;
+        @media (max-width:800px) {
+            flex-direction: column;
+            align-items: baseline;
+        }
+        
     }
+    .policy a{
+        @media (max-width:420px) {
+            font-size: 14px !important;
+            line-height: 17.5px ;
+        }
+    }
+    
 
 </style>

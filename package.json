@@ -20,6 +20,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"less": "^4.2.0"
+		"less": "^4.2.0",
+		"svelte-inview": "^4.0.2",
+		"swiper": "^8.4.7"
 	}
 }
