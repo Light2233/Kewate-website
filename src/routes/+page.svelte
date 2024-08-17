@@ -1,5 +1,6 @@
 <script lang="ts">
-    import about_bg from "$lib/assets/about_bg.png"
+    import tagline_bg from "$lib/assets/tagline_bg.png"
+    import tagline_laptop from "$lib/assets/tagline_laptop.png"
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import arrow_right from "$lib/assets/arrow_right.svg"
     import k from "$lib/assets/k.svg"
@@ -122,14 +123,45 @@
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView4 = detail.inView;
-    }} >
+    }}
+    style="background: url({tagline_bg});background-size:cover;"
+    >
         {#key isInView4}
-        <p class="header1 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4}>Создаём сайты, которые работают на ваш успех</p>
+            <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4}>Удобство для пользователей — прибыль для бизнеса</p>
         {/key}
+        <div class="tagline_map">
+            <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
+            <div class="map_links">
+                <a class="map_link main_sm_16" href="#">Интернет-магазины</a>
+                <a class="map_link main_sm_16" href="#">Лендинги</a>
+                <a class="map_link main_sm_16" href="#">UI/UX дизайн</a>
+            </div>
+        </div>
     </section>
-    
+    <section class="business_objectives">
+        <h3 class="display3 black">Решаем задачи бизнеса</h3>
+        <div class="objectives">
+            <div class="object">
+                <div class="object_info">
+                    <h2 class="header2">Разработка сайтов</h2>
+                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
+                </div>
+            </div>
+            <div class="object">
+                <div class="object_info">
+                    <h2 class="header2">Разработка сайтов</h2>
+                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
+                </div>
+            </div>
+            <div class="object">
+                <div class="object_info">
+                    <h2 class="header2">Разработка сайтов</h2>
+                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="facts">
-        <img class="about_bg" src="{ about_bg }" alt="">
         <div class="about_company">
             <p class="main_sm2 whiteop">О КОМПАНИИ</p>
             <p class="header2 white">Факты, которые говорят сами за себя</p>
@@ -474,46 +506,110 @@
         visibility: hidden;
     }
 
-    .main_content{
-        max-width: 1280px;
-        margin: 0 auto;
-    }
 
     /* Tagline (First section) */
     .white{
         color: white;
     }
-    .gray{
-        color: var(--gray);
+    .black{
+        color: var(--Neutral_900);
     }
     .whiteop{
         color: rgba(255, 255, 255, 0.5);
     }
     .tagline{
-        background: var(--dark);
-        border-radius: 32px;
-        padding: 50px 64px;
+        z-index: 2;
+        padding: 68px 50px 48px 50px;
+        position: relative;
+        top: -68px;
         height: 50rem;
-        max-height: 700px;
         display: flex;
-        align-items: end;
+        flex-direction: column;
+        justify-content: space-between;
         @media (max-width:800px) {
             padding: 24px 16px;
             max-height: 570px;
         }
     }
-    .tagline p{
-        max-width: 80%;
+    .tagline p:not(.tagline_map p){
+        max-width: 75%;
+        margin-top: 48px;
         @media (max-width:800px) {
             max-width: 100%;
             
         }
     }
+    .tagline_map{
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+    .map_links{
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        align-items: end;
+    }
+    .map_link{
+        background: #00000066;
+        backdrop-filter: blur(10px);
+        padding: 16px;
+
+        width: fit-content;
+        border-radius: 24px;
+
+    }
+
+    /* business_objectives */
+
+    .business_objectives{
+        padding: 50px;
+    }
+    .objectives{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+        margin-top: 40px;
+    }
+    .object{
+        background: var(--Neutral_900);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        align-items: end;
+    }
+    .object p{
+        color: var(--Neutral_500);
+    }
+    .object:first-child{
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        height: 400px;
+    }
+    .object:nth-child(2){
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 1;
+        background: #A1E5D1;
+    }
+    .object:not(:first-child) h2{
+        color: var(--Neutral_900);
+    }
+    .object:nth-child(3){
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        background: #C4E3E6;
+    }
 
     /* Facts (Second section) */
 
     .facts{
-        background: var(--blue);
+        background: var(--Neutral_900);
         border-radius: 32px;
         overflow: hidden;
         padding: 72px 50px;
