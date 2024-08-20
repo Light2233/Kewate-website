@@ -15,24 +15,29 @@
     let projects = [
         {
             id:1,
-            name: "Разработка сайта для DA&BR",
-            impuct: "Повысили продажи на 120 %",
+            name: "Manuspect — сервис для анализа продаж",
+            tags:["Сервис","Продуктовый дизайн"]
         },
         {
             id:2,
-            name: "Разработка сайта для DA&BR",
-            impuct: "Повысили продажи на 120 %",
+            name: "RusStroj — строительство элитных домов в Сербии",
+            tags:["Сайты"]
         },
         {
             id:3,
-            name: "Разработка сайта для DA&BR",
-            impuct: "Повысили продажи на 120 %",
+            name: "SomeBrand — повышение конверсии после редизайна интернет-магазина",
+            tags:["Интернет-магазин","Продуктовый дизайн"]
         },
         {
             id:4,
-            name: "Разработка сайта для DA&BR",
-            impuct: "Повысили продажи на 120 %",
-        },        
+            name: "DA&BR — Повысили конверсию на 120 % с помощью редизайна сайта",
+            tags:["Сайты","Продуктовый дизайн"]
+        },
+        {
+            id:5,
+            name: "DA&BR — Повысили конверсию на 120 % с помощью редизайна сайта",
+            tags:["Сайты","Продуктовый дизайн"]
+        },     
     ]
 
     let websites = [
@@ -116,6 +121,33 @@
     let isInView7 = false
     let isInView8 = false
     let isInView9 = false
+
+
+
+    let command = [
+        {
+            name: "Николай Ковальчук",
+            speciality : "CEO Kewate",
+        },
+        {
+            name: "Никита Корчагин",
+            speciality : "Продуктовый дизайнер, Lead",
+        },
+        {
+            name: "Максим Дёмин",
+            speciality : "Backend–разработчик",
+        },
+        {
+            name: "Даниил Микитчук",
+            speciality : "Frontend–разработчик",
+        },
+        {
+            name: "Андрей Орлов",
+            speciality : "Frontend–разработчик",
+        },
+    ]
+
+
 </script>
 
 <div class="main_content">
@@ -161,50 +193,72 @@
             </div>
         </div>
     </section>
+    <section class="command">
+        <div class="command_info">
+            <div class="info_block">
+                <h3 class="display3 black">Наши специалисты решат задачи</h3>
+                <p class="main_sm_16 black op50">Команда специалистов, которые показывают явный результат </p>
+            </div>
+        </div>
+        <div class="command_table">
+            {#each command  as person}
+                <div class="person_block">
+                    <div class="image_block">
+                        
+                    </div>
+                    <div class="person_info">
+                        <h3 class="header3 black">{person.name}</h3>
+                        <h3 class="main_sm_14 black op50">{person.speciality}</h3>
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </section>
     <section class="facts">
-        <div class="about_company">
-            <p class="main_sm2 whiteop">О КОМПАНИИ</p>
-            <p class="header2 white">Факты, которые говорят сами за себя</p>
-        </div>
-        <div class="more_details">
-            <div class="more_details_link">
-                <a href="#" class="white">Подробнее о студии<img src="{ arrow_circle_right }" alt=""></a>
+        <div class="facts_content">
+            <div class="about_company">
+                <p class="display3 white">Факты, которые говорят сами за себя</p>
             </div>
-            <div class="more_details_info">
-                <p class="main_sm2 whiteop">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.    </p>
+            <div class="more_details">
+                <div class="more_details_info">
+                    <p class="main_sm_16 whiteop">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.    </p>
+                </div>
+                <div class="more_details_link">
+                    <a href="#" class="white">Подробнее о студии<img src="{ arrow_circle_right }" alt=""></a>
+                </div>
             </div>
-        </div>
-        <div class="achievements" 
-        use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-        on:change={({ detail }) => {
-            isInView5 = detail.inView;
-        }}>
-            {#key isInView5}
-            <table>
-                <thead  in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>
-                    <th class="main_sm2 whiteop first_th">ФАКТ</th>
-                    <th class="empty"></th>
-                    <th class="main_sm2 whiteop">ПОКАЗАТЕЛЬ</th>
-                </thead>
-                <tbody class:hidden={!isInView5}>
-                    <tr>
-                        <td class="main_sm white" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
-                        <td class="empty"></td>
-                        <td class="big" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>80 млн ₽</td>
-                    </tr>
-                    <tr>
-                        <td class="main_sm white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
-                        <td class="empty"></td>
-                        <td class="big" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707;3 лет </td>
-                    </tr>
-                    <tr>
-                        <td class="main_sm white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
-                        <td class="empty"></td>
-                        <td class="big" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}>100+</td>
-                    </tr>
-                </tbody>
-            </table>
-            {/key}
+            <div class="achievements" 
+            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
+            on:change={({ detail }) => {
+                isInView5 = detail.inView;
+            }}>
+                {#key isInView5}
+                <table>
+                    <thead  in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>
+                        <th class="main_sm_16 whiteop first_th">ФАКТ</th>
+                        <th class="empty"></th>
+                        <th class="main_sm_16 whiteop">ПОКАЗАТЕЛЬ</th>
+                    </thead>
+                    <tbody class:hidden={!isInView5}>
+                        <tr>
+                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
+                            <td class="empty"></td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>80 млн ₽</td>
+                        </tr>
+                        <tr>
+                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
+                            <td class="empty"></td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707;4 лет </td>
+                        </tr>
+                        <tr>
+                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
+                            <td class="empty"></td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}>100+</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {/key}
+            </div>
         </div>
     </section>
     <section class="section_pd projects" 
@@ -213,91 +267,61 @@
         isInView1 = detail.inView;
     }}>
         {#key isInView1}
-            <p class="header2" in:fly={{duration: 750,x:100,delay:0}} class:hidden={!isInView1}>Реализовали 100+ проектов</p>
+            <h3 class="display3 black" in:fly={{duration: 750,x:100,delay:0}} class:hidden={!isInView1}>Реализовали более 100 проектов</h3>
             <div class="project_selected" in:fade={{duration: 750,delay:500}} class:hidden={!isInView1}>
-                <p class="header3 white" class:hidden={!isInView1}>Название проекта</p>
-            </div>
+                <div class="project_image">
+
+                </div>
+                <div class="project_info">
+                    <p class="header2 black" class:hidden={!isInView1}>Manuspect — сервис для анализа продаж</p>
+                    <div class="tags">
+                        {#each projects[0].tags as tag}
+                            <div class="tag main_sm_14 black">
+                                {tag}
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+                
+            </div>       
         {/key}
-        
             <div class="modile_apps"
             use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
             on:change={({ detail }) => {
                 isInView2 = detail.inView;
             }}
             >
-                {#key isInView2}
-                <div class="app" in:fly={{duration: 750,y:100,delay:0}} class:hidden={!isInView2}>
-                    <div class="img_box" style="background:#4F93E1">
+                {#each projects as project, index}
+                    {#key isInView2}
+                        {#if index !== 0}
+                            <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
+                                
+                                    <div class="img_box">
 
-                    </div>
-                    <div class="app_info">
-                        <div class="">
-                            <p class="header3">Мобильное приложение</p>
-                            <p class="header3">Manuspect</p>
-                        </div>
-                        <p class="main_sm2 gray">Повысили продажи на 120 %</p>
-                    </div>
-                </div>
-                <div class="app" in:fly={{duration: 750,y:100,delay:300}} class:hidden={!isInView2}>
-                    <div class="img_box" style="background:#1FC977">
-
-                    </div>
-                    <div class="app_info">
-                        <div class="">
-                            <p class="header3">Мобильное приложение</p>
-                            <p class="header3">Manuspect</p>
-                        </div>
-                        <p class="main_sm2 gray">Повысили продажи на 120 %</p>
-                    </div>
-                </div>
-                <div class="app" in:fly={{duration: 750,y:100,delay:600}}  class:hidden={!isInView2}>
-                    <div class="img_box" style="background:#4F93E1">
-
-                    </div>
-                    <div class="app_info">
-                        <div class="">
-                            <p class="header3">Мобильное приложение</p>
-                            <p class="header3">Manuspect</p>
-                        </div>
-                        <p class="main_sm2 gray">Повысили продажи на 120 %</p>
-                    </div>
-                </div>
-                {/key}
-            </div>
-       
-            <div class="projects_grid"
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-            on:change={({ detail }) => {
-                isInView3 = detail.inView;
-            }}
-            >
-                {#each projects as project, id(project.id)}
-                    <!-- svelte-ignore a11y-no-static-element-interactions -->
-                     {#key isInView3}
-                    <div class="project" in:fade={{duration: 750,delay:300+300*id}} on:mouseenter={()=>{projectImage = k;projectSelected = project.id}} on:mouseleave={()=>{projectImage = arrow_right;projectSelected = 0}} class:hidden={!isInView3}>
-                        <div class="project_info">
-                            <p class="header3 project_name">Разработка сайта для DA&BR</p>
-                            <p class="main_sm2 gray">Повысили продажи на 120 %</p>
-                        </div>
-                        {#if projectSelected == project.id}
-                            <div class="project_img" in:slide={{duration:500}}>
-
+                                    </div>
+                                    <div class="app_info">
+                                        <div class="">
+                                            <h2 class="header2 black">{project.name}</h2>
+                                        </div>
+                                        <div class="tags">
+                                            {#each project.tags as tag}
+                                                <div class="tag main_sm_14 black">
+                                                    {tag}
+                                                </div>
+                                            {/each}
+                                        </div>
+                                    </div>
+                                
                             </div>
                         {/if}
-                        <div class="">
-                            {#key projectImage && projectSelected == project.id}
-                                <img src="{ projectSelected == project.id ? projectImage : arrow_right }" alt="" in:fade>
-                            {/key}
-                        </div>
-                        
-                    </div>
                     {/key}
+                
                 {/each}
                 
             </div>
         
     </section>
-    <section class="development_stages">
+    <!-- <section class="development_stages">
         <div class="stages_title">
             <p class="main_sm2 whiteop">ЭТАПЫ РАЗРАБОТКИ САЙТА</p>
             <p class="header2">Уделяем внимание срокам разработки</p>
@@ -414,7 +438,7 @@
                 <p class="main_sm2 gray">Предоставляем доступ ко всем рабочим файлам и исследованиям</p>
             </div>
         </div>
-    </section>
+    </section> -->
     <section class="section_pd you_get"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-30%' }}
     on:change={({ detail }) => {
@@ -505,6 +529,9 @@
     .hidden{
         visibility: hidden;
     }
+    .op50{
+        opacity: 0.5;
+    }
 
 
     /* Tagline (First section) */
@@ -522,7 +549,8 @@
         padding: 68px 50px 48px 50px;
         position: relative;
         top: -68px;
-        height: 50rem;
+        height: 54vh;
+        min-height: 700px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -606,11 +634,55 @@
         background: #C4E3E6;
     }
 
+
+    /* Command section */
+
+    .image_block{
+        width: 280px;
+        height: 320px;
+        background: var(--Neutral_900);
+        border-radius: 16px;
+    }
+    .command{
+        display: flex;
+        justify-content: space-between;
+        padding: 150px 50px;
+        max-width: 1280px;
+        margin: 0 auto;
+        column-gap: 20px;
+    }
+    .info_block{
+        height: 390px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+    }
+    .command_info{
+        width: 100%;
+    }
+    .command_table{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 40px 20px;
+    }
+    .person_block{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .person_info{
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
     /* Facts (Second section) */
 
     .facts{
-        background: var(--Neutral_900);
-        border-radius: 32px;
+        background: #0A0A0A;
         overflow: hidden;
         padding: 72px 50px;
         position: relative;
@@ -624,6 +696,10 @@
             padding: 72px 16px;
         }
         
+    }
+    .facts_content{
+        max-width: 1280px;
+        margin: 0 auto;
     }
     .about_company{
         z-index: 2;
@@ -642,7 +718,8 @@
     }
     .more_details{
         display: flex;
-        column-gap: 100px;
+        column-gap: 40px;
+        justify-content: space-between;
         z-index: 2;
         position: relative;
         @media (max-width:800px) {
@@ -705,7 +782,7 @@
         width: 280px;
     }
     table tr td:empty {
-        width: 60px;
+        width: 100px;
     }
     td{
         max-height: 90px;
@@ -726,21 +803,7 @@
             row-gap: 40px;
         }
     }
-    .big{
-        font-family: 'Manrope';
-        font-size: 128px;
-        font-weight: 600;
-        line-height: 98px;
-        color: white;
-        @media (max-width:1080px){
-            font-size: 80px;
-        }
-        @media (max-width:800px) {
-            font-size: 64px;
-            font-weight: 600;
-            line-height: 80px;
-        }
-    }
+
 
     /* Projects (Therd section) */
 
@@ -763,14 +826,23 @@
             display: none;
         }
     }
+    .project_image{
+        background-color: var(--Neutral_1000);
+        width: 100%;
+        max-height: 600px;
+        height: 100vh;
+        border-radius: 16px;
+       
+    }
+    .project_info{
+        margin-top: 32px;
+    }
     .project_selected{
         margin-top: 40px;
-        background: var(--dark);
-        border-radius: 24px;
-        padding: 40px;
-        height: 560px;
         display: flex;
-        align-items: end;
+        flex-direction: column;
+        border-radius: 24px;
+        display: flex;
         @media (max-width:500px) {
             padding: 20px;
         }
@@ -778,15 +850,15 @@
     .modile_apps{
         margin-top: 80px;
         display: grid;
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(2,1fr);
         column-gap: 20px;
+        row-gap: 40px;
         margin-bottom: 80px;
         @media (max-width:900px) {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            row-gap: 40px;
         }
     }
     .app{
@@ -798,8 +870,9 @@
         }
     }
     .img_box{
-        height: 380px;
-        border-radius: 24px;
+        height: 480px;
+        border-radius: 16px;
+        background-color: var(--Neutral_1000);
         @media (max-width:900px) {
             height: 300px;
         }
@@ -808,6 +881,19 @@
         display: flex;
         flex-direction: column;
         row-gap: 8px;
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+    .tags{
+        display: flex;
+        column-gap: 8px;
+        margin-top: 12px;
+    }
+    .tag{
+        padding: 12px;
+        border: 1px solid var(--Neutral_400);
+        border-radius: 24px;
+        line-height: 16.8px;
     }
     .app_info .header3{
         @media (max-width:900px) {
