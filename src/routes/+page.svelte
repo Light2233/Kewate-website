@@ -5,6 +5,8 @@
     import arrow_right from "$lib/assets/arrow_right.svg"
     import k from "$lib/assets/k.svg"
     import check_mark from "$lib/assets/check_mark.svg"
+    import nikolay from "$lib/assets/nikolay.png"
+    import arrow_up from "$lib/assets/arrow_up.svg"
 
     import { priceFormat } from "$lib/client/formarters"
     import {fade,slide,fly} from "svelte/transition"
@@ -40,73 +42,73 @@
         },     
     ]
 
-    let websites = [
-        {
-            name:"Одностраничный сайт",
-            desc:"Подойдёт для бизнеса, мероприятий и рекламы",
-            functions:[
-                {
-                    name:"Разработка за 2 недели"
-                },
-                {
-                    name:"Консультация со специалистами"
-                },
-                {
-                    name:"Настройка SEO-оптимизации"
-                },
-                {
-                    name:"Адаптация под все устройства"
-                }
-            ],
-            price:50000,
-            oldprice:55350,
-        },
-        {
-            name:"Многостраничный сайт",
-            desc:"Для крупных компаний, информационных ресурсов, различных агентств",
-            functions:[
-                {
-                    name:"Разработка за 3 недели"
-                },
-                {
-                    name:"Консультация со специалистами"
-                },
-                {
-                    name:"Настройка SEO-оптимизации"
-                },
-                {
-                    name:"Адаптация под все устройства"
-                }
-            ],
-            price:undefined,
-            oldprice:60000
-        },
-        {
-            name:"Интернет-магазин",
-            desc:"Даст толчок для развития бизнеса, автоматизирует работу и повысит продажи",
-            functions:[
-                {
-                    name:"Разработка за 1 месяц"
-                },
-                {
-                    name:"Консультация со специалистами"
-                },
-                {
-                    name:"Настройка SEO-оптимизации"
-                },
-                {
-                    name:"Адаптация под все устройства"
-                },
-                {
-                    name:"Платформа для управления магазином"
-                }
-            ],
-            price:100000,
-            oldprice:120000,
-        }
-    ]
+    // let websites = [
+    //     {
+    //         name:"Одностраничный сайт",
+    //         desc:"Подойдёт для бизнеса, мероприятий и рекламы",
+    //         functions:[
+    //             {
+    //                 name:"Разработка за 2 недели"
+    //             },
+    //             {
+    //                 name:"Консультация со специалистами"
+    //             },
+    //             {
+    //                 name:"Настройка SEO-оптимизации"
+    //             },
+    //             {
+    //                 name:"Адаптация под все устройства"
+    //             }
+    //         ],
+    //         price:50000,
+    //         oldprice:55350,
+    //     },
+    //     {
+    //         name:"Многостраничный сайт",
+    //         desc:"Для крупных компаний, информационных ресурсов, различных агентств",
+    //         functions:[
+    //             {
+    //                 name:"Разработка за 3 недели"
+    //             },
+    //             {
+    //                 name:"Консультация со специалистами"
+    //             },
+    //             {
+    //                 name:"Настройка SEO-оптимизации"
+    //             },
+    //             {
+    //                 name:"Адаптация под все устройства"
+    //             }
+    //         ],
+    //         price:undefined,
+    //         oldprice:60000
+    //     },
+    //     {
+    //         name:"Интернет-магазин",
+    //         desc:"Даст толчок для развития бизнеса, автоматизирует работу и повысит продажи",
+    //         functions:[
+    //             {
+    //                 name:"Разработка за 1 месяц"
+    //             },
+    //             {
+    //                 name:"Консультация со специалистами"
+    //             },
+    //             {
+    //                 name:"Настройка SEO-оптимизации"
+    //             },
+    //             {
+    //                 name:"Адаптация под все устройства"
+    //             },
+    //             {
+    //                 name:"Платформа для управления магазином"
+    //             }
+    //         ],
+    //         price:100000,
+    //         oldprice:120000,
+    //     }
+    // ]
 
-    let projectImage =  arrow_right;
+    let arrow =  arrow_right;
     let projectSelected = 0;
 
 
@@ -159,7 +161,7 @@
     style="background: url({tagline_bg});background-size:cover;"
     >
         {#key isInView4}
-            <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4}>Удобство для пользователей — прибыль для бизнеса</p>
+            <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей — прибыль для бизнеса</p>
         {/key}
         <div class="tagline_map">
             <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
@@ -439,7 +441,7 @@
             </div>
         </div>
     </section> -->
-    <section class="section_pd you_get"
+    <!-- <section class="section_pd you_get"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-30%' }}
     on:change={({ detail }) => {
         isInView8 = detail.inView;
@@ -464,8 +466,8 @@
                 </div>
             </div>
         {/key}
-    </section>
-    <section class="websites section_pd"
+    </section> -->
+    <!-- <section class="websites section_pd"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView9 = detail.inView;
@@ -517,10 +519,69 @@
             
             
         </div>
-    </section>
-    <section class="swiper_section">
-        
+    </section> -->
+    <div class="services">
+        <div class="services_content">
+            <div class="services_title">
+                <h3 class="display3">Услуги</h3>
+                <p class="main_sm_16" style="color:#737373;">Комплексный подход к разработке цифровых продуктов</p>
+            </div>
+            <div class="services_table">
+                <div class="development services_row">
+                    <h2 class="header2">Разработка</h2>
+                    <div class="map">
+                        <div class="websites link_ul">
+                            <h3 class="header3">Веб-сайты</h3>
+                            <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
+                        </div>
+                        <div class="digital_products link_ul">
+                            <h3 class="header3">Цифровые продукты</h3>
+                            <a href="" class="main_sm_16 service_link">Веб-сервис<img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Desktop-приложение<img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Мобильное приложение<img src="{ arrow_up }" alt=""></a>
+                        </div>
+                        <div class="other link_ul">
+                            <h3 class="header3">Другое</h3>
+                            <a href="" class="main_sm_16 service_link">Бот для мессенджера<img src="{ arrow_up }" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="design services_row">
+                    <h2 class="header2">Дизайн</h2>
+                    <div class="map">
+                        <div class="product_disign link_ul">
+                            <h3 class="header3">Продуктовый дизайн</h3>
+                            <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
+                            <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="swiper_section" >
         <Swiper/>
+    </section>
+    
+    <section class="tg">
+        <div class="tg_block_info">
+            <h3 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h3>
+            <div class="nikolay">
+                <div class="nikolay_image">
+                    <img src="{ nikolay }" alt="">
+                </div>
+                <h3 class="header3 total_black">Расскажет Николай Ковальчук <span class="gray"> — CEO Kewate</span></h3>
+            </div>
+        </div>
+        <a href="https://t.me/kewateru" class="tg_link" target="_blank">
+            <a href="https://t.me/kewateru" class="main_btn_white" target="_blank">Перейти в Telegram</a>
+        </a>
+    </section>
+    <section class="application">
+        
     </section>
 </div>
 
@@ -532,11 +593,17 @@
     .op50{
         opacity: 0.5;
     }
+    .gray{
+        color: #969696;
+    }
 
 
     /* Tagline (First section) */
     .white{
         color: white;
+    }
+    .total_black{
+        color: var(--Neutral_1000);
     }
     .black{
         color: var(--Neutral_900);
@@ -592,6 +659,8 @@
 
     .business_objectives{
         padding: 50px;
+        max-width: 1280px;
+        margin: 0 auto;
     }
     .objectives{
         display: grid;
@@ -684,7 +753,7 @@
     .facts{
         background: #0A0A0A;
         overflow: hidden;
-        padding: 72px 50px;
+        
         position: relative;
         display: flex;
         flex-direction: column;
@@ -697,9 +766,13 @@
         }
         
     }
+    table{
+        margin-top: 72px;
+    }
     .facts_content{
         max-width: 1280px;
         margin: 0 auto;
+        padding: 72px 50px;
     }
     .about_company{
         z-index: 2;
@@ -722,6 +795,7 @@
         justify-content: space-between;
         z-index: 2;
         position: relative;
+        margin-top: 32px;
         @media (max-width:800px) {
             flex-direction: column;
             row-gap: 20px;
@@ -816,6 +890,9 @@
     .projects{
         margin-top: 172px;
         margin-bottom: 160px;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
         @media (max-width:800px) {
             margin-top: 64px;
             margin-bottom: 64px;
@@ -924,383 +1001,111 @@
         right: 18%;
     }
 
-    /* Fourth section */
-    
-    .development_stages {
-        background: white;
-        border-radius: 32px;
-        padding: 72px 50px;
-        @media (max-width:900px) {
-            display: none;
-        }
 
-    }
-    .advantages{
-        display: flex;
-    }
-    .advantage{
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-        padding: 20px 0px;
-        max-width: 372px;
-        width: 100%;
-    }
-    .line{
-        content: "";
-        background: rgba(0, 0, 0, 0.24);
-        height: 100rem;
-        max-height: 113px;
-        width: 1px;
-        margin: 0 16px;
-    }
-    .stages_title{
-        width: 50%;
-    }
-    .stage{
-        display: flex;
-        flex-direction: column;
-    }
-    .graph{
-        width: 100%;
-        display: flex;
-        align-items: end;
-        
-        
-    }
-    .graph_div{
-        padding: 72px 100px;
-        @media (max-width:1180px) {
-            padding: 72px 0px;
-        }
-    }
-    .step{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-        justify-content: end;
-    }
-    .status{
-        background: var(--green);
-        padding: 8px 0px;
-        border-radius: 8px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        max-height: 36px;
-        margin-left: 15px;
-    }
-    .status_div{
-        width: 100%;
-        max-width: 200px;
-        display: flex;
-        align-items: end;
-        
-    }
-    .time{
-        margin-right: 20px;
-        width: fit-content;
-        display: flex;
-        flex-wrap: nowrap;
-        text-wrap: nowrap;
-        height: 100%;
-    }
-    .first_stage .time{
-        max-height: 74px;
-        height: 100%;
-        height: 73px;
-    }
-    .border02 {
-        height: 1px;
-        background-image: linear-gradient(90deg, #00000024, #00000024 50%, transparent 50%, transparent 50%);
-        background-size: 22px 1px;
-        border: none;
-        margin-top: 12px;
-        background-position: -1%;
-    }
-    .border03 {
-        height: 1px;
-        width: 8px;
-        background-image: linear-gradient(90deg, #00000024, #00000024 50%, transparent 50%, transparent 50%);
-        background-size: 26px 1px;
-        border: none;
-        margin-top: 12px;
-        background-position: 0;
-    }
-    .progress_bar{
-        background: var(--blue);
-        height: 100%;
-        width: 100%;
-        max-width: 80px;
-        padding: 20px 23px;
-        text-align: center;
-    }
-    .progress_bar_head{
-        border-radius: 12px 12px 0px 0px;
-        height: 100px;
-    }
-    .intermediate .step{
-        margin-left: 95px;
-    }
-    .progress30{
-        height: 300px;
-        border-radius: 0;
-        margin-top: 4px;
-    }
-    .step p{
-        max-width: 380px;
-    }
-    
-    .second_stage .progress_bar_head{
-        height: 300px;
-        margin-top: 4px;
-        border-radius: 0px;
-    }
-    .second_stage .time{
-        height: 93px;
-    }
-    .progress15{
-        height: 142px;
-        margin-top: 4px;
-    }
-    .status_center{
-        position: relative;
-        top: -150px;
-    }
-    .progress_end{
-        border-radius: 0 0 12px 12px;
-    }
 
-    /* Fifth section */
+    /* Services */
 
-    .you_get{
-        padding-top: 160px;
-        padding-bottom: 80px;
-        @media (max-width:800px) {
-            padding-top: 0px;;
-        }
+    .services{
+        background: var(--Neutral_1000);
+       
     }
-    .you_get .header2 {
-        max-width: 50%;
-        @media (max-width:800px) {
-            max-width: 75%;
-        }
-        @media (max-width:500px) {
-            max-width: 100%;
-        }
+    .services_content{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 64px  50px;
     }
-    .standard{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        column-gap: 20px;
-        margin-top: 40px;
-        @media (max-width:900px) {
-            display: flex;
-            flex-direction: column;
-            row-gap: 20px;
-        }
+    .map img{
+        width: 24px;
+        height: 24px;
     }
-    .standard_item{
-        background: white;
-        padding: 20px;
-        height: 380px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border-radius: 24px;
-        
-    }
-    .standard_item p{
-        width: 90%;
-        @media (max-width:500px) {
-            width: 100%;
-        }
-    }
-
-    /* Sixth section */
-
-    .websites .header2{
-        max-width: 50%;
-        position: relative;
-        @media (max-width:900px) {
-            max-width: 70%;
-        }
-        @media (max-width:700px) {
-            max-width: 100%;
-        }
-    }
-    .websites{
-        background: var(--dark);
-        border-radius: 32px;
-        padding: 40px 50px;
-        @media (max-width:800px) {
-            padding: 40px 16px;
-        }
-    }
-    .oldprice{
-        font-family: 'Manrope';
-        font-size: 14px;
-        font-weight: 450;
-        line-height: 17.5px;
-    }
-    .websites_table{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        column-gap: 20px;
-        margin-top: 40px;
-        @media (max-width:1080px){
-            grid-template-columns: 1fr;
-            row-gap: 40px;
-        }
-    }
-    .website{
-        background: white;
-        border-radius: 24px;
-        padding: 20px;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100vh;
-        max-height: 480px;
-        @media (max-width:1180px) {
-            max-height: fit-content;
-            height: unset;
-            row-gap: 30px;
-        }
-        @media (max-width:500px){
-            min-height: 445px;
-            height: 100%;
-            max-height: unset;
-        }
-    }
-    .website_info{
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-    }
-    .function img{
-        width: 20px;
-        height: 20px;
-        
-    }
-    .functions{
-        display: flex;
-        flex-direction: column;
-        row-gap: 14px;
-        margin-top: 12px;
-    }
-    .function{
+    .service_link{
         display: flex;
         align-items: center;
         column-gap: 8px;
-        
     }
-    .price_div{
+    .map{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        row-gap: 64px;
+        column-gap: 64px;
+        width: 100%;
+    }
+    .link_ul{
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+        padding-right: 66px;
+        flex-shrink: 0;
+    }
+    .link_ul *{
+        flex-shrink: 0;
+    }
+    .link_ul h3{
+        margin-bottom: 8px;
+    }
+    .services_row{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 32px;
+    }
+    .services_row h2{
+        width: 70%;
+    }
+    .development{
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--Neutral_800);
+    }
+
+
+    /* Tg block */
+
+    .tg{
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        padding: 0 50px;
+        column-gap: 20px;
+    }
+    .tg_link{
+        background: var(--Neutral_1000);
+        width: 100%;
+        max-width: 580px;
+        height: 342px;
+        border-radius: 16px;
+        padding: 16px;
+        position: relative;
+    }
+    .tg_block_info{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .tg_link .main_btn_white{
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+    .nikolay{
         display: flex;
         align-items: center;
         column-gap: 20px;
-        @media (max-width:1080px){
-            flex-direction: column;
-            align-items: baseline;
-            row-gap: 20px;
-        }
     }
-    .price_div button{
-        font-family: 'Manrope';
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 21.86px;
-        color: white;
-        padding: 12px 0px;
+    .nikolay_image{
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+    }
+    .nikolay_image img{
         width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: var(--dark);
-        border-radius: 16px;
-        cursor: pointer;
-    }
-    .price_div button:hover{
-        background: rgba(41, 45, 50, 0.8);
-    }
-    .price_div button:active{
-        background: rgba(41, 45, 50, 0.6);
-    }
-    .price{
-        width: fit-content;
-        display: flex;
-        align-items: end;
-        column-gap: 4px;
-        text-wrap: nowrap;
-        @media (max-width:1180px) {
-            flex-direction: column;
-            align-items: baseline;
-        }
-        @media (max-width:1080px){
-            flex-direction: row;
-        }
-    }
-    .oldprice{
-        position: relative;
-    }
-    .oldprice span{
-        content: "";
-        width: 100%;
-        height: 1px;
-        background: var(--gray);
-        position: absolute;
-        bottom: 8px;
-    }
-    .promotion{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #EDF7F5;
-        padding: 12px;
-        border-radius: 16px;
-        margin-bottom: 12px;
-        @media (max-width:1240px) {
-            flex-direction: column;
-        }
-        @media (max-width:1080px){
-            flex-direction: row;
-            justify-content: baseline;
-            align-items: baseline;
-        }
-        @media (max-width:500px){
-            display: none;
-        }
-    }
-    .promotion .gray{
-        font-family: 'Manrope';
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 20px;
-        letter-spacing: -0.01em;
-    }
-    .title_promotion{
-        background: #FFFFFF1F;
-        padding: 8px 12px;
-        border-radius: 24px;
-        position: absolute;
-        top: 0;
-        right: -95px;
-        backdrop-filter: blur(10px);
-        @media (max-width:900px) {
-            display: none;
-        }
+        height: 100%;
+        object-fit: cover;
     }
 
     /* Swiper section */
 
     .swiper_section{
+        max-width: 1280px;
+        margin: 0 auto;
         padding: 160px 50px;
-        @media (max-width:500px){
-            padding: 64px 16px;
-        }
     }
 </style>

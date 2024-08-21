@@ -4,45 +4,44 @@
     import 'swiper/css';
 
     import review_person from "$lib/assets/reviews.svg"
-
     import arrow_right from "$lib/assets/arrow_right_swiper.svg"
     import { afterUpdate, onMount } from 'svelte';
 
     let reviews = [
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компанию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компанию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компан  ию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компанию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компанию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
         {
-            name:"ООО «Арбуз»",
-            personName:"Кравченко А. О. Генеральный директор",
-            desc:"Я рекомендую эту компанию всем, кто ищет профессиональных разработчиков сайтов. Уверен, что они помогут вам создать качественный и эффективный ресурс, который будет способствовать развитию вашего бизнеса.",
+            name:"DA&BR",
+            personName:"Павел Калашников",
+            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         }
     ]
@@ -51,12 +50,9 @@
     let swiper = false
     onMount(()=>{
         if(innerWidth>900){
-            slideCnt = 2.5
+            slideCnt = 1.7
         }
-        else if(innerWidth<=900 && innerWidth>700){
-            slideCnt = 2;
-        }
-        if(innerWidth<=700){
+        else if(innerWidth<=900){
             slideCnt = 1;
         }
         setTimeout(()=>{
@@ -66,16 +62,13 @@
 
     $:{
         if(innerWidth>900){
-            slideCnt = 2.5
+            slideCnt = 1.7
         }
-        else if(innerWidth<=900 && innerWidth>700){
-            slideCnt = 2;
-        }
-        if(innerWidth<=700){
+        else if(innerWidth<=900){
             slideCnt = 1;
         }
     }
-    
+
 
 </script>
 
@@ -84,7 +77,7 @@
 
 <div class="swiper">
     <div class="title">
-        <p class="header2">Отзывы наших клиентов</p>
+        <p class="display3 black">Нас рекомендуют</p>
         {#if innerWidth>=700}
         <div class="swiper_btn">
             <button class="prev"><img src="{ arrow_right }" alt=""></button>
@@ -105,18 +98,20 @@
         pagination={{ clickable: true }}
         simulateTouch={false}
         >
-            {#each reviews as item , index}
+            {#each reviews as item}
                 <SwiperSlide>
                     <div class="slide_content">
-                        <div class="">
-                            <p class="main_sm2 gray desc">{ item.desc }</p>
+                        <div class="slide_video">
+
                         </div>
-                        <div class="slide_info">
-                            <div class="">
-                                <p class="main_sm2_bold">{item.name}</p>
-                                <p class="main_sm2 gray">{item.personName}</p>
+                        <div class="review_info">
+                            <div class="review_person_info">
+                                <h3 class="header3 total_black">{item.personName}</h3>
+                                <p class="header3 gray">{item.name}</p>
                             </div>
-                            <img src="{ item.url }" alt="">
+                            <div class="">
+                                <p class="main_sm_16 op50 total_black">{ item.desc }</p>
+                            </div>
                         </div>
                     </div>
                 </SwiperSlide>
@@ -131,6 +126,24 @@
 
 
 <style lang="less">
+    .review_person_info{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .op50{
+        opacity: 0.5;
+    }
+    .total_black{
+        color: var(--Neutral_1000);
+    }
+    .black{
+        color: var(--Neutral_900);
+    }
+    .swiper{
+        max-width: 1280px;
+    }
     .gray{
         color: #969696;
     }
@@ -144,13 +157,12 @@
         background: white;
         padding: 24px;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
         row-gap: 20px;
         width: 100%;
-        max-width: 480px;
-        height: 214px;
+        align-items: center;
         border-radius: 16px;
+        column-gap: 20px;
         overflow: hidden;
         @media (max-width:1180px) {
             max-height: fit-content;
@@ -159,6 +171,13 @@
         @media (max-width:700px) {
             max-width: 100%;
         }
+    }
+    .slide_video{
+        width: 280px;
+        height: 280px;
+        border-radius: 50rem;
+        flex-shrink: 0;
+        background: var(--Neutral_500);
     }
 
     .slide_info img{
@@ -198,5 +217,9 @@
     :global(.swiper-button-disabled){
         opacity: 0.2;
 
+    }
+    .review_info{
+        width: 100%;
+        max-width: 380px;
     }
 </style>

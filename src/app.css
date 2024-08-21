@@ -81,13 +81,13 @@ body{
     line-height: 24px;
     color: var(--Neutral_100);
 }
-.header3{
+.header4{
     font-size: 14px;
     font-weight:600;
     line-height: 16.8px;
     color: var(--Neutral_100);
 }
-.header4{
+.header5{
     font-size: 12px;
     font-weight:600;
     line-height: 14.4px;
@@ -126,6 +126,17 @@ body{
     --Neutral_900: #161616;
     --Neutral_1000: #0A0A0A;
     --Error: #EE0003;
+}
+
+
+.main_btn_white{
+    background: var(--Neutral_100);
+    border-radius: 12px;
+    padding: 8px 16px;
+    color: var(--Neutral_900);
+    cursor: pointer;
+    line-height: 17.6px;
+    margin-left: 16px;
 }
 
 @media (max-width:1080px) {
