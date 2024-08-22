@@ -5,8 +5,24 @@
     import tg from "$lib/assets/tg_icon.svg"
     import vk from "$lib/assets/vk_icon.svg"
 
+    import { onMount } from 'svelte'
+
+    import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
+
+    
+
+    let showModal;
+    let render = false;
+    onMount(()=>{
+        showModal = false
+        render= true
+    })
+    $: showModal 
 </script>
 
+{#if render}
+    <ApplicationModalWindow bind:showModal />
+{/if}
 <header>
     <div class="header_content">
         <div class="logo">
@@ -33,7 +49,7 @@
             <a href="#" class="nav_link">Контакты</a>
             <a href="#" class="nav_link">О студии</a>
         </div>
-        <button class="main_sm_16 main_btn_white">Обсудить задачу</button>
+        <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
     </div>
 </header>
 

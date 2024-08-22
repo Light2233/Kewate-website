@@ -6,13 +6,16 @@
     import k from "$lib/assets/k.svg"
     import check_mark from "$lib/assets/check_mark.svg"
     import nikolay from "$lib/assets/nikolay.png"
+    import nikolay_big from "$lib/assets/nikolay_big.png"
     import arrow_up from "$lib/assets/arrow_up.svg"
 
     import { priceFormat } from "$lib/client/formarters"
     import {fade,slide,fly} from "svelte/transition"
     import { quintOut } from 'svelte/easing';
-
+    import { inview } from 'svelte-inview'
     import Swiper from "./Swiper.svelte"
+
+    // Список проектов
 
     let projects = [
         {
@@ -42,77 +45,8 @@
         },     
     ]
 
-    // let websites = [
-    //     {
-    //         name:"Одностраничный сайт",
-    //         desc:"Подойдёт для бизнеса, мероприятий и рекламы",
-    //         functions:[
-    //             {
-    //                 name:"Разработка за 2 недели"
-    //             },
-    //             {
-    //                 name:"Консультация со специалистами"
-    //             },
-    //             {
-    //                 name:"Настройка SEO-оптимизации"
-    //             },
-    //             {
-    //                 name:"Адаптация под все устройства"
-    //             }
-    //         ],
-    //         price:50000,
-    //         oldprice:55350,
-    //     },
-    //     {
-    //         name:"Многостраничный сайт",
-    //         desc:"Для крупных компаний, информационных ресурсов, различных агентств",
-    //         functions:[
-    //             {
-    //                 name:"Разработка за 3 недели"
-    //             },
-    //             {
-    //                 name:"Консультация со специалистами"
-    //             },
-    //             {
-    //                 name:"Настройка SEO-оптимизации"
-    //             },
-    //             {
-    //                 name:"Адаптация под все устройства"
-    //             }
-    //         ],
-    //         price:undefined,
-    //         oldprice:60000
-    //     },
-    //     {
-    //         name:"Интернет-магазин",
-    //         desc:"Даст толчок для развития бизнеса, автоматизирует работу и повысит продажи",
-    //         functions:[
-    //             {
-    //                 name:"Разработка за 1 месяц"
-    //             },
-    //             {
-    //                 name:"Консультация со специалистами"
-    //             },
-    //             {
-    //                 name:"Настройка SEO-оптимизации"
-    //             },
-    //             {
-    //                 name:"Адаптация под все устройства"
-    //             },
-    //             {
-    //                 name:"Платформа для управления магазином"
-    //             }
-    //         ],
-    //         price:100000,
-    //         oldprice:120000,
-    //     }
-    // ]
 
-    let arrow =  arrow_right;
-    let projectSelected = 0;
-
-
-    import { inview } from 'svelte-inview';
+    // Тригерры при скролле
 
     let isInView1 = false;
     let isInView2 = false;
@@ -125,7 +59,7 @@
     let isInView9 = false
 
 
-
+    
     let command = [
         {
             name: "Николай Ковальчук",
@@ -149,7 +83,12 @@
         },
     ]
 
+    // Заявка 
 
+    let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
+    let budgetSelected;
+
+    
 </script>
 
 <div class="main_content">
@@ -581,7 +520,78 @@
         </a>
     </section>
     <section class="application">
-        
+        <div class="ceo">
+            <div class="ceo_info">
+                <div class="ceo_image">
+                    <img src="{ nikolay_big }" alt="">
+                </div>
+                <div class="ceo_desc">
+                    <h2 class="header2 total_black">Николай Ковальчук</h2>
+                    <p class="main_sm_16 total_black">— CEO Kewate, ответственный за коммуникацию</p>
+                </div>
+            </div>
+            <div class="contacts">
+                <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.sru</a>
+                <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
+            </div>
+        </div>
+        <form action="">
+            <div class="application_title">
+                <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
+                <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
+            </div>
+            <div class="application_form">
+                <div class="row">
+                    <p class="main_sm_16 gray" style="font-weight: 600;">Основное</p>
+                    <div class="input_place">
+                        <div class="">
+                            <h4 class="header4 total_black">Имя</h4>
+                            <input type="text" placeholder="Как к вам обращаться?" required>
+                        </div>
+                        <div class="">
+                            <h4 class="header4 total_black">Компания</h4>
+                            <input type="text" placeholder="Необязательное поле">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="main_sm_16 gray" style="font-weight: 600;">Контакты</p>
+                    <div class="input_place">
+                        <div class="">
+                            <h4 class="header4 total_black">Телефон</h4>
+                            <input type="text" placeholder="+7 (900) 000–00–00" required>
+                        </div>
+                        <div class="">
+                            <h4 class="header4 total_black">E-mail</h4>
+                            <input type="text" placeholder="mail@kewate.sru" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="main_sm_16 gray" style="font-weight: 600;">Бюджет</p>
+                    <div class="budget">
+
+                        {#each budget as money ,index}
+                            <div class="budget_section" class:budget_selected={budgetSelected === money}>
+                                <input type="radio" name="budget" value="{money}" bind:group={budgetSelected} required>
+                                {money}
+                            </div>
+                            {#if index+1 != budget.length}
+                                <div class="line"></div>
+                            {/if}
+                        {/each}
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="send_app">
+                <div class="empty"></div>
+                <div class="send_app_btn">
+                    <button class="main_sm_16 main_btn_black" type="submit">Оставить заявку</button>
+                    <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>
+                </div>
+            </div>
+        </form>
     </section>
 </div>
 
@@ -1065,6 +1075,7 @@
         display: flex;
         padding: 0 50px;
         column-gap: 20px;
+        margin-bottom: 100px;
     }
     .tg_link{
         background: var(--Neutral_1000);
@@ -1099,6 +1110,154 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+
+    /* Application */
+
+    .application{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 50px;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        column-gap: 120px;
+    }
+    .ceo{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        row-gap: 20px;
+        width: 30%;
+    }
+    .ceo_info{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .ceo_image{
+        width: 180px;
+        height: 180px;
+    }
+    .ceo_desc h2{
+        margin-bottom: 8px; 
+    }
+    .contacts{
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+    }
+    .application input[type="text"]{
+        background: var(--Neutral_100);
+        border: 1px solid var(--Neutral_300);
+        padding: 12px;
+        outline: none;
+        border-radius: 12px;
+        width: 100%;
+        margin-top: 8px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        row-gap: 64px;
+        width: 100%;
+        max-width: 780px;
+    }
+    .application_title{
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+        align-items: end;
+    }
+    .application_title h3{
+        margin-right: 15px;
+    }
+    .application_form{
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+        
+    }
+    .row{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .row p{
+        flex-grow: 2;
+    }
+    .input_place{
+        flex-grow: 3;
+        display: flex;
+        column-gap: 20px;
+        justify-content: space-between;
+    }
+    .input_place div{
+        width: 100%;
+    }
+    .budget{
+        display: flex;
+        align-items: center;
+        flex-grow: 2;
+        background: var(--Neutral_100);
+        height: 100%;
+        justify-content: end;
+    }
+    .budget_section{
+        position: relative;
+        height: 100%;
+        width: 100%;
+        max-width: 144px;
+        padding: 16px;
+        border-top: 1px solid var(--Neutral_300);
+        border-bottom: 1px solid var(--Neutral_300);
+        text-align: center;
+        cursor: pointer;
+    }
+    .budget_section input{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .budget_section:first-child{
+        padding: 16px 16px 16px 25px;
+        border-radius: 12px 0px 0px 12px;
+        border-left: 1px solid var(--Neutral_300);
+    }
+    .budget_section:last-child{
+        padding: 16px 25px 16px 16px;
+        border-radius:  0px 12px 12px 0px;
+        border-right: 1px solid var(--Neutral_300);
+    }
+    .line{
+        height: 100%;
+        width: 1px;
+        background: #FAFAFA;
+    }
+    .budget_selected{
+        background: var(--Neutral_1000);
+        color: white;
+    }
+    .send_app{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      
+    }
+    .empty{
+        flex-grow: 3;
+        height: 100%;
+    }
+    .send_app_btn{
+        display: flex;
+        flex-grow: 2;
+        align-items: center;
+        column-gap: 32px;
     }
 
     /* Swiper section */
