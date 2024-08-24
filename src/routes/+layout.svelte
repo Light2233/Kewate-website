@@ -6,10 +6,10 @@
     import vk from "$lib/assets/vk_icon.svg"
 
     import { onMount } from 'svelte'
+    import { slide } from 'svelte/transition'
 
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
-
-    
+    import { isSubmit } from "$lib/client/PostApplicationStore"
 
     let showModal;
     let render = false;
@@ -17,7 +17,17 @@
         showModal = false
         render= true
     })
-    $: showModal 
+
+    let alert = false 
+    $: if($isSubmit){
+        alert = true;
+        setTimeout(()=>{
+            alert = false;
+            $isSubmit = false; 
+        },3000)
+        
+    }
+
 </script>
 
 {#if render}
@@ -25,7 +35,7 @@
 {/if}
 <header>
     <div class="header_content">
-        <div class="logo">
+        <a href="/" class="logo">
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_30_422)">
                 <path d="M6.90885 7.77531C9.61777 6.18269 11.7757 5.11709 15.2208 3.71644M6.90885 7.77531C5.28222 5.02009 3.42718 2.80648 0.880371 1M6.90885 7.77531C6.90885 7.77531 10.7138 9.72597 15.2208 14.7499M6.90885 7.77531C4.00454 9.48288 -2.61564 14.7238 4.26795 14.7499C9.34449 14.7692 8.21118 9.98122 6.90885 7.77531Z" stroke="#292D32" stroke-width="2.5"/>
@@ -41,7 +51,7 @@
                 </clipPath>
                 </defs>
             </svg>
-        </div>
+        </a>
         <div class="nav">
             <a href="#" class="nav_link">Услуги</a>
             <a href="#" class="nav_link">Проекты</a>
@@ -75,6 +85,11 @@
         </div>
     </div>
 </footer>
+{#if alert}
+    <div class="post_application" transition:slide>
+        <p class="main_sm_16">Заявка успешно отправлена — мы перезвоним Вам в течение дня</p>
+    </div>
+{/if}
 
 
 <style lang="less">
@@ -95,7 +110,7 @@
         justify-content: space-between;
         padding: 10px 50px;
         @media (max-width:800px) {
-            padding: 16px 16px; 
+            padding: 10px 16px; 
             
         }
     }
@@ -134,6 +149,7 @@
     footer{
         background-color: var(--Neutral_1000);
         margin-top: 100px;
+
     }
     .kewate_info p:first-child{
         margin-bottom: 20px;
@@ -147,6 +163,13 @@
         display: flex;
         justify-content: space-between;
         padding: 64px 50px;
+        @media (max-width:660px) {
+            flex-direction: column;
+            row-gap: 64px;
+        }
+        @media (max-width:700px) {
+            padding: 64px 16px;
+        }
     }
     .policy{
         display: flex;
@@ -164,17 +187,34 @@
         align-items: center;
         column-gap: 8px;
         justify-content: end;
+        @media (max-width:660px) {
+            justify-content: start;
+            row-gap: 8px;
+        }
     }
     .policy_block{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        @media (max-width:660px) {
+            row-gap: 8px;
+        }
     }
     .policy a{
         @media (max-width:420px) {
             font-size: 14px !important;
             line-height: 17.5px ;
         }
+    }
+    .post_application{
+        background: #19C68D;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        position: fixed;
+        bottom: 0;
     }
     
 

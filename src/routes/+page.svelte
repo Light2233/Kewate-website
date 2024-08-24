@@ -8,12 +8,16 @@
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import arrow_up from "$lib/assets/arrow_up.svg"
+    import object2 from "$lib/assets/object2.png"
+    import object3 from "$lib/assets/object3.png"
+    import object1 from "$lib/assets/object1.png"
 
     import { priceFormat } from "$lib/client/formarters"
     import {fade,slide,fly} from "svelte/transition"
     import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
     import Swiper from "./Swiper.svelte"
+    import { isSubmit } from "$lib/client/PostApplicationStore"
 
     // Список проектов
 
@@ -87,9 +91,17 @@
 
     let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
     let budgetSelected;
+    let form ;
+    
+    // Ширина экрана
+
+    let innerWidth;
 
     
 </script>
+
+<svelte:window bind:innerWidth={innerWidth}/>
+
 
 <div class="main_content">
     <section class="tagline"
@@ -114,20 +126,20 @@
     <section class="business_objectives">
         <h3 class="display3 black">Решаем задачи бизнеса</h3>
         <div class="objectives">
-            <div class="object">
+            <div class="object" style="background-image: url({object1});background-size: cover;background-position: 150% 50%;background-repeat:no-repeat">
                 <div class="object_info">
                     <h2 class="header2">Разработка сайтов</h2>
                     <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
                 </div>
             </div>
-            <div class="object">
+            <div class="object" style="background-image: url({object2});background-size: 409px 307px;background-position: 150% 50%;background-repeat:no-repeat">
                 <div class="object_info">
                     <h2 class="header2">Разработка сайтов</h2>
                     <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
                 </div>
             </div>
-            <div class="object">
-                <div class="object_info">
+            <div class="object" style="background-image: url({object3});background-size: 409px 307px;background-position: 150% 50%;background-repeat:no-repeat">
+                <div class="object_info" >
                     <h2 class="header2">Разработка сайтов</h2>
                     <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
                 </div>
@@ -233,8 +245,9 @@
             }}
             >
                 {#each projects as project, index}
-                    {#key isInView2}
-                        {#if index !== 0}
+                    
+                    {#if index !== 0}
+                        {#key isInView2}
                             <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
                                 
                                     <div class="img_box">
@@ -254,8 +267,9 @@
                                     </div>
                                 
                             </div>
-                        {/if}
-                    {/key}
+                        {/key}
+                    {/if}
+                    
                 
                 {/each}
                 
@@ -530,12 +544,17 @@
                     <p class="main_sm_16 total_black">— CEO Kewate, ответственный за коммуникацию</p>
                 </div>
             </div>
-            <div class="contacts">
-                <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.sru</a>
-                <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
+            <div class="contacts_div">
+                {#if innerWidth<= 980}
+                    <h3 class="header3 total_black">Контакты</h3>
+                {/if}
+                <div class="contacts">
+                    <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.sru</a>
+                    <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
+                </div>
             </div>
         </div>
-        <form action="">
+        <form action="" on:submit|preventDefault={()=>{$isSubmit = true;form.reset()}} bind:this={form}>
             <div class="application_title">
                 <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
                 <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
@@ -671,12 +690,19 @@
         padding: 50px;
         max-width: 1280px;
         margin: 0 auto;
+        @media (max-width:700px) {
+            padding: 0 16px;
+        }
     }
     .objectives{
         display: grid;
         grid-template-columns: repeat(2,1fr);
         gap: 20px;
         margin-top: 40px;
+        @media (max-width: 700px) {
+            display: flex;
+            flex-direction: column;
+        }
     }
     .object{
         background: var(--Neutral_900);
@@ -701,6 +727,9 @@
         grid-row-start: 1;
         grid-row-end: 1;
         background: #A1E5D1;
+        @media (max-width: 700px) {
+            height: 190px;
+        }
     }
     .object:not(:first-child) h2{
         color: var(--Neutral_900);
@@ -711,6 +740,9 @@
         grid-row-start: 2;
         grid-row-end: 2;
         background: #C4E3E6;
+        @media (max-width: 700px) {
+            height: 190px;
+        }
     }
 
 
@@ -721,6 +753,14 @@
         height: 320px;
         background: var(--Neutral_900);
         border-radius: 16px;
+        @media (max-width:980px) {
+            height: 250px;
+            max-width: 250px;
+        }
+        @media (max-width: 553px) {
+            height: 180px;
+            width: 100%;
+        }
     }
     .command{
         display: flex;
@@ -729,6 +769,13 @@
         max-width: 1280px;
         margin: 0 auto;
         column-gap: 20px;
+        @media (max-width:1180px) {
+            flex-direction: column;
+        }
+        @media (max-width:700px) {
+            padding: 100px 16px;
+        }
+        
     }
     .info_block{
         height: 390px;
@@ -737,6 +784,10 @@
         justify-content: space-between;
         position: sticky;
         top: 0;
+        @media (max-width:1180px) {
+            height: fit-content;
+            row-gap: 5px;
+        }
     }
     .command_info{
         width: 100%;
@@ -746,11 +797,21 @@
         display: grid;
         grid-template-columns: repeat(2,1fr);
         gap: 40px 20px;
+        @media (max-width:1180px) {
+            grid-template-columns: repeat(3,1fr);
+            margin-top: 40px;
+        }
+        @media (max-width:900px) {
+            grid-template-columns: repeat(2,1fr);
+        }
     }
     .person_block{
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        @media (max-width:900px) {
+            align-items: center;
+        }
     }
     .person_info{
         display: flex;
@@ -783,6 +844,9 @@
         max-width: 1280px;
         margin: 0 auto;
         padding: 72px 50px;
+        @media (max-width:700px) {
+            padding: 0px 0px;
+        }
     }
     .about_company{
         z-index: 2;
@@ -953,7 +1017,7 @@
         flex-direction: column;
         row-gap: 16px;
         @media (max-width:900px) {
-            max-width: 300px;
+            max-width: 500px;
         }
     }
     .img_box{
@@ -1023,6 +1087,9 @@
         max-width: 1280px;
         margin: 0 auto;
         padding: 64px  50px;
+        @media (max-width:700px) {
+            padding: 64px 16px;
+        }
     }
     .map img{
         width: 24px;
@@ -1032,6 +1099,7 @@
         display: flex;
         align-items: center;
         column-gap: 8px;
+        text-wrap: nowrap;
     }
     .map{
         display: grid;
@@ -1039,6 +1107,9 @@
         row-gap: 64px;
         column-gap: 64px;
         width: 100%;
+        @media (max-width:680px) {
+            grid-template-columns: repeat(1,1fr);
+        }
     }
     .link_ul{
         display: flex;
@@ -1057,9 +1128,14 @@
         display: flex;
         justify-content: space-between;
         margin-top: 32px;
+        @media (max-width:1080px) {
+            flex-direction: column;
+            row-gap: 64px;
+        }
     }
     .services_row h2{
-        width: 70%;
+        width: 40%;
+        flex-shrink: 0;
     }
     .development{
         padding-bottom: 32px;
@@ -1076,6 +1152,12 @@
         padding: 0 50px;
         column-gap: 20px;
         margin-bottom: 100px;
+        @media (max-width:900px) {
+            flex-direction: column-reverse;
+        }
+        @media (max-width:700px) {
+            padding: 0px 16px;
+        }
     }
     .tg_link{
         background: var(--Neutral_1000);
@@ -1085,11 +1167,18 @@
         border-radius: 16px;
         padding: 16px;
         position: relative;
+        @media (max-width:900px) {
+            max-width: 100%;
+            margin-bottom: 40px;
+        }
     }
     .tg_block_info{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        @media (max-width:900px) {
+            row-gap: 32px;
+        }
     }
     .tg_link .main_btn_white{
         position: absolute;
@@ -1123,6 +1212,12 @@
         padding-top: 100px;
         padding-bottom: 100px;
         column-gap: 120px;
+        @media (max-width:980px) {
+            flex-direction: column-reverse;
+        }
+        @media (max-width:700px) {
+            padding: 100px 16px;
+        }
     }
     .ceo{
         display: flex;
@@ -1130,15 +1225,28 @@
         justify-content: space-between;
         row-gap: 20px;
         width: 30%;
+        @media (max-width:980px) {
+            width: 100%;
+            margin-top: 64px;
+            row-gap: 32px;
+        }
     }
     .ceo_info{
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        @media (max-width:980px) {
+            flex-direction: row;
+            column-gap: 16px;
+        }
     }
     .ceo_image{
         width: 180px;
         height: 180px;
+        @media (max-width:980px) {
+            width: 50px;
+            height: 50px;
+        }
     }
     .ceo_desc h2{
         margin-bottom: 8px; 
@@ -1147,6 +1255,14 @@
         display: flex;
         flex-direction: column;
         row-gap: 16px;
+    }
+    .contacts_div{
+        @media (max-width:980px) {
+            display: flex;
+            flex-direction: row;
+            column-gap: 16px;
+            justify-content: space-between;
+        }  
     }
     .application input[type="text"]{
         background: var(--Neutral_100);
@@ -1163,12 +1279,18 @@
         row-gap: 64px;
         width: 100%;
         max-width: 780px;
+        @media (max-width:980px) {
+            max-width: unset;
+        }
     }
     .application_title{
         display: flex;
         flex-direction: column;
         row-gap: 12px;
         align-items: end;
+        @media (max-width:1250px) {
+            align-items: start;
+        }
     }
     .application_title h3{
         margin-right: 15px;
@@ -1183,6 +1305,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @media (max-width:1250px) {
+            flex-direction: column;
+            align-items: start;
+            row-gap: 12px;
+        }
     }
     .row p{
         flex-grow: 2;
@@ -1192,6 +1319,9 @@
         display: flex;
         column-gap: 20px;
         justify-content: space-between;
+        @media (max-width:1250px) {
+            width: 100%;
+        }
     }
     .input_place div{
         width: 100%;
@@ -1203,6 +1333,14 @@
         background: var(--Neutral_100);
         height: 100%;
         justify-content: end;
+        @media (max-width:1250px) {
+            width: 100%;
+        }
+        @media (max-width:680px) {
+            flex-direction: column;
+            border: 1px solid var(--Neutral_300);
+            border-radius: 16px;
+        }
     }
     .budget_section{
         position: relative;
@@ -1214,6 +1352,12 @@
         border-bottom: 1px solid var(--Neutral_300);
         text-align: center;
         cursor: pointer;
+        @media (max-width:1250px) {
+            max-width: 100%;
+        }
+        @media (max-width:680px) {
+            border: none;
+        }
     }
     .budget_section input{
         position: absolute;
@@ -1228,11 +1372,19 @@
         padding: 16px 16px 16px 25px;
         border-radius: 12px 0px 0px 12px;
         border-left: 1px solid var(--Neutral_300);
+        @media (max-width:680px) {
+            border: none;
+            border-radius: 12px 12px 0px 0px;
+        }
     }
     .budget_section:last-child{
         padding: 16px 25px 16px 16px;
         border-radius:  0px 12px 12px 0px;
         border-right: 1px solid var(--Neutral_300);
+        @media (max-width:680px) {
+            border: none;
+            border-radius:  0px 0px 12px 12px;
+        }
     }
     .line{
         height: 100%;
@@ -1247,17 +1399,34 @@
         display: flex;
         align-items: center;
         justify-content: end;
+        
       
     }
     .empty{
         flex-grow: 3;
         height: 100%;
+        @media (max-width:1250px) {
+            display: none;
+        }
     }
     .send_app_btn{
         display: flex;
         flex-grow: 2;
         align-items: center;
         column-gap: 32px;
+        @media (max-width:980px) {
+            width: 100%;
+            flex-direction: column;
+            row-gap: 16px;
+        }
+    }
+    .send_app_btn button{
+        @media (max-width:1250px) {
+            margin-left: 0;
+        }
+        @media (max-width:980px) {
+            width: 100%;
+        }
     }
 
     /* Swiper section */
@@ -1266,5 +1435,8 @@
         max-width: 1280px;
         margin: 0 auto;
         padding: 160px 50px;
+        @media (max-width:700px) {
+            padding: 100px 16px;
+        }
     }
 </style>
