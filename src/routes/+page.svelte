@@ -17,7 +17,9 @@
     import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
     import Swiper from "./Swiper.svelte"
+    import { enhance } from '$app/forms';
     import { isSubmit } from "$lib/client/PostApplicationStore"
+    import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
 
     // Список проектов
 
@@ -96,12 +98,12 @@
     // Ширина экрана
 
     let innerWidth;
-
+    let showModal
     
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
-
+<ApplicationModalWindow bind:showModal/>
 
 <div class="main_content">
     <section class="tagline"
@@ -112,36 +114,42 @@
     style="background: url({tagline_bg});background-size:cover;"
     >
         {#key isInView4}
-            <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей — прибыль для бизнеса</p>
+            <div class="">
+                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей<br> — прибыль для бизнеса</p>
+                {#if innerWidth < 600}
+                    <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
+                    <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
+                {/if}
+            </div>
         {/key}
         <div class="tagline_map">
             <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
             <div class="map_links">
-                <a class="map_link main_sm_16" href="#">Интернет-магазины</a>
-                <a class="map_link main_sm_16" href="#">Лендинги</a>
-                <a class="map_link main_sm_16" href="#">UI/UX дизайн</a>
+                <a class="map_link main_sm_16" href="#services">Интернет-магазины</a>
+                <a class="map_link main_sm_16" href="#services">Лендинги</a>
+                <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a>
             </div>
         </div>
     </section>
     <section class="business_objectives">
-        <h3 class="display3 black">Решаем задачи бизнеса</h3>
+        <h3 class="display3 total_black">Решаем задачи бизнеса</h3>
         <div class="objectives">
-            <div class="object" style="background-image: url({object1});background-size: cover;background-position: 150% 50%;background-repeat:no-repeat">
+            <div class="object" style="background-image: url({object1});background-size: cover;background-repeat:no-repeat">
                 <div class="object_info">
                     <h2 class="header2">Разработка сайтов</h2>
                     <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
                 </div>
             </div>
-            <div class="object" style="background-image: url({object2});background-size: 409px 307px;background-position: 150% 50%;background-repeat:no-repeat">
+            <div class="object" style="background-image: url({object2});background-size: 409px 307px;background-position: 162% 60%;background-repeat:no-repeat">
                 <div class="object_info">
-                    <h2 class="header2">Разработка сайтов</h2>
-                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
+                    <h2 class="header2">Интернет-магазины</h2>
+                    <p class="main_sm_16">Повышение продаж с помощью автоматизации</p>
                 </div>
             </div>
-            <div class="object" style="background-image: url({object3});background-size: 409px 307px;background-position: 150% 50%;background-repeat:no-repeat">
+            <div class="object" style="background-image: url({object3});background-size: 409px 307px;background-position: 160% 50%;background-repeat:no-repeat">
                 <div class="object_info" >
-                    <h2 class="header2">Разработка сайтов</h2>
-                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
+                    <h2 class="header2">Многостраничные сайты</h2>
+                    <p class="main_sm_16">Для информационных ресурсов, корпоративных сайтов и других целей</p>
                 </div>
             </div>
         </div>
@@ -149,8 +157,8 @@
     <section class="command">
         <div class="command_info">
             <div class="info_block">
-                <h3 class="display3 black">Наши специалисты решат задачи</h3>
-                <p class="main_sm_16 black op50">Команда специалистов, которые показывают явный результат </p>
+                <h3 class="display3 total_black">Наши специалисты решат задачи</h3>
+                <p class="main_sm_16 total_black op50">Команда специалистов, которые показывают явный результат </p>
             </div>
         </div>
         <div class="command_table">
@@ -160,8 +168,8 @@
                         
                     </div>
                     <div class="person_info">
-                        <h3 class="header3 black">{person.name}</h3>
-                        <h3 class="main_sm_14 black op50">{person.speciality}</h3>
+                        <h3 class="header3 total_black">{person.name}</h3>
+                        <h3 class="main_sm_14 total_black op50">{person.speciality}</h3>
                     </div>
                 </div>
             {/each}
@@ -220,16 +228,16 @@
         isInView1 = detail.inView;
     }}>
         {#key isInView1}
-            <h3 class="display3 black" in:fly={{duration: 750,x:100,delay:0}} class:hidden={!isInView1}>Реализовали более 100 проектов</h3>
+            <h3 class="display3 total_black" in:fly={{duration: 750,x:100,delay:0}} class:hidden={!isInView1}>Реализовали более 100 проектов</h3>
             <div class="project_selected" in:fade={{duration: 750,delay:500}} class:hidden={!isInView1}>
                 <div class="project_image">
 
                 </div>
                 <div class="project_info">
-                    <p class="header2 black" class:hidden={!isInView1}>Manuspect — сервис для анализа продаж</p>
+                    <p class="header2 total_black" class:hidden={!isInView1}>Manuspect — сервис для анализа продаж</p>
                     <div class="tags">
                         {#each projects[0].tags as tag}
-                            <div class="tag main_sm_14 black">
+                            <div class="tag main_sm_14 total_black">
                                 {tag}
                             </div>
                         {/each}
@@ -255,11 +263,11 @@
                                     </div>
                                     <div class="app_info">
                                         <div class="">
-                                            <h2 class="header2 black">{project.name}</h2>
+                                            <h2 class="header2 total_black">{project.name}</h2>
                                         </div>
                                         <div class="tags">
                                             {#each project.tags as tag}
-                                                <div class="tag main_sm_14 black">
+                                                <div class="tag main_sm_14 total_black">
                                                     {tag}
                                                 </div>
                                             {/each}
@@ -473,7 +481,7 @@
             
         </div>
     </section> -->
-    <div class="services">
+    <div class="services" id="services">
         <div class="services_content">
             <div class="services_title">
                 <h3 class="display3">Услуги</h3>
@@ -501,7 +509,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="design services_row">
+                <!-- <div class="design services_row">
                     <h2 class="header2">Дизайн</h2>
                     <div class="map">
                         <div class="product_disign link_ul">
@@ -511,7 +519,7 @@
                             <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -530,7 +538,7 @@
             </div>
         </div>
         <a href="https://t.me/kewateru" class="tg_link" target="_blank">
-            <a href="https://t.me/kewateru" class="main_btn_white" target="_blank">Перейти в Telegram</a>
+            <a href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</a>
         </a>
     </section>
     <section class="application">
@@ -554,7 +562,7 @@
                 </div>
             </div>
         </div>
-        <form action="" on:submit|preventDefault={()=>{$isSubmit = true;form.reset()}} bind:this={form}>
+        <form action="?/sendApp" method="post" use:enhance on:submit={()=>{$isSubmit = true}} bind:this={form}  >
             <div class="application_title">
                 <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
                 <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
@@ -607,7 +615,7 @@
                 <div class="empty"></div>
                 <div class="send_app_btn">
                     <button class="main_sm_16 main_btn_black" type="submit">Оставить заявку</button>
-                    <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>
+                    <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>  
                 </div>
             </div>
         </form>
@@ -647,6 +655,7 @@
         top: -68px;
         height: 54vh;
         min-height: 700px;
+        height: 101dvh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -654,25 +663,40 @@
             padding: 24px 16px;
             max-height: 570px;
         }
+        @media (max-width:600px){
+            flex-direction: column-reverse;
+        }
     }
     .tagline p:not(.tagline_map p){
         max-width: 75%;
         margin-top: 48px;
         @media (max-width:800px) {
             max-width: 100%;
-            
         }
     }
     .tagline_map{
         display: flex;
         justify-content: space-between;
         align-items: end;
+        @media (max-width:600px){
+            margin-top: 45px;
+        }
+    }
+    .tagline_map p{
+        @media (max-width:600px){
+            display: none;
+        }
     }
     .map_links{
         display: flex;
         flex-direction: column;
         row-gap: 8px;
         align-items: end;
+        @media (max-width:600px){
+            flex-direction: row;
+            column-gap: 8px;
+            flex-wrap: wrap;
+        }
     }
     .map_link{
         background: #00000066;
@@ -681,7 +705,24 @@
 
         width: fit-content;
         border-radius: 24px;
+        @media (max-width:600px){
+            padding: 12px;
+        }
 
+    }
+    .tagline div:first-child{
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+    }
+    .tagline div:first-child p{
+        @media (max-width:600px) {
+            margin-top: 0; 
+        }
+        
+    }
+    .tagline div:first-child button{
+        margin-left: 0;
     }
 
     /* business_objectives */
@@ -710,6 +751,9 @@
         padding: 20px;
         display: flex;
         align-items: end;
+    }
+    .object:not(:first-child){
+        height: 190px;
     }
     .object p{
         color: var(--Neutral_500);
@@ -743,6 +787,9 @@
         @media (max-width: 700px) {
             height: 190px;
         }
+    }
+    .object_info{
+        max-width: 400px;
     }
 
 
@@ -783,7 +830,7 @@
         flex-direction: column;
         justify-content: space-between;
         position: sticky;
-        top: 0;
+        top: 64px;
         @media (max-width:1180px) {
             height: fit-content;
             row-gap: 5px;
@@ -1041,7 +1088,7 @@
         margin-top: 12px;
     }
     .tag{
-        padding: 12px;
+        padding: 8px 12px;
         border: 1px solid var(--Neutral_400);
         border-radius: 24px;
         line-height: 16.8px;
@@ -1083,6 +1130,9 @@
         background: var(--Neutral_1000);
        
     }
+    .services_table{
+        margin-top: 64px;
+    }
     .services_content{
         max-width: 1280px;
         margin: 0 auto;
@@ -1090,6 +1140,11 @@
         @media (max-width:700px) {
             padding: 64px 16px;
         }
+    }
+    .services_title{
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
     }
     .map img{
         width: 24px;
@@ -1101,12 +1156,16 @@
         column-gap: 8px;
         text-wrap: nowrap;
     }
+    .service_link:hover{
+        opacity: 0.8;
+    }
     .map{
         display: grid;
         grid-template-columns: repeat(2,1fr);
         row-gap: 64px;
-        column-gap: 64px;
+        column-gap: 0px;
         width: 100%;
+        margin-left: 40px;
         @media (max-width:680px) {
             grid-template-columns: repeat(1,1fr);
         }
@@ -1115,7 +1174,6 @@
         display: flex;
         flex-direction: column;
         row-gap: 12px;
-        padding-right: 66px;
         flex-shrink: 0;
     }
     .link_ul *{
@@ -1139,7 +1197,6 @@
     }
     .development{
         padding-bottom: 32px;
-        border-bottom: 1px solid var(--Neutral_800);
     }
 
 
@@ -1352,6 +1409,7 @@
         border-bottom: 1px solid var(--Neutral_300);
         text-align: center;
         cursor: pointer;
+        font-weight: 650;
         @media (max-width:1250px) {
             max-width: 100%;
         }
@@ -1434,9 +1492,12 @@
     .swiper_section{
         max-width: 1280px;
         margin: 0 auto;
-        padding: 160px 50px;
+        padding: 160px 0px 160px 50px;
         @media (max-width:700px) {
             padding: 100px 16px;
         }
+    }
+    .swiper > .title{
+        margin-right: 50px;
     }
 </style>
