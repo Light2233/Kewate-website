@@ -1,5 +1,6 @@
 <script lang="ts">
     import tagline_bg from "$lib/assets/tagline_bg.png"
+    import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
     import tagline_laptop from "$lib/assets/tagline_laptop.png"
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import arrow_right from "$lib/assets/arrow_right.svg"
@@ -12,6 +13,8 @@
     import object3 from "$lib/assets/object3.png"
     import object1 from "$lib/assets/object1.png"
 
+
+    import Countup from "svelte-countup"
     import { priceFormat } from "$lib/client/formarters"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
@@ -55,7 +58,6 @@
 
 
     // Тригерры при скролле
-
     let isInView1 = false;
     let isInView2 = false;
     let isInView3 = false;
@@ -102,6 +104,14 @@
 
     let innerWidth;
     let showModal
+
+    let taglineBg 
+    $:  {
+        if(innerWidth <= 700){
+            taglineBg = tagline_bg_sm
+        }
+        else taglineBg = tagline_bg
+    }
     
 </script>
 
@@ -118,7 +128,8 @@
     on:change={({ detail }) => {
         isInView4 = detail.inView;
     }}
-    style="background: url({tagline_bg});background-size:cover;"
+    style="background-image: url({ taglineBg });background-repeat: no-repeat"
+    
     >
         {#key isInView4}
             <div class="">
@@ -138,30 +149,38 @@
             </div>
         </div>
     </section>
-    <section class="business_objectives">
+    <section class="business_objectives"
+    
+    >
         <h3 class="display3 total_black">Решаем задачи бизнеса</h3>
         <div class="objectives">
-            <div class="object" style="background-image: url({object1});background-size: cover;background-repeat:no-repeat">
+            <div class="object" style="background: url({object1});background-size: cover;background-repeat:no-repeat;background-position: right;" >
                 <div class="object_info">
                     <h2 class="header2">Разработка сайтов</h2>
                     <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
                 </div>
+                
+                
             </div>
-            <div class="object" style="background-image: url({object2});background-size: 409px 307px;background-position: 162% 60%;background-repeat:no-repeat">
+            <div class="object">
+                <img class="img1" src="{ object2 }" alt="">
                 <div class="object_info">
                     <h2 class="header2">Интернет-магазины</h2>
                     <p class="main_sm_16">Повышение продаж с помощью автоматизации</p>
                 </div>
+                <div class="gradient1"></div>
             </div>
-            <div class="object" style="background-image: url({object3});background-size: 409px 307px;background-position: 160% 50%;background-repeat:no-repeat">
+            <div class="object" >
+                <img class="img2" src="{ object3 }" alt="">
                 <div class="object_info" >
                     <h2 class="header2">Многостраничные сайты</h2>
                     <p class="main_sm_16">Для информационных ресурсов, корпоративных сайтов и других целей</p>
                 </div>
+                <div class="gradient2"></div>
             </div>
         </div>
     </section>
-    <section class="command">
+    <section class="command" id="command">
         <div class="command_info">
             <div class="info_block">
                 <h3 class="display3 total_black">Наши специалисты решат задачи</h3>
@@ -211,17 +230,19 @@
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>80 млн ₽</td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
+                                <Countup value={80} duration={3000} initial={-15}/>
+                                млн ₽</td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707;4 лет </td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={-2}/> лет </td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}>100+</td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3000} initial={-100}/>+</td>
                         </tr>
                     </tbody>
                 </table>
@@ -229,7 +250,7 @@
             </div>
         </div>
     </section>
-    <section class="section_pd projects" 
+    <section class="section_pd projects" id="projects"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView1 = detail.inView;
@@ -564,8 +585,8 @@
                     <h3 class="header3 total_black">Контакты</h3>
                 {/if}
                 <div class="contacts">
-                    <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.sru</a>
-                    <a href="#" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
+                    <a href="mailto: main@kewate.ru" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.ru</a>
+                    <a href="tel: +79850123407" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
                 </div>
             </div>
         </div>
@@ -669,9 +690,11 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        background-repeat: no-repeat;
+        background-size: cover;
         @media (max-width:800px) {
             padding: 24px 16px;
-            max-height: 570px;
+            min-height: unset;
         }
         @media (max-width:600px){
             flex-direction: column-reverse;
@@ -709,14 +732,16 @@
         }
     }
     .map_link{
-        background: #00000066;
+        background: #0A0A0A52;
         backdrop-filter: blur(10px);
         padding: 16px;
 
         width: fit-content;
         border-radius: 24px;
         @media (max-width:600px){
-            padding: 12px;
+            padding: 8px 12px;
+            font-size: 14px;
+            line-height: 15.4px;
         }
 
     }
@@ -734,6 +759,12 @@
     .tagline div:first-child button{
         margin-left: 0;
     }
+    .tagline .display2{
+       @media (max-width:600px) {
+            font-size: 32px;
+            line-height: 35.2px;
+       }
+    }
 
     /* business_objectives */
 
@@ -750,17 +781,45 @@
         grid-template-columns: repeat(2,1fr);
         gap: 20px;
         margin-top: 40px;
-        @media (max-width: 700px) {
+        @media (max-width: 900px) {
             display: flex;
             flex-direction: column;
         }
     }
     .object{
-        background: var(--Neutral_900);
         border-radius: 16px;
         padding: 20px;
         display: flex;
         align-items: end;
+        position: relative;
+        overflow: hidden;
+
+    }
+    .object .img1{
+        position: absolute;
+        width: fit-content;
+        right: -17%;
+        z-index: 1;
+        height: 150%;
+        bottom: -21%;
+        object-fit: contain;
+        @media (max-width:600px) {
+            right: -120px;
+            height: 160%;
+        }
+    }
+    .object .img2{
+        position: absolute;
+        width: fit-content;
+        right: -20%;
+        z-index: 1;
+        height: 150%;
+        bottom: -29%;
+        object-fit: contain;
+        @media (max-width:600px) {
+            right: -90px;
+            height: 180%;
+        }
     }
     .object:not(:first-child){
         height: 190px;
@@ -800,6 +859,51 @@
     }
     .object_info{
         max-width: 400px;
+        z-index: 6;
+    }
+    .gradient1{
+        display: none;   
+        background: linear-gradient(180deg, rgba(161, 229, 209, 0.1), #a1e5d1, #a1e5d1),
+            linear-gradient(180deg, rgba(161, 229, 209, 0) 20%, #a1e5d1 34.47%);
+        width: 100%;
+        height: 55%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 5;
+        @media (max-width:1180px) {
+            display: unset;
+        }
+        @media (max-width:900px) {
+            display: none;
+        }
+        @media (max-width:600px) {
+            display: unset;
+        }
+    }
+
+    .gradient2{
+        display: none;   
+        background: linear-gradient(180deg, rgba(161, 229, 209, 0.1), #C4E3E6, #C4E3E6,#c4e3e675),
+            linear-gradient(180deg, rgba(161, 229, 209, 0) 20%, #C4E3E6 34.47%);
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 5;
+        @media (max-width:1180px) {
+            display: unset;
+        }
+        @media (max-width:900px) {
+            display: none;
+        }
+        @media (max-width:600px) {
+            display: unset;
+        }
+        @media (max-width:330px) {
+            height: 70%;
+        }
     }
 
 
@@ -944,6 +1048,9 @@
         justify-content: space-between;
         cursor: pointer;
     }
+    .more_details_link a:hover{
+        opacity: 0.8;
+    }
     .more_details_link{
         width: 100%;
         max-width: 240px;
@@ -1042,6 +1149,11 @@
         border-radius: 16px;
        
     }
+    .project_selected .project_image{
+        @media (max-width:600px) {
+            max-height: 480px;
+        }
+    }
     .project_info{
         margin-top: 32px;
     }
@@ -1051,9 +1163,7 @@
         flex-direction: column;
         border-radius: 24px;
         display: flex;
-        @media (max-width:500px) {
-            padding: 20px;
-        }
+        
     }
     .modile_apps{
         margin-top: 80px;
@@ -1102,6 +1212,9 @@
         border: 1px solid var(--Neutral_400);
         border-radius: 24px;
         line-height: 16.8px;
+        @media (max-width:600px) {
+            padding: 5px 8px;
+        }
     }
     .app_info .header3{
         @media (max-width:900px) {
@@ -1176,6 +1289,9 @@
         column-gap: 0px;
         width: 100%;
         margin-left: 40px;
+        @media (max-width:1080px) {
+            margin-left: 0;
+        }
         @media (max-width:680px) {
             grid-template-columns: repeat(1,1fr);
         }
@@ -1196,6 +1312,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 32px;
+        width: 100%;
         @media (max-width:1080px) {
             flex-direction: column;
             row-gap: 64px;
@@ -1389,6 +1506,10 @@
         @media (max-width:1250px) {
             width: 100%;
         }
+        @media (max-width:500px) {
+            flex-direction: column;
+            row-gap: 20px;
+        }
     }
     .input_place div{
         width: 100%;
@@ -1503,6 +1624,9 @@
         max-width: 1280px;
         margin: 0 auto;
         padding: 160px 0px 160px 50px;
+        @media (max-width:1080px) {
+            padding: 100px 50px;
+        }
         @media (max-width:700px) {
             padding: 100px 16px;
         }

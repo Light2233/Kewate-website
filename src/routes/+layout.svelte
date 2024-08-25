@@ -8,6 +8,7 @@
     import { onMount } from 'svelte'
     import { slide } from 'svelte/transition'
 
+    import ModileMenuModal from './ModileMenuModal.svelte'
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
 
@@ -30,10 +31,15 @@
         
     }
 
+    let open = false;
+    let innerWidth
 </script>
+
+<svelte:window bind:innerWidth={innerWidth}/>
 
 {#if render}
     <ApplicationModalWindow bind:showModal data={data}/>
+    <ModileMenuModal bind:open/>
 {/if}
 <header>
     <div class="header_content">
@@ -56,12 +62,20 @@
         </a>
         <div class="nav">
             <a href="#" class="nav_link">Услуги</a>
-            <a href="#" class="nav_link">Проекты</a>
-            <a href="#" class="nav_link">Команда</a>
+            <a href="#projects" class="nav_link">Проекты</a>
+            <a href="#command" class="nav_link">Команда</a>
             <a href="#" class="nav_link">Контакты</a>
             <a href="#" class="nav_link">О студии</a>
         </div>
-        <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
+        {#if innerWidth >600}
+            <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
+        {:else}
+            <button class="burger_menu" on:click={()=>{open = true}}>
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </button>
+        {/if}
     </div>
 </header>
 
@@ -115,6 +129,11 @@
             padding: 10px 16px; 
             
         }
+        @media (max-width:600px) {
+            height: 60px;
+            
+        }
+
     }
     .nav{
         flex-grow: 2;
@@ -217,6 +236,23 @@
         padding: 12px;
         position: fixed;
         bottom: 0;
+        z-index: 999;
+    }
+    .burger_menu{
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+    .burger_menu div{
+        width: 22.75px;
+        height: 1.75px;
+        background: var(--Neutral_100);
+        border-radius: 5px;
+    }
+    .contacts a:hover{
+        opacity: 0.8;
     }
     
 

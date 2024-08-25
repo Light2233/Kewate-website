@@ -39,6 +39,7 @@ body{
 }
 *{
     font-family: 'Manrope', sans-serif;
+    scroll-behavior: smooth;
 }
 
 /* Font */
@@ -58,7 +59,7 @@ body{
 }
 .display3{
     font-size: 36px;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 43.2px;
     color: var(--Neutral_100);
 }
@@ -147,4 +148,31 @@ body{
     cursor: pointer;
     line-height: 17.6px;
     margin-left: 16px;
+}
+
+@media (max-width:500px) {
+    .header2{
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .main_sm_16{
+        font-size: 14px;
+        line-height: 18.2px;
+    }
+    .header3{
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+    .display3{
+        font-size: 28px;
+        line-height: 33.6px;
+    }
+    .display1{
+        font-size: 64px;
+        line-height: 57.6px;
+    }
+    .main_sm_14{
+        font-size: 12px;
+        line-height: 14.4px;
+    }
 }

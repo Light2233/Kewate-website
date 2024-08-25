@@ -2,11 +2,14 @@
     import { Swiper, SwiperSlide } from 'swiper/svelte';
     import { Navigation, Pagination, Scrollbar, A11y} from 'swiper';
     import 'swiper/css';
-
-    import review_person from "$lib/assets/reviews.svg"
+    import 'swiper/css/pagination';
+    import review_person from "$lib/assets/Rick Astley - Never Gonna Give You Up (Official Music Video).mp4"
     import arrow_right from "$lib/assets/arrow_right_swiper.svg"
     import { afterUpdate, onMount } from 'svelte';
 
+    import ReviewsVideoPlayer from './ReviewsVideoPlayer.svelte';
+
+    
     let reviews = [
         {
             name:"DA&BR",
@@ -26,24 +29,6 @@
             desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
             url:review_person
         },
-        {
-            name:"DA&BR",
-            personName:"Павел Калашников",
-            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
-            url:review_person
-        },
-        {
-            name:"DA&BR",
-            personName:"Павел Калашников",
-            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
-            url:review_person
-        },
-        {
-            name:"DA&BR",
-            personName:"Павел Калашников",
-            desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
-            url:review_person
-        }
     ]
     let slideCnt = 1;
     let innerWidth;
@@ -70,6 +55,8 @@
     }
 
 
+
+
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -81,6 +68,7 @@
         {#if innerWidth>=700}
         <div class="swiper_btn">
             <button class="prev"><img src="{ arrow_right }" alt=""></button>
+            <div class="dds"></div>
             <button class="next"><img src="{ arrow_right }" alt=""></button>
         </div>
         {/if}
@@ -88,21 +76,23 @@
     {#if swiper}
         <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={20}
+        spaceBetween={60}
         slidesPerView={slideCnt}
         navigation = {
             {nextEl: '.next',
             prevEl: ".prev",}
         }
         scrollbar={{ draggable: false }}
-        pagination={{ clickable: true }}
+        pagination={
+        { clickable: true,el : ".dds" }
+        }
         simulateTouch={false}
         >
             {#each reviews as item}
                 <SwiperSlide>
                     <div class="slide_content">
-                        <div class="slide_video">
-
+                        <div class="slide_video" >
+                           <ReviewsVideoPlayer url={item.url}/>
                         </div>
                         <div class="review_info">
                             <div class="review_person_info">
@@ -117,8 +107,11 @@
                 </SwiperSlide>
             {/each}
             
-
+            
         </Swiper>
+        {#if innerWidth < 750}
+            <div class="dds"></div>
+        {/if}
     {/if}
 
 
@@ -152,6 +145,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 40px;
+        margin-right: 50px;
     }
     .slide_content{
         background: white;
@@ -172,6 +166,7 @@
         @media (max-width:750px) {
             max-width: 100%;
             flex-direction: column;
+            padding: 0;
         }
     }
     .slide_video{
@@ -179,6 +174,12 @@
         height: 280px;
         border-radius: 50rem;
         flex-shrink: 0;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
         background: var(--Neutral_500);
         @media (max-width:1180px) {
             width: 240px;
@@ -192,7 +193,12 @@
             width: 260px;
             height: 260px;
         }
+        @media (max-width:300px) {
+            width: 230px;
+            height: 230px;
+        }
     }
+    
 
     .slide_info img{
         width: 60px;
@@ -223,7 +229,10 @@
     .swiper_btn{
         display: flex;
         align-items: center;
-        column-gap: 20px;
+        column-gap: 12px;
+        @media (max-width:750px) {
+            display: none;
+        }
     }
     .swiper_btn button{
         cursor: pointer;
@@ -235,5 +244,18 @@
     .review_info{
         width: 100%;
         max-width: 380px;
+    }
+    .dds{
+        width: fit-content;
+        @media (max-width:750px) {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        
+    }
+    :global(.swiper-pagination-bullet){
+        background: var(--Neutral_1000) !important;
     }
 </style>

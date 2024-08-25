@@ -56,8 +56,8 @@
                     {#key open}
                         <div class="modal_content">
                             <button class="display3" on:click={()=>{servicesOpen=true}} in:fly={{delay:200}}>Услуги <img src="{arrow_right_modal}" alt=""></button>
-                            <a href="" class="display3" in:fly={{delay:300}}>Проекты</a>
-                            <a href="" class="display3" in:fly={{delay:400}}>Команда</a>
+                            <a href="#projects" class="display3" in:fly={{delay:300}} on:click={()=>{open=false;dialog.close()}}>Проекты</a>
+                            <a href="#command" class="display3" in:fly={{delay:400}} on:click={()=>{open=false;dialog.close()}}>Команда</a>
                             <a href="" class="display3" in:fly={{delay:500}}>Контакты</a>
                             <a href="" class="display3" in:fly={{delay:600}}>О студии</a>
                         </div>
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="design services_row">
+                        <!-- <div class="design services_row">
                             <h2 class="header2">Дизайн</h2>
                             <div class="map">
                                 <div class="product_disign link_ul">
@@ -96,7 +96,7 @@
                                     <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 {/if}
             </div>
@@ -276,7 +276,7 @@
     }
     .development{
         padding-bottom: 32px;
-        border-bottom: 1px solid var(--Neutral_800);
+
     }
     .design{
         margin-bottom: 12px;

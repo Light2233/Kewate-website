@@ -25,7 +25,9 @@
 		"joi": "^17.13.3",
 		"less": "^4.2.0",
 		"node-telegram-bot-api": "^0.66.0",
+		"svelte-countup": "^0.2.8",
 		"svelte-inview": "^4.0.2",
+		"svelte-progress-circles": "^0.0.2",
 		"swiper": "^8.4.7",
 		"ts-node": "^10.9.2"
 	}
