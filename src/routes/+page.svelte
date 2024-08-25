@@ -13,11 +13,14 @@
     import object1 from "$lib/assets/object1.png"
 
     import { priceFormat } from "$lib/client/formarters"
+    import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
     import Swiper from "./Swiper.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
+
+    export let data;
 
     // Список проектов
 
@@ -91,7 +94,8 @@
 
     let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
     let budgetSelected;
-    let form ;
+    let form;
+
     
     // Ширина экрана
 
@@ -102,6 +106,9 @@
 
 <svelte:window bind:innerWidth={innerWidth}/>
 
+<svelte:head>
+    <title>Главная</title>
+</svelte:head>
 
 <div class="main_content">
     <section class="tagline"
@@ -554,7 +561,10 @@
                 </div>
             </div>
         </div>
-        <form action="" on:submit|preventDefault={()=>{$isSubmit = true;form.reset()}} bind:this={form}>
+        <form action="?/sendApp" method="post" use:enhance on:submit={()=>{$isSubmit = true}} bind:this={form}>
+            <input type="hidden" name="page" value="Главная">
+            <input type="hidden" name="source" value="Последний блок с Колей">
+            <input type="hidden" name="utm" value="{JSON.stringify(data.utm)}">
             <div class="application_title">
                 <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
                 <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
@@ -565,11 +575,11 @@
                     <div class="input_place">
                         <div class="">
                             <h4 class="header4 total_black">Имя</h4>
-                            <input type="text" placeholder="Как к вам обращаться?" required>
+                            <input name="name" required type="text" placeholder="Как к вам обращаться?">
                         </div>
                         <div class="">
                             <h4 class="header4 total_black">Компания</h4>
-                            <input type="text" placeholder="Необязательное поле">
+                            <input name="company" type="text" placeholder="Необязательное поле">
                         </div>
                     </div>
                 </div>
@@ -578,11 +588,11 @@
                     <div class="input_place">
                         <div class="">
                             <h4 class="header4 total_black">Телефон</h4>
-                            <input type="text" placeholder="+7 (900) 000–00–00" required>
+                            <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required>
                         </div>
                         <div class="">
                             <h4 class="header4 total_black">E-mail</h4>
-                            <input type="text" placeholder="mail@kewate.sru" required>
+                            <input name="email" type="text" placeholder="Необязательное поле">
                         </div>
                     </div>
                 </div>

@@ -6,5 +6,5 @@ interface ApplicationForm {
     company?: string,
     phone: string,
     email?: string,
-    budget: string,
+    budget?: string,
 }

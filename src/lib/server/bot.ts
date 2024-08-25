@@ -27,19 +27,24 @@ function loadAdminIds() : void {
 loadAdminIds()
 
 
-function createUtm(utm: {[name:string] : string} | undefined) {
+function createUtm(utm: {[name:string] : string | null} | undefined) {
     let utmOut : string = "\n";
 
     if (!utm)
-        return 'Отсутствует\n'
+        return 'Отсутствует\n';
 
     for (const key in utm) {
-        utmOut += `    <i>${key}</i> = ${utm[key]}\n`
+        if (!utm[key])
+            continue;
+        utmOut += `    <i>${key}</i> = ${utm[key]}\n`;
     }
 
-    return utmOut
+    if (utmOut == "\n")
+        return 'Отсутствует\n';
 
-}
+    return utmOut;
+
+};
 
 export async function sendApplication(form:ApplicationForm) {
     let utm = createUtm(form?.utm);
@@ -56,7 +61,7 @@ export async function sendApplication(form:ApplicationForm) {
 <b>Компания:</b> ${form?.company ?? 'Отсутствует'}
 <b>Телефон:</b> ${form.phone}
 <b>E-mail:</b> ${form?.email ?? 'Отсутствует'}
-<b>Бюджет:</b> ${form.budget}
+<b>Бюджет:</b> ${form?.budget ?? 'Отсутствует'}
 `
     for (let i = 0; i < adminIds.length; i++) {
         const adminId = adminIds[i];

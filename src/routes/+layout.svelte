@@ -11,6 +11,8 @@
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
 
+    export let data;
+
     let showModal;
     let render = false;
     onMount(()=>{
@@ -31,7 +33,7 @@
 </script>
 
 {#if render}
-    <ApplicationModalWindow bind:showModal />
+    <ApplicationModalWindow bind:showModal data={data}/>
 {/if}
 <header>
     <div class="header_content">
