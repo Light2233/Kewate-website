@@ -1,9 +1,12 @@
 <script lang="ts">
+    import { enhance } from '$app/forms';
+
     import close from "$lib/assets/close.svg"
     import bg from "$lib/assets/application_modal_bg.png"
-    export let showModal = false;
     import { isSubmit } from "$lib/client/PostApplicationStore"
-
+    
+    export let showModal = false;
+    export let data;
     let dialog
 
     let form
@@ -33,7 +36,10 @@
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
-            <form action="" bind:this={form} on:submit={()=>{$isSubmit = true;dialog.close();showModal=false}}>
+            <form action="?/sendApp" method="post" use:enhance bind:this={form} on:submit={()=>{$isSubmit = true;dialog.close();showModal=false}}>
+                <input type="hidden" name="page" value="Главная">
+                <input type="hidden" name="source" value="Модальное окно в хидере">
+                <input type="hidden" name="utm" value="{JSON.stringify(data?.utm)}">
                 <div class="input_place">
                     <h4 class="header4 total_black">Имя</h4>
                     <input type="text" name="name" placeholder="Как к вам обращаться?" required>
