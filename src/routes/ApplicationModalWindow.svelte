@@ -33,7 +33,7 @@
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
-            <form action="" bind:this={form} on:submit|preventDefault={()=>{$isSubmit = true;dialog.close();showModal=false}}>
+            <form action="" bind:this={form} on:submit={()=>{$isSubmit = true;dialog.close();showModal=false}}>
                 <div class="input_place">
                     <h4 class="header4 total_black">Имя</h4>
                     <input type="text" name="name" placeholder="Как к вам обращаться?" required>
