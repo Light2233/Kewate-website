@@ -1,7 +1,7 @@
 interface ApplicationForm {
     page: string,
     source: string,
-    utm: string[],
+    utm?: {[name:string] : string},
     name: string,
     company?: string,
     phone: string,
