@@ -149,6 +149,21 @@ body{
     line-height: 17.6px;
     margin-left: 16px;
 }
+.total_black{
+    color: var(--Neutral_1000);
+}
+
+
+
+.service_link{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    text-wrap: nowrap;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    justify-content: space-between;
+}
 
 @media (max-width:500px) {
     .header2{

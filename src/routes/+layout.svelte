@@ -4,6 +4,7 @@
     import nikolai from "$lib/assets/nikolai.svg"
     import tg from "$lib/assets/tg_icon.svg"
     import vk from "$lib/assets/vk_icon.svg"
+    import megaMenuArrow from "$lib/assets/mega_menu_arrow.svg"
 
     import { onMount } from 'svelte'
     import { slide } from 'svelte/transition'
@@ -11,6 +12,7 @@
     import ModileMenuModal from './ModileMenuModal.svelte'
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
+    import MegaMenu from './MegaMenu.svelte'
 
     export let data;
 
@@ -33,6 +35,9 @@
 
     let open = false;
     let innerWidth
+
+
+    let megaMenuOpen= false;
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -61,7 +66,7 @@
             </svg>
         </a>
         <div class="nav">
-            <a href="#" class="nav_link">Услуги</a>
+            <button class="nav_link" on:click={()=>{megaMenuOpen=!megaMenuOpen}}>Услуги <img src="{ megaMenuArrow }" alt=""></button>
             <a href="#projects" class="nav_link">Проекты</a>
             <a href="#command" class="nav_link">Команда</a>
             <a href="#" class="nav_link">Контакты</a>
@@ -77,6 +82,7 @@
             </button>
         {/if}
     </div>
+    <MegaMenu open={megaMenuOpen} />
 </header>
 
 <slot/>
@@ -145,7 +151,7 @@
         @media (max-width:800px) {
             column-gap: 20px;
         }
-        @media (max-width:700px) {
+        @media (max-width:850px) {
             display: none;
         }
     }
@@ -156,7 +162,16 @@
         line-height: 24px;
         color: var(--Neutral_100);
         padding: 6px 0px;
+        cursor: pointer;
         
+    }
+    .nav_link:first-child {
+        display: flex;
+        align-items: center;
+        column-gap: 14px;
+    }
+    .nav_link:first-child img{
+        width: 11px;
     }
     
     .logo > svg path:nth-child(3) , svg path:nth-child(2) , svg path:nth-child(4) , svg path:nth-child(5) , svg path:nth-child(6){

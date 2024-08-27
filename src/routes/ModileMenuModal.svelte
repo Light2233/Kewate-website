@@ -116,9 +116,7 @@
         transform: rotate(180deg);
         margin-right: 16px;
     }
-    .total_black{
-        color: var(--Neutral_1000);
-    }
+    
     .gray{
         color: #A3A3A3;
     }
@@ -227,15 +225,7 @@
         width: 24px;
         height: 24px;
     }
-    .service_link{
-        display: flex;
-        align-items: center;
-        column-gap: 8px;
-        text-wrap: nowrap;
-        font-size: 14px !important;
-        line-height: 18px !important;
-        justify-content: space-between;
-    }
+   
     .map{
         display: grid;
         grid-template-columns: repeat(2,1fr);
