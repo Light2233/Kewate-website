@@ -237,12 +237,12 @@
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={-2}/> лет </td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={0}/> лет </td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3000} initial={-60}/>+</td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3000} initial={0}/>+</td>
                         </tr>
                     </tbody>
                 </table>
@@ -566,7 +566,7 @@
             </div>
         </div>
         <a href="https://t.me/kewateru" class="tg_link" target="_blank">
-            <a href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</a>
+            <span href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</span>
         </a>
     </section>
     <section class="application dark-background">
