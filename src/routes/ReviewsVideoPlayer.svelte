@@ -23,19 +23,19 @@
 	}
 
     function handleMouseup(e) {
-        allTime = e.target.duration
+        allTime = e.target.duration 
         if (new Date() - lastMouseDown < 500) {
             if (paused) e.target.play();
             else e.target.pause();
         }
     }
-    let progress
+    let progress // Прогресс шкалы
     let circumference
     let offset ;
     
-    $: progress = (time * 100) / allTime;
-    $: circumference = 2 * Math.PI * radius;
-    $: offset = circumference - (progress / 100) * circumference;
+    $: progress = (time * 100) / allTime; // Вычисление прогресса шкалы в % от длинны видео 
+    $: circumference = 2 * Math.PI * radius; // Длинна окружности 
+    $: offset = circumference - (progress / 100) * circumference; // текущее положение шкалы
     
     $: if(progress == 100){
         progress = 0;

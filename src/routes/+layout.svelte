@@ -4,7 +4,6 @@
     import nikolai from "$lib/assets/nikolai.svg"
     import tg from "$lib/assets/tg_icon.svg"
     import vk from "$lib/assets/vk_icon.svg"
-    import megaMenuArrow from "$lib/assets/mega_menu_arrow.svg"
 
     import { onMount } from 'svelte'
     import { slide } from 'svelte/transition'
@@ -36,8 +35,60 @@
     let open = false;
     let innerWidth
 
-
+    let blackColor = false;
     let megaMenuOpen= false;
+
+    $: {
+        if(megaMenuOpen) blackColor = true; 
+        else {
+            setTimeout(()=>{blackColor= false},300) 
+            
+        }
+    }
+
+
+
+
+
+    let header;
+    let headerClass = "header_trans"
+  
+    onMount(() => {
+    function handleScroll() {
+        const headerRect = header.getBoundingClientRect();
+        const sections = document.querySelectorAll('.light-background, .dark-background,.trans-background');
+        
+        sections.forEach(section => {
+            const sectionRect = section.getBoundingClientRect();
+            
+            if (
+            headerRect.bottom > sectionRect.top && 
+            headerRect.top < sectionRect.bottom
+            ) {
+            // Если хедер находится на секции, изменяем его стиль
+            if (section.classList.contains('light-background')) {
+                headerClass = "header_white"
+            } else if (section.classList.contains('dark-background')) {
+                headerClass = "header_black"
+            }
+            else if(section.classList.contains('trans-background')){
+                headerClass = "header_trans"
+            }
+            }
+        });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Очищаем обработчик при демонтировании компонента
+        return () => window.removeEventListener('scroll', handleScroll);
+    });
+
+    function handleMessage(event) {
+		megaMenuOpen = false;
+	}
+   
+    
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -46,8 +97,8 @@
     <ApplicationModalWindow bind:showModal data={data}/>
     <ModileMenuModal bind:open/>
 {/if}
-<header>
-    <div class="header_content">
+<header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass}" >
+    <div class="header_content" >
         <a href="/" class="logo">
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_30_422)">
@@ -65,13 +116,18 @@
                 </defs>
             </svg>
         </a>
-        <div class="nav">
-            <button class="nav_link" on:click={()=>{megaMenuOpen=!megaMenuOpen}}>Услуги <img src="{ megaMenuArrow }" alt=""></button>
+        <nav class="nav" class:nav_black={headerClass == "header_white"}>
+            <button class="nav_link" on:click={()=>{megaMenuOpen=!megaMenuOpen}}>
+                Услуги 
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" class:rotate={megaMenuOpen}>
+                    <path d="M6.00004 6.95276L0.467285 1.42027L1.46054 0.447266L6.00004 4.98652L10.5395 0.447266L11.5328 1.42027L6.00004 6.95276Z" fill="white"/>
+                </svg>
+            </button>
             <a href="#projects" class="nav_link">Проекты</a>
             <a href="#command" class="nav_link">Команда</a>
             <a href="#" class="nav_link">Контакты</a>
             <a href="#" class="nav_link">О студии</a>
-        </div>
+        </nav>
         {#if innerWidth >600}
             <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
         {:else}
@@ -82,7 +138,7 @@
             </button>
         {/if}
     </div>
-    <MegaMenu open={megaMenuOpen} />
+    <MegaMenu open={megaMenuOpen} color={headerClass} on:message={handleMessage}/>
 </header>
 
 <slot/>
@@ -115,16 +171,18 @@
 
 
 <style lang="less">
-
     .gray{
         color: #A3A3A3;
     }
+    
+    
 
     /* Header */
     header{
         margin: 0 auto;
         z-index: 99;
-        position: relative;
+        position: fixed;
+        width: 100%;
     }
     .header_content{
         display: flex;
@@ -174,7 +232,7 @@
         width: 11px;
     }
     
-    .logo > svg path:nth-child(3) , svg path:nth-child(2) , svg path:nth-child(4) , svg path:nth-child(5) , svg path:nth-child(6){
+    .logo > svg path:not(path:first-child){
         fill: white;
     }
     .logo > svg path:first-child{
@@ -269,6 +327,46 @@
     .contacts a:hover{
         opacity: 0.8;
     }
+    .nav_black  a{
+        color: var(--Neutral_1000);
+    }
+    .nav_black  button{
+        color: var(--Neutral_1000);
+    }
+    .btn_black{
+        color: white;
+        background: var(--Neutral_1000);
+    }
+    .header_white{
+        background-color: var(--Neutral_100);
+    }
+    .header_black{
+        background: var(--Neutral_1000);
+    }
+    .header_trans{
+        background: transparent;
+    }
+    .header_white .main_btn_white{
+        color: white;
+        background: var(--Neutral_1000);
+    }
+    .header_white .logo > svg path:not(path:first-child){
+        fill:  var(--Neutral_1000);
+    }
+    .header_white .logo svg path:first-child{
+        stroke:  var(--Neutral_1000);
+    }
+    .black{
+        background: var(--Neutral_1000);
+    }
+    .header_white .nav svg path{
+        fill: var(--Neutral_1000);
+    }
+    .rotate{
+        transform: rotate(180deg);
+    }
+
+
     
 
 </style>

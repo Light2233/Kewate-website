@@ -149,7 +149,6 @@
         margin-right: 50px;
     }
     .slide_content{
-        background: white;
         padding: 24px;
         display: flex;
         justify-content: space-between;

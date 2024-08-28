@@ -35,7 +35,7 @@ button,input{
     border: none;
 }
 body{
-    background: white;
+    background: #FAFAFA;
 }
 *{
     font-family: 'Manrope', sans-serif;
@@ -47,7 +47,7 @@ body{
 
 .display1{
     font-size: 72px;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 64.8px;
     color: var(--Neutral_100);
 }
@@ -72,7 +72,7 @@ body{
 }
 .header2{
     font-size: 26px;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 31.2px;
     color: var(--Neutral_100);
 }

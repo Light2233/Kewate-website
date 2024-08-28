@@ -1,7 +1,6 @@
 <script lang="ts">
     import tagline_bg from "$lib/assets/tagline_bg.png"
     import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
-    import tagline_laptop from "$lib/assets/tagline_laptop.png"
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import arrow_right from "$lib/assets/arrow_right.svg"
     import k from "$lib/assets/k.svg"
@@ -9,9 +8,6 @@
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import arrow_up from "$lib/assets/arrow_up.svg"
-    import object2 from "$lib/assets/object2.png"
-    import object3 from "$lib/assets/object3.png"
-    import object1 from "$lib/assets/object1.png"
 
 
     import Countup from "svelte-countup"
@@ -20,9 +16,9 @@
     import {fade,slide,fly} from "svelte/transition"
     import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
-    import Swiper from "./Swiper.svelte"
+    import Swiper from "./../../Swiper.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
-    import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
+    import ApplicationModalWindow from "./../../ApplicationModalWindow.svelte";
 
     export let data;
 
@@ -55,7 +51,8 @@
             tags:["Сайты","Продуктовый дизайн"]
         },     
     ]
-
+    
+    console.log(data)
 
     // Тригерры при скролле
     let isInView1 = false;
@@ -113,6 +110,80 @@
         else taglineBg = tagline_bg
     }
     
+
+    // Заголовки 
+
+    let titleMap = {
+        "one-page-website" : "Разработаем Landing-page за 2 недели",
+        "multi-page-website" : "Многостраничный сайт для разных целей",
+        "online-store" : "Интернет-магазин поможет автоматизировать продажи"
+    }
+
+    // Для карточки услуги
+
+    let websiteContent = {
+        "one-page-website" : {
+            name: "Landing-page",
+            term : "2 недели",
+            for: "Подойдёт для бизнеса, мероприятий и рекламы",
+            advantages : [
+                {
+                    title: "Размещение информации",
+                    desc: "Разместите релевантную информацию о компании на сайте и расскажите аудитории о вашем деле"
+                },
+                {
+                    title: "Сбор данных",
+                    desc: "Развитие базы потенциальных клиентов с помощью форм для сбора данных"
+                },
+                {
+                    title: "Узнаваемость бренда",
+                    desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
+                }
+            ],
+            cost : 60000
+
+        },
+        "multi-page-website" : {
+            name: "Многостраничный сайт",
+            term : "от 2 недель",
+            for: "Подойдёт для бизнеса, мероприятий и рекламы",
+            advantages : [
+                {
+                    title: "Размещение информации",
+                    desc: "Разместите релевантную информацию о компании на сайте и расскажите аудитории о вашем деле"
+                },
+                {
+                    title: "Сбор данных",
+                    desc: "Развитие базы потенциальных клиентов с помощью форм для сбора данных"
+                },
+                {
+                    title: "Узнаваемость бренда",
+                    desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
+                }
+            ],
+            cost : 80000
+        },
+        "online-store" : {
+            name: "Интернет-магазин",
+            term : "2 месяца",
+            for: "Ключ к автоматизации бизнеса и повышению продаж",
+            advantages : [
+                {
+                    title: "Расширение географии продаж",
+                    desc: "Продавайте услуги и товары по всему миру, не ограничиваясь физическим местоположением. Откройте новые рынки и возможности для роста"
+                },
+                {
+                    title: "Автоматизация процессов",
+                    desc: "Автоматизируйте обработку заказов, управление запасами и логистику"
+                },
+                {
+                    title: "Узнаваемость бренда",
+                    desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
+                }
+            ],
+            cost : 150000
+        }
+    }
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -133,7 +204,7 @@
     >
         {#key isInView4}
             <div class="">
-                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей<br> — прибыль для бизнеса</p>
+                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >{titleMap[data.page]}</p>
                 {#if innerWidth < 600}
                     <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
                     <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
@@ -149,34 +220,74 @@
             </div>
         </div>
     </section>
-    <section class="business_objectives dark-background"
-    
-    >
-        <h3 class="display3 total_black">Решаем задачи бизнеса</h3>
-        <div class="objectives">
-            <div class="object" style="background: url({object1});background-size: cover;background-repeat:no-repeat;background-position: right;" >
-                <div class="object_info">
-                    <h2 class="header2">Разработка сайтов</h2>
-                    <p class="main_sm_16">Для бизнеса, мероприятий и рекламы</p>
-                </div>
-                
-                
+    <section class="facts dark-background">
+        <div class="facts_content">
+            <div class="about_company">
+                <p class="display3 total_black">Факты, которые говорят сами за себя</p>
             </div>
-            <div class="object">
-                <img class="img1" src="{ object2 }" alt="">
-                <div class="object_info">
-                    <h2 class="header2">Интернет-магазины</h2>
-                    <p class="main_sm_16">Повышение продаж с помощью автоматизации</p>
+            <div class="more_details">
+                <div class="more_details_info">
+                    <p class="main_sm_16 total_blac whiteop">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.    </p>
                 </div>
-                <div class="gradient1"></div>
+                <div class="more_details_link">
+                    <a href="#" class="total_black main_sm_16">
+                        Подробнее о студии
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.0002 2.33331C7.57183 2.33331 2.3335 7.57165 2.3335 14C2.3335 20.4283 7.57183 25.6666 14.0002 25.6666C20.4285 25.6666 25.6668 20.4283 25.6668 14C25.6668 7.57165 20.4285 2.33331 14.0002 2.33331ZM17.2552 14.6183L13.1368 18.7366C12.9618 18.9116 12.7402 18.9933 12.5185 18.9933C12.2968 18.9933 12.0752 18.9116 11.9002 18.7366C11.5618 18.3983 11.5618 17.8383 11.9002 17.5L15.4002 14L11.9002 10.5C11.5618 10.1616 11.5618 9.60165 11.9002 9.26331C12.2385 8.92498 12.7985 8.92498 13.1368 9.26331L17.2552 13.3816C17.6052 13.72 17.6052 14.28 17.2552 14.6183Z" fill="white"/>
+                        </svg>                    
+                    </a>
+                </div>
             </div>
-            <div class="object" >
-                <img class="img2" src="{ object3 }" alt="">
-                <div class="object_info" >
-                    <h2 class="header2">Многостраничные сайты</h2>
-                    <p class="main_sm_16">Для информационных ресурсов, корпоративных сайтов и других целей</p>
-                </div>
-                <div class="gradient2"></div>
+            <div class="achievements" 
+            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
+            on:change={({ detail }) => {
+                isInView5 = detail.inView;
+            }}>
+                {#key isInView5}
+                <table>
+                    <thead  in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>
+                        <th class="main_sm_16 whiteop first_th">ФАКТ</th>
+                        <th class="empty"></th>
+                        <th class="main_sm_16 whiteop">ПОКАЗАТЕЛЬ</th>
+                    </thead>
+                    <tbody class:hidden={!isInView5}>
+                        <tr>
+                            <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
+                            <td class="empty"></td>
+                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
+                                <Countup value={80} duration={3000} initial={0}/>
+                                млн ₽</td>
+                        </tr>
+                        <tr>
+                            <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
+                            <td class="empty"></td>
+                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={0}/> лет </td>
+                        </tr>
+                        <tr>
+                            <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
+                            <td class="empty"></td>
+                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3500} initial={0}/>+</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {/key}
+            </div>
+        </div>
+    </section>
+    <section class="working">
+        <h3 class="display3 total_black">Методы работы</h3>
+        <div class="working_grid">
+            <div class="method">
+                <h2 class="header2 total_black">Исследуем рынок</h2>
+                <p class="main_sm_16 gray" >Анализируем конкурентов и потребности аудитории, чтобы сайт идеально подходил под их запросы</p>
+            </div>
+            <div class="method">
+                <h2 class="header2 total_black">Транслируем ценности бизнеса</h2>
+                <p class="main_sm_16 gray" >Отталкиваемся от целей бизнеса, следуем философии бренда и делаем дизайн под фирменный стиль</p>
+            </div>
+            <div class="method">
+                <h2 class="header2 total_black">Работаем без конструкторов</h2>
+                <p class="main_sm_16 gray" >Разрабатываем сайты на чистом коде, что делает его наиболее оптимизированным с возможностью внести любые правки</p>
             </div>
         </div>
     </section>
@@ -201,56 +312,7 @@
             {/each}
         </div>
     </section>
-    <section class="facts light-background">
-        <div class="facts_content">
-            <div class="about_company">
-                <p class="display3 white">Факты, которые говорят сами за себя</p>
-            </div>
-            <div class="more_details">
-                <div class="more_details_info">
-                    <p class="main_sm_16 whiteop">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.    </p>
-                </div>
-                <div class="more_details_link">
-                    <a href="#" class="white">Подробнее о студии<img src="{ arrow_circle_right }" alt=""></a>
-                </div>
-            </div>
-            <div class="achievements" 
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-            on:change={({ detail }) => {
-                isInView5 = detail.inView;
-            }}>
-                {#key isInView5}
-                <table>
-                    <thead  in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>
-                        <th class="main_sm_16 whiteop first_th">ФАКТ</th>
-                        <th class="empty"></th>
-                        <th class="main_sm_16 whiteop">ПОКАЗАТЕЛЬ</th>
-                    </thead>
-                    <tbody class:hidden={!isInView5}>
-                        <tr>
-                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
-                            <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
-                                <Countup value={80} duration={3000} initial={0}/>
-                                млн ₽</td>
-                        </tr>
-                        <tr>
-                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
-                            <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={-2}/> лет </td>
-                        </tr>
-                        <tr>
-                            <td class="main_sm_16 white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
-                            <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3000} initial={-60}/>+</td>
-                        </tr>
-                    </tbody>
-                </table>
-                {/key}
-            </div>
-        </div>
-    </section>
-    <section class="section_pd projects  dark-background" id="projects"
+    <section class="section_pd projects dark-background" id="projects"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView1 = detail.inView;
@@ -312,245 +374,7 @@
             </div>
         
     </section>
-    <!-- <section class="development_stages">
-        <div class="stages_title">
-            <p class="main_sm2 whiteop">ЭТАПЫ РАЗРАБОТКИ САЙТА</p>
-            <p class="header2">Уделяем внимание срокам разработки</p>
-        </div>
-        <div class="graph_div" use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
-        on:change={({ detail }) => {
-            isInView6 = detail.inView;
-        }}>
-            {#key isInView6}
-            <div class="first_stage stage">
-                <div class="graph" in:fade={{duration:750}} class:hidden={!isInView6}>
-                    <div class="time">
-                        <p class="main_sm2 gray">1 НЕДЕЛЯ</p>
-                    </div>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Исследование продукта</p>
-                        <p class="main_sm2 gray">Включение в разработку, планирование работ</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress_bar_head main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView6}>
-                        10%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:500}} class:hidden={!isInView6}><p class="main_sm2" >Обсуждение работ</p></div>
-                        
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:750}} class:hidden={!isInView6}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Разработка дизайна</p>
-                        <p class="main_sm2 gray">Утверждение концепции, подбор визуального стиля, разработка готового результата</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress30 progress_bar_head main_sm_medium white" in:fly={{duration:750,delay:1000}} class:hidden={!isInView6}>
-                        30%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:1000}} class:hidden={!isInView6}><p class="main_sm2">Утверждение дизайна</p></div>
-                        
-                    </div>
-                </div>
-            </div>
-            {/key}
-            <div class="second_stage stage"
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-            on:change={({ detail }) => {
-                isInView7 = detail.inView;
-            }}
-            >
-                {#key isInView7}
-                <div class="graph" in:fade={{duration:750,delay:1500}} class:hidden={!isInView7}>
-                    <div class="time">
-                        <p class="main_sm2 gray">2 НЕДЕЛЯ</p>
-                    </div>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Разработка технической части</p>
-                        <p class="main_sm2 gray">Перенос дизайна в код, оптимизация сайта и настройка продвижения</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress_bar_head main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        30%
-                    </div>
-                    <div class="status_div status_center">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:1500}} class:hidden={!isInView7} ><p class="main_sm2">Утверждение вёрстки</p></div>
-                        
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:2000}} class:hidden={!isInView7}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Контрольное тестирование</p>
-                        <p class="main_sm2 gray">Проверка соответствия итоговой версии с макетом, поиск багов и недоработок</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress15 main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        15%
-                    </div>
-                    <div class="status_div">
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:2500}} class:hidden={!isInView7}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Исправление ошибок</p>
-                        <p class="main_sm2 gray">Исправляем все найденные ошибки и доводим сайт до идеала</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress15 main_sm_medium white progress_end" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        15%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:2500}} class:hidden={!isInView7}><p class="main_sm2">Сдача проекта</p></div>
-                        
-                    </div>
-                </div>
-                {/key}
-            </div>
-        </div>
-        <div class="advantages">
-            <div class="advantage">
-                <p class="main_sm_medium">Всегда на связи</p>
-                <p class="main_sm2 gray">Отвечаем в любое время суток в Телеграме или по телефону</p>
-            </div>
-            <div class="line"></div>
-            <div class="advantage">
-                <p class="main_sm_medium">Регулярно показываем результат</p>
-                <p class="main_sm2 gray">Выходим на недельный спринт и показываем результат в конце недели</p>
-            </div>
-            <div class="line"></div>
-            <div class="advantage">
-                <p class="main_sm_medium">Прозрачная разработка</p>
-                <p class="main_sm2 gray">Предоставляем доступ ко всем рабочим файлам и исследованиям</p>
-            </div>
-        </div>
-    </section> -->
-    <!-- <section class="section_pd you_get"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-30%' }}
-    on:change={({ detail }) => {
-        isInView8 = detail.inView;
-    }}
-    >   
-        {#key isInView8}
-        <p class="header2" in:fly={{duration: 750,x:100}} class:hidden={!isInView8}>Резюмируем: в итоге, вы получаете</p>
-        {/key}
-        {#key isInView8}
-            <div class="standard" >
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:500}} class:hidden={!isInView8}>
-                    <p class="header3">Сайт на Javascript с адаптацией под все устройства</p>
-                    <p class="main_sm2 gray">Разработаем сайт так, чтобы он красиво выглядел как на компьютерах, так и на телефонах и планшетах</p>
-                </div>
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:1000}} class:hidden={!isInView8}>
-                    <p class="header3">Настроенную SEO оптимизацию и доступ к рекламному кабинету</p>
-                    <p class="main_sm2 gray">Мы всё настроим и покажем вам, как пользоваться рекламным кабинетом для продвижения сайта</p>
-                </div>
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:1500}} class:hidden={!isInView8}>
-                    <p class="header3">Возможность отредактировать сайт в любое время</p>
-                    <p class="main_sm2 gray">За небольшую доплату отредактируем любой раздел сайта. Если требуются регулярные изменения — есть ежемесячная подписка</p>
-                </div>
-            </div>
-        {/key}
-    </section> -->
-    <!-- <section class="websites section_pd"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-    on:change={({ detail }) => {
-        isInView9 = detail.inView;
-    }}
-    >   
-        {#key isInView9}
-        <p class="header2 white" in:fly={{duration:750,x:100}} class:hidden={!isInView9}>
-            Выберите сайт под разные нужды
-            <span class="title_promotion main_sm2 white" in:fade={{duration:750,delay:1500}} class:hidden={!isInView9}>
-                🔥 Получи скидку 5% за отзыв
-            </span>
-        </p>
-        {/key}
-        <div class="websites_table">
-            {#each websites as website,index}
-                {#key isInView9}
-                <div class="website" class:hidden={!isInView9} in:fly={{duration:750,x:100,delay:400+400*index}}>
-                    <div class="website_info">
-                        <p class="header3">{ website.name }</p>
-                        <p class="main_sm2 gray">{ website.desc }</p>
-                        <div class="functions">
-                            {#each website.functions as fun}
-                                <div class="function main_sm2_bold">
-                                    <img src="{ check_mark  }" alt="">
-                                    { fun.name }
-                                </div>
-                            {/each}
-                        </div>
-                    </div>
-                    <div class="website_end_content">
-                        <div class="promotion">
-                            <p class="main_sm2_bold">🔥 Оплата частями</p>
-                            <p class="gray">50 % до и 50% после</p>
-                        </div>
-                        <div class="price_div">
-                            <div class="price">
-                                <p class="header3">{website.name == "Многостраничный сайт" ? "от " : ""}{priceFormat(website.price ? website.price : website.oldprice)}</p>
-                                {#if website.price}
-                                    <p class="oldprice gray"><span></span>{priceFormat( website.oldprice) }</p>
-                                {/if}
-                            </div>
-                            <button>Заказать</button>
-                        </div>
-                    </div>
-                    
-                </div>
-                {/key}
-            {/each}
-            
-            
-        </div>
-    </section> -->
-    <div class="services light-background" id="services">
-        <div class="services_content">
-            <div class="services_title">
-                <h3 class="display3">Услуги</h3>
-                <p class="main_sm_16" style="color:#737373;">Комплексный подход к разработке цифровых продуктов</p>
-            </div>
-            <div class="services_table">
-                <div class="development services_row">
-                    <h2 class="header2">Разработка</h2>
-                    <div class="map">
-                        <div class="websites link_ul">
-                            <h3 class="header3">Веб-сайты</h3>
-                            <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
-                        </div>
-                        <!-- <div class="digital_products link_ul">
-                            <h3 class="header3">Цифровые продукты</h3>
-                            <a href="" class="main_sm_16 service_link">Веб-сервис<img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Desktop-приложение<img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Мобильное приложение<img src="{ arrow_up }" alt=""></a>
-                        </div>
-                        <div class="other link_ul">
-                            <h3 class="header3">Другое</h3>
-                            <a href="" class="main_sm_16 service_link">Бот для мессенджера<img src="{ arrow_up }" alt=""></a>
-                        </div> -->
-                    </div>
-                </div>
-                <!-- <div class="design services_row">
-                    <h2 class="header2">Дизайн</h2>
-                    <div class="map">
-                        <div class="product_disign link_ul">
-                            <h3 class="header3">Продуктовый дизайн</h3>
-                            <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
-                            <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
+  
     <section class="swiper_section dark-background" >
         <Swiper/>
     </section>
@@ -662,7 +486,7 @@
         opacity: 0.5;
     }
     .gray{
-        color: #969696;
+        color: var(--Neutral_400);
     }
 
 
@@ -677,7 +501,7 @@
         color: var(--Neutral_900);
     }
     .whiteop{
-        color: rgba(255, 255, 255, 0.5);
+        color: #737373;
     }
     .tagline{
         z-index: 2;
@@ -765,147 +589,6 @@
        }
     }
 
-    /* business_objectives */
-
-    .business_objectives{
-        padding: 50px;
-        max-width: 1280px;
-        margin: 0 auto;
-        @media (max-width:700px) {
-            padding: 0 16px;
-        }
-    }
-    .objectives{
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 20px;
-        margin-top: 40px;
-        @media (max-width: 900px) {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-    .object{
-        border-radius: 16px;
-        padding: 20px;
-        display: flex;
-        align-items: end;
-        position: relative;
-        overflow: hidden;
-
-    }
-    .object .img1{
-        position: absolute;
-        width: fit-content;
-        right: -17%;
-        z-index: 1;
-        height: 150%;
-        bottom: -21%;
-        object-fit: contain;
-        @media (max-width:600px) {
-            right: -120px;
-            height: 160%;
-        }
-    }
-    .object .img2{
-        position: absolute;
-        width: fit-content;
-        right: -20%;
-        z-index: 1;
-        height: 150%;
-        bottom: -29%;
-        object-fit: contain;
-        @media (max-width:600px) {
-            right: -90px;
-            height: 180%;
-        }
-    }
-    .object:not(:first-child){
-        height: 190px;
-    }
-    .object p{
-        color: var(--Neutral_500);
-    }
-    .object:first-child{
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 1;
-        grid-row-end: 3;
-        height: 400px;
-    }
-    .object:nth-child(2){
-        grid-column-start: 2;
-        grid-column-end: 2;
-        grid-row-start: 1;
-        grid-row-end: 1;
-        background: #A1E5D1;
-        @media (max-width: 700px) {
-            height: 190px;
-        }
-    }
-    .object:not(:first-child) h2{
-        color: var(--Neutral_900);
-    }
-    .object:nth-child(3){
-        grid-column-start: 2;
-        grid-column-end: 2;
-        grid-row-start: 2;
-        grid-row-end: 2;
-        background: #C4E3E6;
-        @media (max-width: 700px) {
-            height: 190px;
-        }
-    }
-    .object_info{
-        max-width: 400px;
-        z-index: 6;
-    }
-    .gradient1{
-        display: none;   
-        background: linear-gradient(180deg, rgba(161, 229, 209, 0.1), #a1e5d1, #a1e5d1),
-            linear-gradient(180deg, rgba(161, 229, 209, 0) 20%, #a1e5d1 34.47%);
-        width: 100%;
-        height: 55%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 5;
-        @media (max-width:1180px) {
-            display: unset;
-        }
-        @media (max-width:900px) {
-            display: none;
-        }
-        @media (max-width:600px) {
-            display: unset;
-        }
-    }
-
-    .gradient2{
-        display: none;   
-        background: linear-gradient(180deg, rgba(161, 229, 209, 0.1), #C4E3E6, #C4E3E6,#c4e3e675),
-            linear-gradient(180deg, rgba(161, 229, 209, 0) 20%, #C4E3E6 34.47%);
-        width: 100%;
-        height: 60%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 5;
-        @media (max-width:1180px) {
-            display: unset;
-        }
-        @media (max-width:900px) {
-            display: none;
-        }
-        @media (max-width:600px) {
-            display: unset;
-        }
-        @media (max-width:330px) {
-            height: 70%;
-        }
-    }
-
-
     /* Command section */
 
     .image_block{
@@ -982,7 +665,6 @@
     /* Facts (Second section) */
 
     .facts{
-        background: #0A0A0A;
         overflow: hidden;
         
         position: relative;
@@ -1047,6 +729,9 @@
         justify-content: space-between;
         cursor: pointer;
     }
+    .more_details_link svg path{
+        fill: black;
+    }
     .more_details_link a:hover{
         opacity: 0.8;
     }
@@ -1087,7 +772,7 @@
         text-align: start;
     }
     tr:not(:last-child ),th{
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid #E5E5E5;
     }
     .first_th{
         width: 280px;
@@ -1116,6 +801,38 @@
     }
 
 
+    /* working block */
+
+    .working{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 50px;
+        @media (max-width:700px) {
+            padding: 0 16px;
+        }
+    }
+    .working_grid{
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        width: 100%;
+        @media (max-width:900px) {
+            flex-direction: column;
+        }
+    }
+    .method{
+        height: 330px;
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    
+    }
+
     /* Projects (Therd section) */
 
     .section_pd{
@@ -1125,8 +842,8 @@
         }
     }
     .projects{
-        padding-top: 172px;
-        padding-bottom: 160px;
+        margin-top: 172px;
+        margin-bottom: 160px;
         max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
@@ -1243,88 +960,6 @@
         bottom: 0;
         right: 18%;
     }
-
-
-
-    /* Services */
-
-    .services{
-        background: var(--Neutral_1000);
-       
-    }
-    .services_table{
-        margin-top: 64px;
-    }
-    .services_content{
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 64px  50px;
-        @media (max-width:700px) {
-            padding: 64px 16px;
-        }
-    }
-    .services_title{
-        display: flex;
-        flex-direction: column;
-        row-gap: 16px;
-    }
-    .map img{
-        width: 24px;
-        height: 24px;
-    }
-    .service_link{
-        display: flex;
-        align-items: center;
-        column-gap: 8px;
-        text-wrap: nowrap;
-    }
-    .service_link:hover{
-        opacity: 0.8;
-    }
-    .map{
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        row-gap: 64px;
-        column-gap: 0px;
-        width: 100%;
-        margin-left: 40px;
-        @media (max-width:1080px) {
-            margin-left: 0;
-        }
-        @media (max-width:680px) {
-            grid-template-columns: repeat(1,1fr);
-        }
-    }
-    .link_ul{
-        display: flex;
-        flex-direction: column;
-        row-gap: 12px;
-        flex-shrink: 0;
-    }
-    .link_ul *{
-        flex-shrink: 0;
-    }
-    .link_ul h3{
-        margin-bottom: 8px;
-    }
-    .services_row{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 32px;
-        width: 100%;
-        @media (max-width:1080px) {
-            flex-direction: column;
-            row-gap: 64px;
-        }
-    }
-    .services_row h2{
-        width: 40%;
-        flex-shrink: 0;
-    }
-    .development{
-        padding-bottom: 32px;
-    }
-
 
     /* Tg block */
 
