@@ -140,4 +140,7 @@
     :global(.website_swiper .swiper-slide:not(.swiper-slide-active,.swiper-slide-next)){
         opacity: 1 !important;
     }
+
+
+   
 </style>

@@ -2,7 +2,6 @@
     import { enhance } from '$app/forms';
 
     import close from "$lib/assets/close.svg"
-    import bg from "$lib/assets/application_modal_bg.png"
     import { isSubmit } from "$lib/client/PostApplicationStore"
     
     export let showModal = false;
@@ -12,7 +11,9 @@
     let form
 	$: if (dialog && showModal) dialog.showModal();
 
-
+    export let bg
+    export let page  = ''
+    console.log(page)
 
 
 </script>
@@ -31,8 +32,8 @@
             <div class="image_block">
                 <img src="{ bg }" alt="">
                 <div class="application_title">
-                    <h2 class="header2">Давайте обсудим задачу</h2>
-                    <p class="main_sm_14 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
+                    <h2 class="header2">{page == "/" ? "Давайте обсудим задачу" : "Оставить заявку"}</h2>
+                    <p class="main_sm_14 gray">{page == "/" ? "Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы" : "Мы свяжемся с Вами в течение дня"} </p>
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
@@ -81,7 +82,7 @@
 	}
     .dialog_content{
         background-color: white;
-        max-width: 390px;
+        width: 390px;
         border-radius: 16px;
         padding: 8px;
         margin: 0 16px;

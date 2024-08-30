@@ -70,9 +70,9 @@
                             <div class="map">
                                 <div class="websites link_ul">
                                     <h3 class="header3">Веб-сайты</h3>
-                                    <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
-                                    <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
-                                    <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
+                                    <a href="/pages/landing-page" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
+                                    <a href="/pages/milti-page-website" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
+                                    <a href="/pages/online-store" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
                                 </div>
                                 <!-- <div class="digital_products link_ul">
                                     <h3 class="header3">Цифровые продукты</h3>

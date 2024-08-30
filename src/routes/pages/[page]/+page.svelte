@@ -5,12 +5,17 @@
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import tick_circle from "$lib/assets/tick_circle.svg"
 
+    import andey from "$lib/assets/command/andrey.png"
+    import nikita from "$lib/assets/command/nikita.jfif"
+    import daniil from "$lib/assets/command/daniil.jfif"
+    import nikolayBig from "$lib/assets/command/nikolay.jfif"
+
     
     import Countup from "svelte-countup"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
-    import Swiper from "./../../Swiper.svelte"
+    import SwiperReviews from "../../SwiperReviews.svelte"
     import { onMount } from "svelte"
 
 
@@ -19,11 +24,27 @@
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./../../ApplicationModalWindow.svelte";
     import WebsiteSwiper from "../../WebsiteSwiper.svelte"
+    import ProjectSwiper from "../../ProjectSwiper.svelte"
+    import LandingGrid from "$lib/client/components/LandingGrid.svelte"
+    import MultiPageGrid from "$lib/client/components/MultiPageGrid.svelte"
+    import OnlineStoreGrid from "$lib/client/components/OnlineStoreGrid.svelte"
 
     export let data;
 
-    // Список проектов
 
+    let render = false
+    onMount(()=>{
+        render = true
+    })
+
+
+    let innerWidth;;
+    let showModal;
+    let budgetSelected;
+    let form;
+    let taglineBg 
+
+    // Список проектов
     let projects = [
         {
             id:1,
@@ -52,6 +73,34 @@
         },     
     ]
     
+    // Список команды
+    let command = [
+        {
+            name: "Николай Ковальчук",
+            speciality : "CEO Kewate",
+            url : nikolayBig
+        },
+        {
+            name: "Никита Корчагин",
+            speciality : "Продуктовый дизайнер, Lead",
+            url : nikita
+        },
+        {
+            name: "Максим Дёмин",
+            speciality : "Backend–разработчик",
+            url : null
+        },
+        {
+            name: "Даниил Микитчук",
+            speciality : "Frontend–разработчик",
+            url : daniil
+        },
+        {
+            name: "Андрей Орлов",
+            speciality : "Frontend–разработчик",
+            url: andey
+        },
+    ]
 
     // Тригерры при скролле
     let isInView1 = false;
@@ -66,42 +115,19 @@
 
 
     
-    let command = [
-        {
-            name: "Николай Ковальчук",
-            speciality : "CEO Kewate",
-        },
-        {
-            name: "Никита Корчагин",
-            speciality : "Продуктовый дизайнер, Lead",
-        },
-        {
-            name: "Максим Дёмин",
-            speciality : "Backend–разработчик",
-        },
-        {
-            name: "Даниил Микитчук",
-            speciality : "Frontend–разработчик",
-        },
-        {
-            name: "Андрей Орлов",
-            speciality : "Frontend–разработчик",
-        },
-    ]
+    
+
 
     // Заявка 
-
     let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
-    let budgetSelected;
-    let form;
+    
 
     
     // Ширина экрана
 
-    let innerWidth;
-    let showModal
+    
 
-    let taglineBg 
+    // Жесткая смена фона
     $:  {
         if(innerWidth <= 700){
             taglineBg = tagline_bg_sm
@@ -111,11 +137,10 @@
     
 
     // Заголовки 
-
     let titleMap = {
         "landing-page" : "Разработаем Landing-page за 2 недели",
         "multi-page-website" : "Много&shyстраничный сайт для разных целей",
-        "online-store" : "Интернет-магазин поможет автоматизировать продажи"
+        "online-store" : "Интернет-магазин поможет автоматизи&shyровать продажи"
     }
 
     // Для карточки услуги
@@ -125,6 +150,7 @@
             name: "Landing-page",
             term : "2 недели",
             for: "Подойдёт для бизнеса, мероприятий и рекламы",
+            time : "Сайт будет готов через 2 недели",
             advantages : [
                 {
                     title: "Повышение продаж",
@@ -146,6 +172,7 @@
             name: "Много&shyстраничный сайт",
             term : "от 2 недель",
             for: "Подойдёт для бизнеса, мероприятий и рекламы",
+            time : "Сайт будет готов от 2 недель — в зависимости от сложности",
             advantages : [
                 {
                     title: "Размещение информации",
@@ -166,6 +193,7 @@
             name: "Интернет-магазин",
             term : "2 месяца",
             for: "Ключ к автоматизации бизнеса и повышению продаж",
+            time : "Сайт будет готов через 2 месяца",
             advantages : [
                 {
                     title: "Расширение географии продаж",
@@ -184,6 +212,7 @@
         }
     }
 
+    // Ебуче работает интерфейс
     // interface WebsiteInfo {
     //     name: string,
     //     term : string,
@@ -191,17 +220,15 @@
     //     advantages : Array<Object>,
     //     cost : Number
     // }
-    let render = false
-    onMount(()=>{
-        render = true
-    })
-
+    
+    // Смена контента
     let currentWebsiteData;
     $: currentWebsiteData = websiteContent[data.page];
+
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
-<ApplicationModalWindow bind:showModal/>
+<ApplicationModalWindow bind:showModal bg={data.images[1]} page={data.page}/>
 
 <svelte:head>
     <title>Главная</title>
@@ -311,7 +338,48 @@
             </div>
         </div>
     </section>
-
+    <section class="feedback light-background">
+        <div class="feedback_content">
+            <div class="feedback_title">
+                <h3 class="display3">Держим в курсе разработки</h3>
+                <div class="title_desc">
+                    <p class="main_sm_16 gray">Уделяем большое внимание контролю сроков</p>
+                    <p class="main_sm_16 gray">{currentWebsiteData?.time}</p>
+                </div>
+            </div>
+            {#if data.page == "landing-page"}
+                <LandingGrid />
+            {:else if data.page == "multi-page-website"}
+                <MultiPageGrid/>
+            {:else}
+                <OnlineStoreGrid/>
+            {/if}
+           
+        </div>
+        <div class="responsibility">
+            <h1 class="header1">У нас есть проектная ответст&shyвенность</h1>
+            <div class="responsibility_grid">
+                <div class="responsibility_block">
+                    <div class="responsibility_block_info">
+                        <h2 class="header2 total_black">Личный кабинет клиента</h2>
+                        <p class="main_sm_16 gray">Отличная замена личным сообщениям и звонкам. Доступ к процессу работы в реальном времени</p>
+                    </div>
+                </div>
+                <div class="responsibility_block">
+                    <div class="responsibility_block_info">
+                        <h2 class="header2">Доступ к проектному файлу</h2>
+                        <p class="main_sm_16 gray">Просмотр результатов работы и в Figma</p>
+                    </div>
+                </div>
+                <div class="responsibility_block">
+                    <div class="responsibility_block_info">
+                        <h2 class="header2">Мы на связи с 7:00 до 23:00</h2>
+                        <p class="main_sm_16 gray">А служба поддержки сайтов работает даже ночью =)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="website dark-background">
         <div class="website_content">
             <div class="website_title">
@@ -422,7 +490,7 @@
             {#each command  as person}
                 <div class="person_block">
                     <div class="image_block">
-                        
+                        <img src="{person.url ? person.url : " "}" alt="">
                     </div>
                     <div class="person_info">
                         <h3 class="header3 total_black">{person.name}</h3>
@@ -456,47 +524,53 @@
                 
             </div>       
         {/key}
-            <div class="modile_apps"
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
-            on:change={({ detail }) => {
-                isInView2 = detail.inView;
-            }}
-            >
-                {#each projects as project, index}
-                    
-                    {#if index !== 0}
-                        {#key isInView2}
-                            <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
-                                
-                                    <div class="img_box">
+            {#if innerWidth <= 600}
+                <ProjectSwiper {projects} />
+            {:else}
+                <div class="modile_apps"
+                use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
+                on:change={({ detail }) => {
+                    isInView2 = detail.inView;
+                }}
+                >
+                    {#each projects as project, index}
+                        
+                        {#if index !== 0}
+                            {#key isInView2}
+                                <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
+                                    
+                                        <div class="img_box">
 
-                                    </div>
-                                    <div class="app_info">
-                                        <div class="">
-                                            <h2 class="header2 total_black">{project.name}</h2>
                                         </div>
-                                        <div class="tags">
-                                            {#each project.tags as tag}
-                                                <div class="tag main_sm_14 total_black">
-                                                    {tag}
-                                                </div>
-                                            {/each}
+                                        <div class="app_info">
+                                            <div class="">
+                                                <h2 class="header2 total_black">{project.name}</h2>
+                                            </div>
+                                            <div class="tags">
+                                                {#each project.tags as tag}
+                                                    <div class="tag main_sm_14 total_black">
+                                                        {tag}
+                                                    </div>
+                                                {/each}
+                                            </div>
                                         </div>
-                                    </div>
-                                
-                            </div>
-                        {/key}
-                    {/if}
+                                    
+                                </div>
+                            {/key}
+                        {/if}
+                        
                     
+                    {/each}
+                </div>
+            {/if}
+            
                 
-                {/each}
-                
-            </div>
+            
         
     </section>
   
     <section class="swiper_section dark-background" >
-        <Swiper/>
+        <SwiperReviews/>
     </section>
     
     <section class="tg dark-background">
@@ -644,11 +718,13 @@
         height: 54vh;
         min-height: 700px;
         height: 100svh;
+        background-color: var(--Neutral_1000) !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background-repeat: no-repeat !important;
         background-size: cover !important;
+        background-position-x: 80% !important;
         position: relative;
         @media (max-width:800px) {
             padding: 24px 16px;
@@ -816,6 +892,27 @@
             line-height: 24px;
         }
     }
+    .person_block .image_block{
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .person_block .image_block img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        filter: grayscale(1);
+         
+    }
+    .person_block:nth-child(2) .image_block img{
+        transform: scale(2);  
+    }
+    .person_block:nth-child(4) .image_block img{
+        transform: scale(1.5);  
+    }
+    .person_block:nth-child(5) .image_block img{
+        transform: scale(1.3);
+        object-position: 50%;  
+    }
 
     /* Facts (Second section) */
 
@@ -976,7 +1073,7 @@
         margin: 0 auto;
         padding: 120px 50px;
         @media (max-width:700px) {
-            padding: 0 16px;
+            padding: 120px 16px;
         }
     }
     .working_grid{
@@ -1000,7 +1097,84 @@
         width: 100%;
     
     }
-    
+
+
+    /* Stages block */
+
+    .feedback{
+        margin: 0 auto;
+        background: #0A0A0A;
+        padding: 64px 0px;
+        @media (max-width:700px) {
+            padding: 0px 0 40px 0px;
+        }
+    }
+    .feedback_content{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 40px 50px;
+        @media (max-width:700px) {
+            padding: 40px 16px;
+        }
+    }
+    .responsibility{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 50px;
+        @media (max-width:700px) {
+            padding: 0 16px;
+        }
+    }
+    .responsibility_grid{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+        margin-top: 40px;
+        @media (max-width:800px) {
+            grid-template-columns: 1fr;
+        }
+    }
+    .responsibility_block{
+        padding: 20px;
+        display: flex;
+        align-items: end;
+        border-radius: 16px;
+        height: 190px;
+    }
+    .responsibility_block:not(:first-child){
+        background: #171717;
+    }
+    .responsibility_block:first-child{
+        grid-row: 1/3;
+        height: 400px;
+        background: #A1E5D1;
+    }
+    .responsibility_block p{
+        color: #737373;
+        margin-top: 12px;
+    }
+    .responsibility h1{
+        font-weight: 500;
+    }
+    .title_desc{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        @media (max-width:600px) {
+            flex-direction: column;
+            align-items: start;
+            row-gap: 16px;
+        }
+    }
+    .responsibility_block:first-child h2{
+        font-weight: 700;
+    }
+    .responsibility_block:not(:first-child) h2{
+        font-weight: 500;
+    }
+
+
     /* Website onfo block */
 
     .website{
@@ -1194,16 +1368,20 @@
         @media (max-width:1000px) {
             padding: 0 16px;
         }
+        @media (max-width:600px) {
+            padding: 0 0 0 16px;
+        }
     }
     .projects{
-        margin-top: 172px;
-        margin-bottom: 160px;
+        padding-top: 172px;
+        padding-bottom: 0px;
         max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
+        overflow: hidden;
         @media (max-width:800px) {
-            margin-top: 64px;
-            margin-bottom: 64px;
+            padding-top: 64px;
+            padding-bottom: 64px;
         }
     }
     .projects_grid{
@@ -1233,6 +1411,9 @@
         flex-direction: column;
         border-radius: 24px;
         display: flex;
+        @media (max-width:600px) {
+            margin-bottom: 64px;
+        }
         
     }
     .modile_apps{
@@ -1242,6 +1423,7 @@
         column-gap: 20px;
         row-gap: 40px;
         margin-bottom: 80px;
+        overflow-y: hidden;
         @media (max-width:900px) {
             display: flex;
             flex-direction: column;

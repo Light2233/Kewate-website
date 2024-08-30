@@ -8,18 +8,23 @@
     import object2 from "$lib/assets/object2.png"
     import object3 from "$lib/assets/object3.png"
     import object1 from "$lib/assets/object1.png"
+    import bgModal from "$lib/assets/application_modal_bg.png"
+
+    import andey from "$lib/assets/command/andrey.png"
+    import nikita from "$lib/assets/command/nikita.jfif"
+    import daniil from "$lib/assets/command/daniil.jfif"
+    import nikolayBig from "$lib/assets/command/nikolay.jfif"
 
 
     import Countup from "svelte-countup"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
-    import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
     
-    import { priceFormat } from "$lib/client/formarters"
-    import Swiper from "./Swiper.svelte"
+    import SwiperReviews from "./SwiperReviews.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
+    import ProjectSwiper from "./ProjectSwiper.svelte"
 
     export let data;
 
@@ -73,22 +78,27 @@
         {
             name: "Николай Ковальчук",
             speciality : "CEO Kewate",
+            url : nikolayBig
         },
         {
             name: "Никита Корчагин",
             speciality : "Продуктовый дизайнер, Lead",
+            url : nikita
         },
         {
             name: "Максим Дёмин",
             speciality : "Backend–разработчик",
+            url : null
         },
         {
             name: "Даниил Микитчук",
             speciality : "Frontend–разработчик",
+            url : daniil
         },
         {
             name: "Андрей Орлов",
             speciality : "Frontend–разработчик",
+            url: andey
         },
     ]
 
@@ -140,7 +150,7 @@
 </script>
 
 <svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
-<ApplicationModalWindow bind:showModal/>
+<ApplicationModalWindow bind:showModal bg={bgModal} page={'main'}/>
 
 <svelte:head>
     <title>Главная</title>
@@ -215,7 +225,7 @@
             {#each command  as person}
                 <div class="person_block">
                     <div class="image_block">
-                        
+                        <img src="{ person.url }" alt="">
                     </div>
                     <div class="person_info">
                         <h3 class="header3 total_black">{person.name}</h3>
@@ -274,7 +284,7 @@
             </div>
         </div>
     </section>
-    <section class="section_pd projects  dark-background" id="projects"
+    <section class="section_pd projects dark-background" id="projects"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView1 = detail.inView;
@@ -298,241 +308,50 @@
                 
             </div>       
         {/key}
-            <div class="modile_apps"
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
-            on:change={({ detail }) => {
-                isInView2 = detail.inView;
-            }}
-            >
-                {#each projects as project, index}
-                    
-                    {#if index !== 0}
-                        {#key isInView2}
-                            <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
-                                
-                                    <div class="img_box">
+            {#if innerWidth <= 600}
+                <ProjectSwiper {projects} />
+            {:else}
+                <div class="modile_apps"
+                use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
+                on:change={({ detail }) => {
+                    isInView2 = detail.inView;
+                }}
+                >
+                    {#each projects as project, index}
+                        
+                        {#if index !== 0}
+                            {#key isInView2}
+                                <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
+                                    
+                                        <div class="img_box">
 
-                                    </div>
-                                    <div class="app_info">
-                                        <div class="">
-                                            <h2 class="header2 total_black">{project.name}</h2>
                                         </div>
-                                        <div class="tags">
-                                            {#each project.tags as tag}
-                                                <div class="tag main_sm_14 total_black">
-                                                    {tag}
-                                                </div>
-                                            {/each}
+                                        <div class="app_info">
+                                            <div class="">
+                                                <h2 class="header2 total_black">{project.name}</h2>
+                                            </div>
+                                            <div class="tags">
+                                                {#each project.tags as tag}
+                                                    <div class="tag main_sm_14 total_black">
+                                                        {tag}
+                                                    </div>
+                                                {/each}
+                                            </div>
                                         </div>
-                                    </div>
-                                
-                            </div>
-                        {/key}
-                    {/if}
+                                    
+                                </div>
+                            {/key}
+                        {/if}
+                        
                     
+                    {/each}
+                </div>
+            {/if}
+            
                 
-                {/each}
-                
-            </div>
+            
         
     </section>
-    <!-- <section class="development_stages">
-        <div class="stages_title">
-            <p class="main_sm2 whiteop">ЭТАПЫ РАЗРАБОТКИ САЙТА</p>
-            <p class="header2">Уделяем внимание срокам разработки</p>
-        </div>
-        <div class="graph_div" use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
-        on:change={({ detail }) => {
-            isInView6 = detail.inView;
-        }}>
-            {#key isInView6}
-            <div class="first_stage stage">
-                <div class="graph" in:fade={{duration:750}} class:hidden={!isInView6}>
-                    <div class="time">
-                        <p class="main_sm2 gray">1 НЕДЕЛЯ</p>
-                    </div>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Исследование продукта</p>
-                        <p class="main_sm2 gray">Включение в разработку, планирование работ</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress_bar_head main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView6}>
-                        10%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:500}} class:hidden={!isInView6}><p class="main_sm2" >Обсуждение работ</p></div>
-                        
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:750}} class:hidden={!isInView6}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Разработка дизайна</p>
-                        <p class="main_sm2 gray">Утверждение концепции, подбор визуального стиля, разработка готового результата</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress30 progress_bar_head main_sm_medium white" in:fly={{duration:750,delay:1000}} class:hidden={!isInView6}>
-                        30%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:1000}} class:hidden={!isInView6}><p class="main_sm2">Утверждение дизайна</p></div>
-                        
-                    </div>
-                </div>
-            </div>
-            {/key}
-            <div class="second_stage stage"
-            use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-            on:change={({ detail }) => {
-                isInView7 = detail.inView;
-            }}
-            >
-                {#key isInView7}
-                <div class="graph" in:fade={{duration:750,delay:1500}} class:hidden={!isInView7}>
-                    <div class="time">
-                        <p class="main_sm2 gray">2 НЕДЕЛЯ</p>
-                    </div>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Разработка технической части</p>
-                        <p class="main_sm2 gray">Перенос дизайна в код, оптимизация сайта и настройка продвижения</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress_bar_head main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        30%
-                    </div>
-                    <div class="status_div status_center">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:1500}} class:hidden={!isInView7} ><p class="main_sm2">Утверждение вёрстки</p></div>
-                        
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:2000}} class:hidden={!isInView7}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Контрольное тестирование</p>
-                        <p class="main_sm2 gray">Проверка соответствия итоговой версии с макетом, поиск багов и недоработок</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress15 main_sm_medium white" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        15%
-                    </div>
-                    <div class="status_div">
-                    </div>
-                </div>
-                <div class="graph intermediate" in:fade={{duration:750,delay:2500}} class:hidden={!isInView7}>
-                    <div class="step"> 
-                        <p class="step_title main_sm_medium">Исправление ошибок</p>
-                        <p class="main_sm2 gray">Исправляем все найденные ошибки и доводим сайт до идеала</p>
-                        <hr class="border02">
-                    </div>
-                    <div class="progress_bar progress15 main_sm_medium white progress_end" in:fly={{duration:750}} class:hidden={!isInView7}>
-                        15%
-                    </div>
-                    <div class="status_div">
-                        <hr class="border03">
-                        <div class="status" in:fly={{duration:750,y:20,delay:2500}} class:hidden={!isInView7}><p class="main_sm2">Сдача проекта</p></div>
-                        
-                    </div>
-                </div>
-                {/key}
-            </div>
-        </div>
-        <div class="advantages">
-            <div class="advantage">
-                <p class="main_sm_medium">Всегда на связи</p>
-                <p class="main_sm2 gray">Отвечаем в любое время суток в Телеграме или по телефону</p>
-            </div>
-            <div class="line"></div>
-            <div class="advantage">
-                <p class="main_sm_medium">Регулярно показываем результат</p>
-                <p class="main_sm2 gray">Выходим на недельный спринт и показываем результат в конце недели</p>
-            </div>
-            <div class="line"></div>
-            <div class="advantage">
-                <p class="main_sm_medium">Прозрачная разработка</p>
-                <p class="main_sm2 gray">Предоставляем доступ ко всем рабочим файлам и исследованиям</p>
-            </div>
-        </div>
-    </section> -->
-    <!-- <section class="section_pd you_get"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-30%' }}
-    on:change={({ detail }) => {
-        isInView8 = detail.inView;
-    }}
-    >   
-        {#key isInView8}
-        <p class="header2" in:fly={{duration: 750,x:100}} class:hidden={!isInView8}>Резюмируем: в итоге, вы получаете</p>
-        {/key}
-        {#key isInView8}
-            <div class="standard" >
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:500}} class:hidden={!isInView8}>
-                    <p class="header3">Сайт на Javascript с адаптацией под все устройства</p>
-                    <p class="main_sm2 gray">Разработаем сайт так, чтобы он красиво выглядел как на компьютерах, так и на телефонах и планшетах</p>
-                </div>
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:1000}} class:hidden={!isInView8}>
-                    <p class="header3">Настроенную SEO оптимизацию и доступ к рекламному кабинету</p>
-                    <p class="main_sm2 gray">Мы всё настроим и покажем вам, как пользоваться рекламным кабинетом для продвижения сайта</p>
-                </div>
-                <div class="standard_item" in:fly={{duration: 750,y:100,delay:1500}} class:hidden={!isInView8}>
-                    <p class="header3">Возможность отредактировать сайт в любое время</p>
-                    <p class="main_sm2 gray">За небольшую доплату отредактируем любой раздел сайта. Если требуются регулярные изменения — есть ежемесячная подписка</p>
-                </div>
-            </div>
-        {/key}
-    </section> -->
-    <!-- <section class="websites section_pd"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-    on:change={({ detail }) => {
-        isInView9 = detail.inView;
-    }}
-    >   
-        {#key isInView9}
-        <p class="header2 white" in:fly={{duration:750,x:100}} class:hidden={!isInView9}>
-            Выберите сайт под разные нужды
-            <span class="title_promotion main_sm2 white" in:fade={{duration:750,delay:1500}} class:hidden={!isInView9}>
-                🔥 Получи скидку 5% за отзыв
-            </span>
-        </p>
-        {/key}
-        <div class="websites_table">
-            {#each websites as website,index}
-                {#key isInView9}
-                <div class="website" class:hidden={!isInView9} in:fly={{duration:750,x:100,delay:400+400*index}}>
-                    <div class="website_info">
-                        <p class="header3">{ website.name }</p>
-                        <p class="main_sm2 gray">{ website.desc }</p>
-                        <div class="functions">
-                            {#each website.functions as fun}
-                                <div class="function main_sm2_bold">
-                                    <img src="{ check_mark  }" alt="">
-                                    { fun.name }
-                                </div>
-                            {/each}
-                        </div>
-                    </div>
-                    <div class="website_end_content">
-                        <div class="promotion">
-                            <p class="main_sm2_bold">🔥 Оплата частями</p>
-                            <p class="gray">50 % до и 50% после</p>
-                        </div>
-                        <div class="price_div">
-                            <div class="price">
-                                <p class="header3">{website.name == "Многостраничный сайт" ? "от " : ""}{priceFormat(website.price ? website.price : website.oldprice)}</p>
-                                {#if website.price}
-                                    <p class="oldprice gray"><span></span>{priceFormat( website.oldprice) }</p>
-                                {/if}
-                            </div>
-                            <button>Заказать</button>
-                        </div>
-                    </div>
-                    
-                </div>
-                {/key}
-            {/each}
-            
-            
-        </div>
-    </section> -->
     <div class="services light-background" id="services">
         <div class="services_content">
             <div class="services_title">
@@ -576,7 +395,7 @@
         </div>
     </div>
     <section class="swiper_section dark-background" >
-        <Swiper/>
+        <SwiperReviews/>
     </section>
     
     <section class="tg dark-background">
@@ -678,6 +497,9 @@
 </main>
 
 <style lang="less">
+    :global(body){
+        background: #F5F5F5;
+    }
 
     .hidden{
         visibility: hidden;
@@ -1017,6 +839,27 @@
             line-height: 24px;
         }
     }
+    .person_block .image_block{
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .person_block .image_block img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        filter: grayscale(1);
+         
+    }
+    .person_block:nth-child(2) .image_block img{
+        transform: scale(2);  
+    }
+    .person_block:nth-child(4) .image_block img{
+        transform: scale(1.5);  
+    }
+    .person_block:nth-child(5) .image_block img{
+        transform: scale(1.3);
+        object-position: 50%;  
+    }
 
     /* Facts (Second section) */
 
@@ -1175,6 +1018,9 @@
         @media (max-width:1000px) {
             padding: 0 16px;
         }
+        @media (max-width:600px) {
+            padding: 0 0 0 16px;
+        }
     }
     .projects{
         padding-top: 172px;
@@ -1182,6 +1028,7 @@
         max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
+        overflow: hidden;
         @media (max-width:800px) {
             padding-top: 64px;
             padding-bottom: 64px;
@@ -1214,6 +1061,9 @@
         flex-direction: column;
         border-radius: 24px;
         display: flex;
+        @media (max-width:600px) {
+            margin-bottom: 64px;
+        }
         
     }
     .modile_apps{
@@ -1223,6 +1073,7 @@
         column-gap: 20px;
         row-gap: 40px;
         margin-bottom: 80px;
+        overflow-y: hidden;
         @media (max-width:900px) {
             display: flex;
             flex-direction: column;
