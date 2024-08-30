@@ -4,6 +4,7 @@
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import tick_circle from "$lib/assets/tick_circle.svg"
+    import add from "$lib/assets/add.svg"
 
     import andey from "$lib/assets/command/andrey.png"
     import nikita from "$lib/assets/command/nikita.jfif"
@@ -225,6 +226,46 @@
     let currentWebsiteData;
     $: currentWebsiteData = websiteContent[data.page];
 
+
+    // Открывашки по вопросам
+    let tabs = [
+        {
+            name:"Как проходит согласование проекта?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"На чём разрабатывается сайт?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"Используется ли авторский контент?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"Из чего складывается стоимость сайта?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"Как производится оплата работ?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"Можно ли будет редактировать сайт после разработки?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        },
+        {
+            name:"Будет ли техническая поддержка?",
+            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
+            open : false
+        }
+    ]
+
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -338,7 +379,12 @@
             </div>
         </div>
     </section>
-    <section class="feedback light-background">
+    <section class="feedback light-background"
+    use:inview={{ unobserveOnEnter: true, rootMargin: '-30%' }}
+    on:change={({ detail }) => {
+        isInView3 = detail.inView;
+    }}
+    >   
         <div class="feedback_content">
             <div class="feedback_title">
                 <h3 class="display3">Держим в курсе разработки</h3>
@@ -347,12 +393,14 @@
                     <p class="main_sm_16 gray">{currentWebsiteData?.time}</p>
                 </div>
             </div>
-            {#if data.page == "landing-page"}
-                <LandingGrid />
-            {:else if data.page == "multi-page-website"}
-                <MultiPageGrid/>
-            {:else}
-                <OnlineStoreGrid/>
+            {#if isInView3}
+                {#if data.page == "landing-page"}
+                    <LandingGrid />
+                {:else if data.page == "multi-page-website"}
+                    <MultiPageGrid/>
+                {:else}
+                    <OnlineStoreGrid/>
+                {/if}
             {/if}
            
         </div>
@@ -568,24 +616,27 @@
             
         
     </section>
-  
     <section class="swiper_section dark-background" >
         <SwiperReviews/>
     </section>
-    
-    <section class="tg dark-background">
-        <div class="tg_block_info">
-            <h3 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h3>
-            <div class="nikolay">
-                <div class="nikolay_image">
-                    <img src="{ nikolay }" alt="">
-                </div>
-                <h3 class="header3 total_black">Расскажет Николай Ковальчук <span class="gray"> — CEO Kewate</span></h3>
-            </div>
+    <section class="tabs">
+        <div class="tabs_title">
+            <h3 class="display3 total_black">Частые вопросы</h3>
         </div>
-        <a href="https://t.me/kewateru" class="tg_link" target="_blank">
-            <div href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</div>
-        </a>
+        <div class="tabs_block">
+            {#each tabs as tab}
+                <div class="tab">
+                    <button class="main_sm_16 total_black" on:click={()=>{tab.open = !tab.open}} >{tab.name}<img src="{ add }" alt="" class:tab_open={tab.open}></button>
+                    {#if tab.open}
+                        <div class="tab_content main_sm_16 total_black" transition:slide>
+                            {tab.content}
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+            
+          
+        </div>
     </section>
     <section class="application dark-background">
         <div class="ceo">
@@ -806,7 +857,6 @@
     }
 
     /* Command section */
-
     .image_block{
         width: 280px;
         height: 320px;
@@ -915,7 +965,6 @@
     }
 
     /* Facts (Second section) */
-
     .facts{
         overflow: hidden;
         background: #FFFFFF;
@@ -1067,7 +1116,6 @@
 
 
     /* working block */
-
     .working{
         max-width: 1280px;
         margin: 0 auto;
@@ -1100,7 +1148,6 @@
 
 
     /* Stages block */
-
     .feedback{
         margin: 0 auto;
         background: #0A0A0A;
@@ -1176,7 +1223,6 @@
 
 
     /* Website onfo block */
-
     .website{
         max-width: 1280px;
         margin: 0 auto;
@@ -1362,7 +1408,6 @@
     }
 
     /* Projects (Therd section) */
-
     .section_pd{
         padding: 0 50px;
         @media (max-width:1000px) {
@@ -1413,6 +1458,7 @@
         display: flex;
         @media (max-width:600px) {
             margin-bottom: 64px;
+            margin-right: 16px;
         }
         
     }
@@ -1498,7 +1544,6 @@
     }
 
     /* Tg block */
-
     .tg{
         max-width: 1280px;
         margin: 0 auto;
@@ -1555,8 +1600,64 @@
         object-fit: cover;
     }
 
-    /* Application */
+    /* Tabs block */
+    
 
+    .tabs{
+        display: flex;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 50px;
+        justify-content: space-between;
+        column-gap: 20px;
+        @media (max-width:1050px) {
+            flex-direction: column;
+            row-gap: 32px;
+        }
+        @media (max-width:700px) {
+            padding: 0 16px;
+        }
+        @media (max-width:500px) {
+            display: none;
+        }
+    }
+    .tabs_block{
+        display: flex;
+        flex-direction: column;
+        max-width: 580px;
+        width: 100%;
+        @media (max-width:1050px) {
+            max-width: 100%;
+        }
+    }
+    .tab{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .tab button{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0px;
+        border-bottom: 1px solid var(--Neutral_300);
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .tab button:hover{
+        border-bottom: 1px solid var(--Neutral_400);
+    }
+    .tab_content{
+        padding: 20px 0px;
+    }
+    .tab img{
+        width: 24px;
+    }
+    .tab_open{
+        rotate: 45deg;
+    }
+
+
+    /* Application */
     .application{
         max-width: 1280px;
         margin: 0 auto;
@@ -1570,7 +1671,7 @@
             flex-direction: column-reverse;
         }
         @media (max-width:700px) {
-            padding: 100px 16px;
+            padding: 0px 16px 120px 16px;
         }
     }
     .ceo{

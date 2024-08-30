@@ -1,32 +1,41 @@
 
 <script>
+    import {slide,fade} from "svelte/transition"
+    import { onMount } from "svelte"
 
-</script>
+    let render = false
+    onMount(()=>{
+        render = true
+    })
+ </script>
 
-<div class="gantt-chart-container">
-    <div class="columns">
-        {#each Array(4) as _, i}
-            <div class="column" style="left: {(i) * 384}px;" class:last_column={i==14}>
-                
-            </div>
-        {/each}
-        {#each Array(2) as _, i}
-            <div class="column" style="left: {(i) * 384*2}px;">
-                <div class="column-number">{ i+1 }</div>
-            </div>
-        {/each}
+
+{#if render}
+    <div class="gantt-chart-container">
+        <div class="columns">
+            {#each Array(4) as _, i}
+                <div class="column" style="left: {(i) * 384}px;" class:last_column={i==14}>
+                    
+                </div>
+            {/each}
+            {#each Array(2) as _, i}
+                <div class="column" style="left: {(i) * 384*2}px;">
+                    <div class="column-number">{ i+1 }</div>
+                </div>
+            {/each}
+        </div>
+        <div class="gantt-chart">
+            <div class="bar" in:slide={{axis:'x',duration:1000}}><p class="main_sm_16 total_black"in:fade={{duration:1000,delay:600}}>Исследование рынка</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1500,delay:500}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:600}}>Дизайн</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1000,delay:1000}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:1100}}>Утверждение и правки</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1000,delay:1500}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:1600}}>Разработка</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1000,delay:2000}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:2100}}>Утверждение и правки</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1000,delay:2500}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:2600}}>Настройка Seo</p></div>
+            <div class="bar" in:slide={{axis:'x',duration:1000,delay:3000}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:3100}}>Настройка сайта</p></div>
+            <div class="bar last" in:slide={{axis:'x',duration:1000,delay:3500}}><p class="main_sm_16 total_black" in:fade={{duration:1000,delay:3600}}>Сдача проекта</p></div>
+        </div>
     </div>
-    <div class="gantt-chart">
-        <div class="bar"><p class="main_sm_16 total_black">Исследование рынка</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Дизайн</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Утверждение и правки</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Разработка</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Утверждение и правки</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Настройка Seo</p></div>
-        <div class="bar"><p class="main_sm_16 total_black">Настройка сайта</p></div>
-        <div class="bar last"><p class="main_sm_16 total_black">Сдача проекта</p></div>
-    </div>
-</div>
+{/if}
 
 
 <style>
