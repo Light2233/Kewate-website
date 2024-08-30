@@ -74,7 +74,7 @@
                                     <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
                                     <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
                                 </div>
-                                <div class="digital_products link_ul">
+                                <!-- <div class="digital_products link_ul">
                                     <h3 class="header3">Цифровые продукты</h3>
                                     <a href="" class="main_sm_16 service_link">Веб-сервис<img src="{ arrow_up }" alt=""></a>
                                     <a href="" class="main_sm_16 service_link">Desktop-приложение<img src="{ arrow_up }" alt=""></a>
@@ -83,7 +83,7 @@
                                 <div class="other link_ul">
                                     <h3 class="header3">Другое</h3>
                                     <a href="" class="main_sm_16 service_link">Бот для мессенджера<img src="{ arrow_up }" alt=""></a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- <div class="design services_row">

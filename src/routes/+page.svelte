@@ -1,11 +1,7 @@
 <script lang="ts">
     import tagline_bg from "$lib/assets/tagline_bg.png"
     import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
-    import tagline_laptop from "$lib/assets/tagline_laptop.png"
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
-    import arrow_right from "$lib/assets/arrow_right.svg"
-    import k from "$lib/assets/k.svg"
-    import check_mark from "$lib/assets/check_mark.svg"
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import arrow_up from "$lib/assets/arrow_up.svg"
@@ -15,11 +11,12 @@
 
 
     import Countup from "svelte-countup"
-    import { priceFormat } from "$lib/client/formarters"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
+    
+    import { priceFormat } from "$lib/client/formarters"
     import Swiper from "./Swiper.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
@@ -58,6 +55,7 @@
 
 
     // Тригерры при скролле
+
     let isInView1 = false;
     let isInView2 = false;
     let isInView3 = false;
@@ -69,7 +67,8 @@
     let isInView9 = false
 
 
-    
+    //  Список команды
+
     let command = [
         {
             name: "Николай Ковальчук",
@@ -112,10 +111,35 @@
         }
         else taglineBg = tagline_bg
     }
+
+
+    // Контроль скрола 
+    
+    let scrollable = true;
+    $: if(showModal) scrollable=false;
+	
+	const wheel = (node, options) => {
+		let { scrollable } = options;
+		
+		const handler = e => {
+			if (!scrollable) e.preventDefault();
+		};
+		
+		node.addEventListener('wheel', handler, { passive: false });
+		
+		return {
+			update(options) {
+				scrollable = options.scrollable;
+			},
+			destroy() {
+				node.removeEventListener('wheel', handler, { passive: false });
+			}
+		};
+    };
     
 </script>
 
-<svelte:window bind:innerWidth={innerWidth}/>
+<svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
 <ApplicationModalWindow bind:showModal/>
 
 <svelte:head>
@@ -143,9 +167,9 @@
         <div class="tagline_map">
             <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
             <div class="map_links">
-                <a class="map_link main_sm_16" href="#services">Интернет-магазины</a>
-                <a class="map_link main_sm_16" href="#services">Лендинги</a>
-                <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a>
+                <a class="map_link main_sm_16" href="/pages/online-store">Интернет-магазины</a>
+                <a class="map_link main_sm_16" href="/pages/landing-page">Лендинги</a>
+                <!-- <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a> -->
             </div>
         </div>
     </section>
@@ -195,7 +219,7 @@
                     </div>
                     <div class="person_info">
                         <h3 class="header3 total_black">{person.name}</h3>
-                        <h3 class="main_sm_14 total_black op50">{person.speciality}</h3>
+                        <p class="main_sm_14 total_black op50">{person.speciality}</p>
                     </div>
                 </div>
             {/each}
@@ -231,18 +255,18 @@
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
                             <td class="empty"></td>
                             <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
-                                <Countup value={80} duration={3000} initial={0}/>
+                                <Countup value={80} duration={2000} initial={0}/>
                                 млн ₽</td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={0}/> лет </td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={1500} initial={0}/> лет </td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 white" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
                             <td class="empty"></td>
-                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3000} initial={0}/>+</td>
+                            <td class="display1" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={2500} initial={0}/>+</td>
                         </tr>
                     </tbody>
                 </table>
@@ -630,7 +654,7 @@
                     <div class="budget">
 
                         {#each budget as money ,index}
-                            <div class="budget_section" class:budget_selected={budgetSelected === money}>
+                            <div class="budget_section main_sm_16 total_black" class:budget_selected={budgetSelected === money}>
                                 <input type="radio" name="budget" value="{money}" bind:group={budgetSelected} required>
                                 {money}
                             </div>
@@ -685,7 +709,7 @@
         position: relative;
         height: 54vh;
         min-height: 700px;
-        height: 101dvh;
+        height: 100svh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -772,7 +796,7 @@
         max-width: 1280px;
         margin: 0 auto;
         @media (max-width:700px) {
-            padding: 0 16px;
+            padding: 80px 16px;
         }
     }
     .objectives{
@@ -933,7 +957,7 @@
             flex-direction: column;
         }
         @media (max-width:700px) {
-            padding: 100px 16px;
+            padding: 40px 16px;
         }
         
     }
@@ -964,6 +988,9 @@
         @media (max-width:900px) {
             grid-template-columns: repeat(2,1fr);
         }
+        @media (max-width:400px) {
+            gap: 24px 8px;
+        }
     }
     .person_block{
         display: flex;
@@ -972,11 +999,23 @@
         @media (max-width:900px) {
             align-items: center;
         }
+        @media (max-width:400px) {
+            row-gap: 16px;
+        }
     }
     .person_info{
         display: flex;
         flex-direction: column;
         row-gap: 5px;
+        @media (max-width:400px) {
+            row-gap: 12px;
+        }
+    }
+    .person_block h3{
+        @media (max-width:400px) {
+            font-size: 20px;
+            line-height: 24px;
+        }
     }
 
     /* Facts (Second section) */
@@ -995,10 +1034,16 @@
         @media (max-width:800px) {
             padding: 72px 16px;
         }
+        @media (max-width:400px) {
+            padding: 32px 16px;
+        }
         
     }
     table{
         margin-top: 72px;
+        @media (max-width:400px) {
+            margin-top: 0px;
+        }
     }
     .facts_content{
         max-width: 1280px;
@@ -1033,6 +1078,9 @@
         @media (max-width:800px) {
             flex-direction: column;
             row-gap: 20px;
+        }
+        @media (max-width:400px) {
+            row-gap: 16px;
         }
     }
     .more_details_link a{
@@ -1113,6 +1161,10 @@
             padding: 40px 0 40px 0px;
             row-gap: 40px;
         }
+        @media (max-width:400px) {
+            row-gap: 32px;
+            padding: 64px 0 64px 0px;
+        }
     }
 
 
@@ -1131,8 +1183,8 @@
         margin-left: auto;
         margin-right: auto;
         @media (max-width:800px) {
-            margin-top: 64px;
-            margin-bottom: 64px;
+            padding-top: 64px;
+            padding-bottom: 64px;
         }
     }
     .projects_grid{
@@ -1439,6 +1491,9 @@
         flex-direction: column;
         row-gap: 16px;
     }
+    .contacts a:hover{
+        opacity: 0.8;
+    }
     .contacts_div{
         @media (max-width:980px) {
             display: flex;
@@ -1476,7 +1531,7 @@
         }
     }
     .application_title h3{
-        margin-right: 15px;
+        margin-right: 10px;
     }
     .application_form{
         display: flex;
@@ -1500,7 +1555,7 @@
     .input_place{
         flex-grow: 3;
         display: flex;
-        column-gap: 20px;
+        column-gap: 28px;
         justify-content: space-between;
         @media (max-width:1250px) {
             width: 100%;
@@ -1519,8 +1574,13 @@
         flex-grow: 2;
         height: 100%;
         justify-content: end;
+        max-width: 590px;
         @media (max-width:1250px) {
             width: 100%;
+            max-width: 780px;
+        }
+        @media (max-width:980px) {
+            max-width: 100%;
         }
         @media (max-width:680px) {
             flex-direction: column;
@@ -1533,7 +1593,10 @@
         height: 100%;
         width: 100%;
         max-width: 144px;
-        padding: 16px;
+        display: flex;
+        height: 55px;
+        justify-content: center;
+        align-items: center;
         border-top: 1px solid var(--Neutral_300);
         border-bottom: 1px solid var(--Neutral_300);
         text-align: center;
@@ -1556,7 +1619,7 @@
         cursor: pointer;
     }
     .budget_section:first-child{
-        padding: 16px 16px 16px 25px;
+        padding: 0px 0px 0px 0px;
         border-radius: 12px 0px 0px 12px;
         border-left: 1px solid var(--Neutral_300);
         @media (max-width:680px) {
@@ -1565,7 +1628,7 @@
         }
     }
     .budget_section:last-child{
-        padding: 16px 25px 16px 16px;
+        padding: 0px 0px 0px 0px;
         border-radius:  0px 12px 12px 0px;
         border-right: 1px solid var(--Neutral_300);
         @media (max-width:680px) {
@@ -1581,6 +1644,7 @@
     .budget_selected{
         background: var(--Neutral_1000);
         color: white;
+        font-weight: 500;
     }
     .send_app{
         display: flex;

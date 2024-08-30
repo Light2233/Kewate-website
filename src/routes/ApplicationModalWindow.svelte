@@ -58,7 +58,7 @@
     </dialog>
 {/if}
 
-<style>
+<style lang="less">
     .total_black{
         color: var(--Neutral_1000);
     }
@@ -77,12 +77,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        
 	}
     .dialog_content{
         background-color: white;
-        max-width: 380px;
+        max-width: 390px;
         border-radius: 16px;
         padding: 8px;
+        margin: 0 16px;
+        @media (max-width:340px) {
+            padding: 4px;
+        }
     }
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.8);
@@ -149,24 +154,39 @@
         display: flex;
         flex-direction: column;
         justify-content: end;
-        row-gap: 12px;
+        row-gap: 16px;
         align-items: center;
         height: 100%;
-        padding: 12px;
+        padding: 16px;
+    }
+    .application_title p{
+        @media (max-width:340px) {
+            line-height: 15.6px;
+            font-weight: 500;
+        }
     }
     .application_title *{
         text-align: center;
     }
     form{
-        padding: 16px 16px 8px 16px;
+        padding: 16px 16px 16px 16px;
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        @media (max-width:340px) {
+            padding: 16px 8px 12px 8px;
+        }
+    }
+    form h4{
+        @media (max-width:340px) {
+            font-size: 12px;
+            line-height: 14.4px;
+        }
     }
     .input_place{
         display: flex;
         flex-direction: column;
-        row-gap: 12px;
+        row-gap: 11px;
     }
     input[type="text"]{
         background: var(--Neutral_100);

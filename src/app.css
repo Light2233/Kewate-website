@@ -36,10 +36,11 @@ button,input{
 }
 body{
     background: #FAFAFA;
+    scroll-behavior: smooth;
 }
 *{
     font-family: 'Manrope', sans-serif;
-    scroll-behavior: smooth;
+
 }
 
 /* Font */
@@ -66,7 +67,7 @@ body{
 
 .header1{
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 35.2px;
     color: var(--Neutral_100);
 }
@@ -78,7 +79,7 @@ body{
 }
 .header3{
     font-size: 20px;
-    font-weight:600;
+    font-weight:700;
     line-height: 24px;
     color: var(--Neutral_100);
 }
@@ -103,7 +104,7 @@ body{
 }
 .main_sm_14{
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 650;
     line-height: 18.2px;
     color: var(--Neutral_100);
 }

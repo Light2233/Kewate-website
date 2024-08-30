@@ -66,9 +66,9 @@
             headerRect.top < sectionRect.bottom
             ) {
             // Если хедер находится на секции, изменяем его стиль
-            if (section.classList.contains('light-background')) {
+            if (section.classList.contains('dark-background')) {
                 headerClass = "header_white"
-            } else if (section.classList.contains('dark-background')) {
+            } else if (section.classList.contains('light-background')) {
                 headerClass = "header_black"
             }
             else if(section.classList.contains('trans-background')){
@@ -80,18 +80,59 @@
 
         window.addEventListener('scroll', handleScroll);
 
-        // Очищаем обработчик при демонтировании компонента
         return () => window.removeEventListener('scroll', handleScroll);
     });
 
+    // Прокидываем ивент 
     function handleMessage(event) {
 		megaMenuOpen = false;
 	}
+
+
+    // Контроль скролла
+    let scrollable = true;
+    $: if(showModal || open) scrollable=false;
+        else scrollable = true
+	
+	const wheel = (node, options) => {
+		let { scrollable } = options;
+		
+		const handler = e => {
+			if (!scrollable) e.preventDefault();
+		};
+		
+		node.addEventListener('wheel', handler, { passive: false });
+		
+		return {
+			update(options) {
+				scrollable = options.scrollable;
+			},
+			destroy() {
+				node.removeEventListener('wheel', handler, { passive: false });
+			}
+		};
+    };
+
+
+    // Плавная прокрутка до якоря
+
+    function handleAnchorClick (event) {
+		event.preventDefault()
+		const link = event.currentTarget
+		const anchorId = new URL(link.href).hash.replace('#', '')
+		const anchor = document.getElementById(anchorId)
+		window.scrollTo({
+			top: anchor.offsetTop,
+			behavior: 'smooth'
+		})
+	}
+
+
    
     
 </script>
 
-<svelte:window bind:innerWidth={innerWidth}/>
+<svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
 
 {#if render}
     <ApplicationModalWindow bind:showModal data={data}/>
@@ -99,7 +140,7 @@
 {/if}
 <header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass}" >
     <div class="header_content" >
-        <a href="/" class="logo">
+        <a href="/" class="logo" on:click={()=>{megaMenuOpen = false}}>
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_30_422)">
                 <path d="M6.90885 7.77531C9.61777 6.18269 11.7757 5.11709 15.2208 3.71644M6.90885 7.77531C5.28222 5.02009 3.42718 2.80648 0.880371 1M6.90885 7.77531C6.90885 7.77531 10.7138 9.72597 15.2208 14.7499M6.90885 7.77531C4.00454 9.48288 -2.61564 14.7238 4.26795 14.7499C9.34449 14.7692 8.21118 9.98122 6.90885 7.77531Z" stroke="#292D32" stroke-width="2.5"/>
@@ -123,10 +164,10 @@
                     <path d="M6.00004 6.95276L0.467285 1.42027L1.46054 0.447266L6.00004 4.98652L10.5395 0.447266L11.5328 1.42027L6.00004 6.95276Z" fill="white"/>
                 </svg>
             </button>
-            <a href="#projects" class="nav_link">Проекты</a>
-            <a href="#command" class="nav_link">Команда</a>
-            <a href="#" class="nav_link">Контакты</a>
-            <a href="#" class="nav_link">О студии</a>
+            <a href="#projects" class="nav_link" on:click={handleAnchorClick }>Проекты</a>
+            <a href="#command" class="nav_link" on:click={handleAnchorClick }>Команда</a>
+            <a href="#" class="nav_link" on:click={handleAnchorClick }>Контакты</a>
+            <a href="#" class="nav_link" on:click={handleAnchorClick }>О студии</a>
         </nav>
         {#if innerWidth >600}
             <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
@@ -153,7 +194,7 @@
         </div>
         <div class="policy_block">
             <div class="policy">
-                <a href="#" class="main_sm_14 gray" style="text-decoration: underline;">Политика конфиденциальности</a>
+                <a href="/policy" class="main_sm_14 gray" style="text-decoration: underline;">Политика конфиденциальности</a>
                 <a href="#" class="main_sm_14 gray" style="text-decoration: underline;">Реквизиты и контакты</a>
             </div>
             <div class="contacts">
@@ -242,8 +283,6 @@
 
     footer{
         background-color: var(--Neutral_1000);
-        margin-top: 100px;
-
     }
     .kewate_info p:first-child{
         margin-bottom: 20px;
@@ -252,7 +291,6 @@
         margin-bottom: 4px;
     }
     .footer_content{
-        max-width: 1280px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;

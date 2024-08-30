@@ -6,7 +6,7 @@
     import review_person from "$lib/assets/а я думала сова оригинал.mp4"
     import rickroll from "$lib/assets/Rick Astley - Never Gonna Give You Up (Official Music Video).mp4"
     import arrow_right from "$lib/assets/arrow_right_swiper.svg"
-    import { afterUpdate, onMount } from 'svelte';
+    import { onMount } from 'svelte';
 
     import ReviewsVideoPlayer from './ReviewsVideoPlayer.svelte';
 

@@ -1,24 +1,24 @@
 <script lang="ts">
     import tagline_bg from "$lib/assets/tagline_bg.png"
     import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
-    import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
-    import arrow_right from "$lib/assets/arrow_right.svg"
-    import k from "$lib/assets/k.svg"
-    import check_mark from "$lib/assets/check_mark.svg"
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
-    import arrow_up from "$lib/assets/arrow_up.svg"
+    import tick_circle from "$lib/assets/tick_circle.svg"
 
-
+    
     import Countup from "svelte-countup"
-    import { priceFormat } from "$lib/client/formarters"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
-    import { quintOut } from 'svelte/easing';
     import { inview } from 'svelte-inview'
     import Swiper from "./../../Swiper.svelte"
+    import { onMount } from "svelte"
+
+
+    
+    import { priceFormat } from "$lib/client/formarters"
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./../../ApplicationModalWindow.svelte";
+    import WebsiteSwiper from "../../WebsiteSwiper.svelte"
 
     export let data;
 
@@ -52,7 +52,6 @@
         },     
     ]
     
-    console.log(data)
 
     // Тригерры при скролле
     let isInView1 = false;
@@ -114,22 +113,22 @@
     // Заголовки 
 
     let titleMap = {
-        "one-page-website" : "Разработаем Landing-page за 2 недели",
-        "multi-page-website" : "Многостраничный сайт для разных целей",
+        "landing-page" : "Разработаем Landing-page за 2 недели",
+        "multi-page-website" : "Много&shyстраничный сайт для разных целей",
         "online-store" : "Интернет-магазин поможет автоматизировать продажи"
     }
 
     // Для карточки услуги
 
     let websiteContent = {
-        "one-page-website" : {
+        "landing-page" : {
             name: "Landing-page",
             term : "2 недели",
             for: "Подойдёт для бизнеса, мероприятий и рекламы",
             advantages : [
                 {
-                    title: "Размещение информации",
-                    desc: "Разместите релевантную информацию о компании на сайте и расскажите аудитории о вашем деле"
+                    title: "Повышение продаж",
+                    desc: "Повышение конверсии и мотивация пользователей к совершению целевого действия с помощью фокуса на продукте"
                 },
                 {
                     title: "Сбор данных",
@@ -144,7 +143,7 @@
 
         },
         "multi-page-website" : {
-            name: "Многостраничный сайт",
+            name: "Много&shyстраничный сайт",
             term : "от 2 недель",
             for: "Подойдёт для бизнеса, мероприятий и рекламы",
             advantages : [
@@ -184,6 +183,21 @@
             cost : 150000
         }
     }
+
+    // interface WebsiteInfo {
+    //     name: string,
+    //     term : string,
+    //     for : string,
+    //     advantages : Array<Object>,
+    //     cost : Number
+    // }
+    let render = false
+    onMount(()=>{
+        render = true
+    })
+
+    let currentWebsiteData;
+    $: currentWebsiteData = websiteContent[data.page];
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -193,18 +207,24 @@
     <title>Главная</title>
 </svelte:head>
 
+{#key currentWebsiteData}
 <main class="main_content">
     <section class="tagline trans-background"
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView4 = detail.inView;
     }}
-    style="background-image: url({ taglineBg });background-repeat: no-repeat"
+    style="background: url({data.images[0]})"
     
     >
+        {#if data.page == "landing-page"}
+            <video autoplay muted loop id="myVideo">
+                <source src="{data.images[0]}" type="video/mp4">
+            </video>
+        {/if}
         {#key isInView4}
-            <div class="">
-                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >{titleMap[data.page]}</p>
+            <div class="tagline_info_bottom">
+                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >{@html titleMap[data.page]}</p>
                 {#if innerWidth < 600}
                     <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
                     <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
@@ -214,9 +234,9 @@
         <div class="tagline_map">
             <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
             <div class="map_links">
-                <a class="map_link main_sm_16" href="#services">Интернет-магазины</a>
-                <a class="map_link main_sm_16" href="#services">Лендинги</a>
-                <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a>
+                <a class="map_link main_sm_16" href="/pages/online-store    ">Интернет-магазины</a>
+                <a class="map_link main_sm_16" href="/pages/landing-page">Лендинги</a>
+                <!-- <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a> -->
             </div>
         </div>
     </section>
@@ -255,18 +275,18 @@
                             <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
                             <td class="empty"></td>
                             <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
-                                <Countup value={80} duration={3000} initial={0}/>
+                                <Countup value={80} duration={2000} initial={0}/>
                                 млн ₽</td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:500}} class:hidden={!isInView5}>Успешно создаём цифровые продукты</td>
                             <td class="empty"></td>
-                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={2000} initial={0}/> лет </td>
+                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1000}}> &#707; <Countup value={4} duration={1500} initial={0}/> лет </td>
                         </tr>
                         <tr>
                             <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:1000}} class:hidden={!isInView5}>Реализовали проектов</td>
                             <td class="empty"></td>
-                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={3500} initial={0}/>+</td>
+                            <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:1500}}><Countup value={100} duration={2000} initial={0}/>+</td>
                         </tr>
                     </tbody>
                 </table>
@@ -274,7 +294,7 @@
             </div>
         </div>
     </section>
-    <section class="working">
+    <section class="working dark-background">
         <h3 class="display3 total_black">Методы работы</h3>
         <div class="working_grid">
             <div class="method">
@@ -288,6 +308,106 @@
             <div class="method">
                 <h2 class="header2 total_black">Работаем без конструкторов</h2>
                 <p class="main_sm_16 gray" >Разрабатываем сайты на чистом коде, что делает его наиболее оптимизированным с возможностью внести любые правки</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="website dark-background">
+        <div class="website_content">
+            <div class="website_title">
+                <h3 class="display3 total_black">Разработаем сайт под ключ</h3>
+                <p class="main_sm_16 gray">Всё включено в стоимость</p>
+            </div>
+            <div class="website_info">
+                <div class="website_swiper">
+                    <WebsiteSwiper />
+                </div>
+                <div class="main_info">
+                    <div class="">
+                        <div class="website_name">
+                            <h1 class="header1 total_black">{@html currentWebsiteData?.name}</h1>
+                            <p class="main_sm_16 total_black">Срок разработки: {currentWebsiteData?.term}</p>
+                        </div>
+                        <div class="for">
+                            <p class="main_sm_16 gray">{currentWebsiteData?.for}</p>
+                        </div>
+                    </div>
+                    <div class="advantage_grid">
+                        {#each currentWebsiteData?.advantages as item}
+                            <div class="advantage">
+                                <h1 class="main_sm_16 total_black">{item.title}</h1>
+                                <p class="main_sm_16 gray">{item.desc}</p>
+                            </div>
+                        {/each}
+                    </div>
+                    <div class="cost_info">
+                        <h1 class="header1 total_black">{ priceFormat(currentWebsiteData?.cost)}</h1>
+                        <button class="main_sm_16 main_btn_black" on:click={()=>{showModal=true}}>Оставить заявку</button>
+                    </div>
+                </div>
+            </div>
+            <div class="included">
+                <h2 class="header2 total_black">Что входит в разработку?</h2>
+                <div class="blocks">
+                    <div class="included_block">
+                        <p class="main_sm_16 gray">Дизайн</p>
+                        <div class="">
+                            <img src="{ tick_circle  }" alt="">
+                            <p class="main_sm_16 total_black">Создание иллюстраций</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Анимация сайта</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Правки для достижения результата</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Адаптация под 3 устройства</p>
+                        </div>
+                    </div>
+                    <div class="included_block">
+                        <p class="main_sm_16 gray">Разработка</p>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Вывод сайта в полную готовность</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Оптимизация сайта</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Хостинг и домен в подарок</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Тех.поддержка сайта в течение месяца</p>
+                        </div>
+                    </div>
+                    <div class="included_block">
+                        <p class="main_sm_16 gray">Другое</p>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Консультация с юристом</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Подключение Яндекс Метрики</p>
+                        </div>
+                        <div class="">
+                           <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Подключение обратной связи</p>
+                        </div>
+                        <div class="">
+                            <img src=" { tick_circle} " alt="">
+                            <p class="main_sm_16 total_black">Настройка SEO</p>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
@@ -306,7 +426,7 @@
                     </div>
                     <div class="person_info">
                         <h3 class="header3 total_black">{person.name}</h3>
-                        <h3 class="main_sm_14 total_black op50">{person.speciality}</h3>
+                        <p class="main_sm_14 total_black op50">{person.speciality}</p>
                     </div>
                 </div>
             {/each}
@@ -390,7 +510,7 @@
             </div>
         </div>
         <a href="https://t.me/kewateru" class="tg_link" target="_blank">
-            <a href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</a>
+            <div href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</div>
         </a>
     </section>
     <section class="application dark-background">
@@ -454,7 +574,7 @@
                     <div class="budget">
 
                         {#each budget as money ,index}
-                            <div class="budget_section" class:budget_selected={budgetSelected === money}>
+                            <div class="budget_section main_sm_16 total_black" class:budget_selected={budgetSelected === money}>
                                 <input type="radio" name="budget" value="{money}" bind:group={budgetSelected} required>
                                 {money}
                             </div>
@@ -476,8 +596,12 @@
         </form>
     </section>
 </main>
+{/key}
 
 <style lang="less">
+    :global(body){
+        background: #F5F5F5;
+    }
 
     .hidden{
         visibility: hidden;
@@ -503,18 +627,29 @@
     .whiteop{
         color: #737373;
     }
+    #myVideo{
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        filter: brightness(0.64);
+    }
     .tagline{
         z-index: 2;
         padding: 68px 50px 48px 50px;
         position: relative;
         height: 54vh;
         min-height: 700px;
-        height: 101dvh;
+        height: 100svh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        position: relative;
         @media (max-width:800px) {
             padding: 24px 16px;
             min-height: unset;
@@ -528,6 +663,11 @@
         margin-top: 48px;
         @media (max-width:800px) {
             max-width: 100%;
+            margin-top: 48px;
+        }
+        @media (max-width:600px) {
+            max-width: 100%;
+            margin-top: 16px;
         }
     }
     .tagline_map{
@@ -568,18 +708,18 @@
         }
 
     }
-    .tagline div:first-child{
+    .tagline_info_bottom{
         display: flex;
         flex-direction: column;
         row-gap: 16px;
     }
-    .tagline div:first-child p{
+    .tagline_info_bottom p{
         @media (max-width:600px) {
             margin-top: 0; 
         }
         
     }
-    .tagline div:first-child button{
+    .tagline_info_bottom button{
         margin-left: 0;
     }
     .tagline .display2{
@@ -616,7 +756,7 @@
             flex-direction: column;
         }
         @media (max-width:700px) {
-            padding: 100px 16px;
+            padding: 40px 16px;
         }
         
     }
@@ -647,6 +787,9 @@
         @media (max-width:900px) {
             grid-template-columns: repeat(2,1fr);
         }
+        @media (max-width:400px) {
+            gap: 24px 8px;
+        }
     }
     .person_block{
         display: flex;
@@ -655,18 +798,30 @@
         @media (max-width:900px) {
             align-items: center;
         }
+        @media (max-width:400px) {
+            row-gap: 16px;
+        }
     }
     .person_info{
         display: flex;
         flex-direction: column;
         row-gap: 5px;
+        @media (max-width:400px) {
+            row-gap: 12px;
+        }
+    }
+    .person_block h3{
+        @media (max-width:400px) {
+            font-size: 20px;
+            line-height: 24px;
+        }
     }
 
     /* Facts (Second section) */
 
     .facts{
         overflow: hidden;
-        
+        background: #FFFFFF;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -677,10 +832,16 @@
         @media (max-width:800px) {
             padding: 72px 16px;
         }
+        @media (max-width:400px) {
+            padding: 32px 16px;
+        }
         
     }
     table{
         margin-top: 72px;
+        @media (max-width:400px) {
+            margin-top: 0px;
+        }
     }
     .facts_content{
         max-width: 1280px;
@@ -715,6 +876,9 @@
         @media (max-width:800px) {
             flex-direction: column;
             row-gap: 20px;
+        }
+        @media (max-width:400px) {
+            row-gap: 16px;
         }
     }
     .more_details_link a{
@@ -798,6 +962,10 @@
             padding: 40px 0 40px 0px;
             row-gap: 40px;
         }
+        @media (max-width:400px) {
+            row-gap: 32px;
+            padding: 64px 0 64px 0px;
+        }
     }
 
 
@@ -806,7 +974,7 @@
     .working{
         max-width: 1280px;
         margin: 0 auto;
-        padding: 0 50px;
+        padding: 120px 50px;
         @media (max-width:700px) {
             padding: 0 16px;
         }
@@ -831,6 +999,192 @@
         justify-content: space-between;
         width: 100%;
     
+    }
+    
+    /* Website onfo block */
+
+    .website{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 50px 50px;
+        @media (max-width:700px) {
+            padding: 50px 16px;
+        }
+
+    }
+    .website_title{
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        @media (max-width:1000px) {
+            align-items: start;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+    }
+    .website_info{
+        display: flex;
+        column-gap: 40px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 64px;
+        @media (max-width:1000px) {
+            flex-direction: column;
+            row-gap: 48px;
+            padding-bottom: 48px;
+        }
+
+    }
+    .main_info{
+        width: 100%;
+        max-width: 580px;
+        @media (max-width:1000px) {
+            max-width: 100%;
+        }
+    }
+    .website_swiper{
+        width: 100%;
+        max-width: 480px;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .website_name{
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 20px;
+        @media (max-width:1180px) {
+            flex-direction: column;
+            align-items: start;
+            row-gap: 8px;
+        }
+        @media (max-width:1000px) {
+            row-gap: 16px;
+        }
+    }
+    .cost_info h1{
+        @media (max-width:400px) {
+            font-size: 24px;
+            line-height: 26.4px;
+        }
+    }
+    .cost_info button{
+        @media (max-width:400px) {
+            font-size: 14px;
+            line-height: 15.4px;
+        }
+        @media (max-width:300px) {
+            margin-left: 0;
+        }
+    }
+    .advantage_grid{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        margin-top: 48px;
+        border-bottom: 1px solid var(--Neutral_300);
+        @media (max-width:1000px) {
+            margin-top: 32px;
+        }
+        @media (max-width:300px) {
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
+    .advantage{
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+    .advantage:first-child{
+        grid-column: 1/3;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--Neutral_300);
+        @media (max-width:1000px) {
+            padding-bottom: 16px;
+        }
+        @media (max-width:300px) {
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
+    .advantage:nth-child(2){
+        grid-column: 1/1;
+        padding-top: 20px;
+        padding-right: 20px;
+        border-right: 1px solid var(--Neutral_300);
+        padding-bottom: 20px;
+        @media (max-width:1000px) {
+           padding: 16px 16px 16px 0px;
+        }
+        @media (max-width:300px) {
+            grid-column: 1/1;
+            border-right: none;
+            border-bottom: 1px solid var(--Neutral_300);
+        }
+    }
+    .advantage:last-child{
+        grid-column: 2/2;
+        padding-top: 20px;
+        padding-right: 40px;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        @media (max-width:1000px) {
+           padding: 16px 0px 16px 16px;
+        }
+        @media (max-width:300px) {
+            grid-column: 1/1;
+            padding-left: 0;
+        }
+    }
+    .advantage h1{
+        font-weight: 700;
+    }
+    .cost_info{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        @media (max-width:300px) {
+            flex-direction: column;
+            align-items: start;
+            row-gap: 16px;
+        }
+    }
+    .included{
+        padding-top: 64px;
+        border-top: 1px solid var(--Neutral_300);
+        @media (max-width:1000px) {
+            padding-top: 48px;
+        }
+    }
+    .included_block img{
+        width: 24px;
+        height: 24px;
+    }
+    .included_block{
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+        flex-grow: 1;
+    }
+    .included_block div{
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        
+    }
+    .blocks{
+        display: flex;
+        justify-content: space-between;
+        column-gap: 20px;
+        margin-top: 24px;
+        @media (max-width:1000px) {
+           flex-direction: column;
+           row-gap: 20px;
+        }
+        
+    }
+    .included_block p:first-child{
+        margin-bottom: 4px;
     }
 
     /* Projects (Therd section) */
@@ -1111,7 +1465,7 @@
         }
     }
     .application_title h3{
-        margin-right: 15px;
+        margin-right: 10px;
     }
     .application_form{
         display: flex;
@@ -1135,7 +1489,7 @@
     .input_place{
         flex-grow: 3;
         display: flex;
-        column-gap: 20px;
+        column-gap: 29px;
         justify-content: space-between;
         @media (max-width:1250px) {
             width: 100%;
@@ -1154,8 +1508,13 @@
         flex-grow: 2;
         height: 100%;
         justify-content: end;
+        max-width: 590px;
         @media (max-width:1250px) {
             width: 100%;
+            max-width: 780px;
+        }
+        @media (max-width:980px) {
+            max-width: 100%;
         }
         @media (max-width:680px) {
             flex-direction: column;
@@ -1168,7 +1527,10 @@
         height: 100%;
         width: 100%;
         max-width: 144px;
-        padding: 16px;
+        display: flex;
+        height: 55px;
+        justify-content: center;
+        align-items: center;
         border-top: 1px solid var(--Neutral_300);
         border-bottom: 1px solid var(--Neutral_300);
         text-align: center;
@@ -1191,7 +1553,7 @@
         cursor: pointer;
     }
     .budget_section:first-child{
-        padding: 16px 16px 16px 25px;
+        padding: 0px 0px 0px 0px;
         border-radius: 12px 0px 0px 12px;
         border-left: 1px solid var(--Neutral_300);
         @media (max-width:680px) {
@@ -1200,7 +1562,7 @@
         }
     }
     .budget_section:last-child{
-        padding: 16px 25px 16px 16px;
+        padding: 0px 0px 0px 0px;
         border-radius:  0px 12px 12px 0px;
         border-right: 1px solid var(--Neutral_300);
         @media (max-width:680px) {
@@ -1216,6 +1578,7 @@
     .budget_selected{
         background: var(--Neutral_1000);
         color: white;
+        font-weight: 500;
     }
     .send_app{
         display: flex;
