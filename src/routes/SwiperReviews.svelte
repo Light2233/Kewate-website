@@ -112,7 +112,7 @@
         </Swiper>
         {#if innerWidth < 750}
             <div class="dds"></div>
-        {/if}z  
+        {/if}
     {/if}
 
 
