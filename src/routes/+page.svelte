@@ -161,12 +161,11 @@
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView4 = detail.inView;
-    }}
-    style="background-image: url({ taglineBg });background-repeat: no-repeat"
-    
+    }} 
     >
+        <img src="{taglineBg}" alt="">
         {#key isInView4}
-            <div class="">
+            <div class="tagline_info_bottom">
                 <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей<br> — прибыль для бизнеса</p>
                 {#if innerWidth < 600}
                     <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
@@ -535,8 +534,10 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background:  
+            linear-gradient(0deg, #0A0A0A, #0A0A0A),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%),
+            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%);;
         @media (max-width:800px) {
             padding: 24px 16px;
             min-height: unset;
@@ -550,6 +551,10 @@
         margin-top: 48px;
         @media (max-width:800px) {
             max-width: 100%;
+        }
+        @media (max-width:600px) {
+            max-width: 100%;
+            margin-top: 16px;
         }
     }
     .tagline_map{
@@ -575,6 +580,16 @@
             column-gap: 8px;
             flex-wrap: wrap;
         }
+    }
+    .tagline img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        object-fit: cover;
+        object-position: 80%;
     }
     .map_link{
         background: #0A0A0A52;
@@ -602,6 +617,20 @@
         
     }
     .tagline div:first-child button{
+        margin-left: 0;
+    }
+    .tagline_info_bottom{
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+    }
+    .tagline_info_bottom p{
+        @media (max-width:600px) {
+            margin-top: 0; 
+        }
+        
+    }
+    .tagline_info_bottom button{
         margin-left: 0;
     }
     .tagline .display2{
@@ -920,10 +949,8 @@
         margin-top: 32px;
         @media (max-width:800px) {
             flex-direction: column;
-            row-gap: 20px;
-        }
-        @media (max-width:400px) {
-            row-gap: 16px;
+            row-gap: 32px;
+            margin-top: 16px;
         }
     }
     .more_details_link a{

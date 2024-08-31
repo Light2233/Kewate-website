@@ -68,7 +68,7 @@
             const sectionRect = section.getBoundingClientRect();
             
             if (
-            headerRect.bottom > sectionRect.top && 
+            headerRect.bottom > sectionRect.top+10 && 
             headerRect.top < sectionRect.bottom
             ) {
             // Если хедер находится на секции, изменяем его стиль
@@ -208,7 +208,7 @@
 </header>
 
 
-{#if waiting}
+<!-- {#if waiting}
 <div class="loading_page" out:fly={{duration:1000}} >
     <div class="load">
         <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -229,7 +229,7 @@
         <h1 class="total_black"><Countup value={100} duration={1500} initial={0}/> %</h1>
     </div>
 </div>
-{/if}
+{/if} -->
 
 
 <slot/>
@@ -352,6 +352,9 @@
         padding: 6px 0px;
         cursor: pointer;
         
+    }
+    .nav_link:hover{
+        opacity: 0.8;
     }
     .nav_link:first-child {
         display: flex;

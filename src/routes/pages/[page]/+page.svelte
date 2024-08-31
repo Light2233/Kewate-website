@@ -166,8 +166,8 @@
                     desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
                 }
             ],
-            cost : 60000
-
+            cost : 60000,
+            taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна"
         },
         "multi-page-website" : {
             name: "Много&shyстраничный сайт",
@@ -188,7 +188,8 @@
                     desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
                 }
             ],
-            cost : 80000
+            cost : 80000,
+            taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна"
         },
         "online-store" : {
             name: "Интернет-магазин",
@@ -209,7 +210,8 @@
                     desc: "Позволит расширить охват и привлечь внимание целевой аудитории"
                 }
             ],
-            cost : 150000
+            cost : 150000,
+            taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна"
         }
     }
 
@@ -281,26 +283,27 @@
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView4 = detail.inView;
-    }}
-    style="background: url({data.images[0]})"
-    
+    }}    
     >
+
         {#if data.page == "landing-page"}
             <video autoplay muted loop id="myVideo">
-                <source src="{data.images[0]}" type="video/mp4">
+                <source src="{data.images[0]}" type="video/mp4" >
             </video>
+        {:else}
+            <img src="{data.images[0]}" alt="">
         {/if}
         {#key isInView4}
             <div class="tagline_info_bottom">
                 <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >{@html titleMap[data.page]}</p>
                 {#if innerWidth < 600}
-                    <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
+                    <p class="main_sm_16">{currentWebsiteData?.taglineDesc}</p>
                     <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
                 {/if}
             </div>
         {/key}
         <div class="tagline_map">
-            <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
+            <p class="main_sm_16">{currentWebsiteData?.taglineDesc}</p>
             <div class="map_links">
                 <a class="map_link main_sm_16" href="/pages/online-store    ">Интернет-магазины</a>
                 <a class="map_link main_sm_16" href="/pages/landing-page">Лендинги</a>
@@ -343,7 +346,7 @@
                             <td class="main_sm_16 total_black" in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>За всё время работы принесли прибыли клиентам</td>
                             <td class="empty"></td>
                             <td class="display1 total_black" class:hidden={!isInView5} in:fly={{duration: 750,x:100,delay:500}}>
-                                <Countup value={80} duration={2000} initial={0}/>
+                                <Countup value={80} duration={1500} initial={0}/>
                                 млн ₽</td>
                         </tr>
                         <tr>
@@ -626,7 +629,7 @@
         <div class="tabs_block">
             {#each tabs as tab}
                 <div class="tab">
-                    <button class="main_sm_16 total_black" on:click={()=>{tab.open = !tab.open}} >{tab.name}<img src="{ add }" alt="" class:tab_open={tab.open}></button>
+                    <button class="main_sm_16 total_black" on:click={()=>{tab.open = !tab.open}} >{tab.name}<div class="cross" class:tab_open={tab.open}></div></button>
                     {#if tab.open}
                         <div class="tab_content main_sm_16 total_black" transition:slide>
                             {tab.content}
@@ -769,13 +772,14 @@
         height: 54vh;
         min-height: 700px;
         height: 100svh;
-        background-color: var(--Neutral_1000) !important;
+        background:  
+            linear-gradient(0deg, #0A0A0A, #0A0A0A),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%),
+            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%);
         display: flex;
+        
         flex-direction: column;
         justify-content: space-between;
-        background-repeat: no-repeat !important;
-        background-size: cover !important;
-        background-position-x: 80% !important;
         position: relative;
         @media (max-width:800px) {
             padding: 24px 16px;
@@ -783,6 +787,20 @@
         }
         @media (max-width:600px){
             flex-direction: column-reverse;
+        }
+    }
+    .tagline img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        
+        z-index: -1;
+        @media (max-width:600px) {
+            object-position: 55%;
+            scale: crop;
         }
     }
     .tagline p:not(.tagline_map p){
@@ -825,7 +843,7 @@
         background: #0A0A0A52;
         backdrop-filter: blur(10px);
         padding: 16px;
-
+        line-height: 17.6px;
         width: fit-content;
         border-radius: 24px;
         @media (max-width:600px){
@@ -1357,6 +1375,7 @@
     }
     .advantage h1{
         font-weight: 700;
+        letter-spacing:normal
     }
     .cost_info{
         display: flex;
@@ -1513,6 +1532,7 @@
         @media (max-width:600px) {
             padding: 5px 8px;
         }
+        font-weight: 500;
     }
     .app_info .header3{
         @media (max-width:900px) {
@@ -1601,8 +1621,6 @@
     }
 
     /* Tabs block */
-    
-
     .tabs{
         display: flex;
         max-width: 1280px;
@@ -1652,11 +1670,9 @@
     .tab img{
         width: 24px;
     }
-    .tab_open{
-        rotate: 45deg;
-    }
 
-
+    
+    
     /* Application */
     .application{
         max-width: 1280px;
@@ -1671,7 +1687,7 @@
             flex-direction: column-reverse;
         }
         @media (max-width:700px) {
-            padding: 0px 16px 120px 16px;
+            padding: 64px 16px 120px 16px;
         }
     }
     .ceo{

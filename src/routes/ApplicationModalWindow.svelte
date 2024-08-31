@@ -13,8 +13,6 @@
 
     export let bg
     export let page  = ''
-    console.log(page)
-
 
 </script>
 
@@ -29,7 +27,7 @@
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="dialog_content">
             
-            <div class="image_block">
+            <div class="image_block" class:min_height={page!="/"}>
                 <img src="{ bg }" alt="">
                 <div class="application_title">
                     <h2 class="header2">{page == "/" ? "Давайте обсудим задачу" : "Оставить заявку"}</h2>
@@ -60,6 +58,7 @@
 {/if}
 
 <style lang="less">
+    
     .total_black{
         color: var(--Neutral_1000);
     }
@@ -200,5 +199,8 @@
     form button{
         margin-left: 0;
         margin-top: 12px;
+    }
+    .min_height{
+        max-height: 162px;
     }
 </style>

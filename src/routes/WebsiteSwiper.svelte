@@ -121,9 +121,7 @@
         justify-content: space-between;
         bottom: 0;
         column-gap: 12px;
-        @media (max-width:750px) {
-            display: none;
-        }
+
     }
     .swiper_btn button{
         cursor: pointer;
