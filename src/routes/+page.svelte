@@ -10,6 +10,9 @@
     import object1 from "$lib/assets/object1.png"
     import bgModal from "$lib/assets/application_modal_bg.png"
 
+    import bg1 from "$lib/assets/taglines/tagline1_bg.png"
+    import laptop from "$lib/assets/taglines/tagline1_laptop.png"
+
     import andey from "$lib/assets/command/andrey.png"
     import nikita from "$lib/assets/command/nikita.jfif"
     import daniil from "$lib/assets/command/daniil.jfif"
@@ -161,9 +164,13 @@
     use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
     on:change={({ detail }) => {
         isInView4 = detail.inView;
-    }} 
+    }}
     >
-        <img src="{taglineBg}" alt="">
+        <div class="image-bg">
+        </div>
+        
+        <img src="{bg1}" alt="" class="bg1">
+        <img src="{laptop}" alt="" class="laptop">
         {#key isInView4}
             <div class="tagline_info_bottom">
                 <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей<br> — прибыль для бизнеса</p>
@@ -534,10 +541,11 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background:  
-            linear-gradient(0deg, #0A0A0A, #0A0A0A),
-            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%),
-            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%);;
+        overflow: hidden;
+        background-image: 
+            linear-gradient(162.05deg, rgba(10, 10, 10, 0.64) 28.53%, rgba(10, 10, 10, 0) 51.19%),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%);
+
         @media (max-width:800px) {
             padding: 24px 16px;
             min-height: unset;
@@ -561,6 +569,7 @@
         display: flex;
         justify-content: space-between;
         align-items: end;
+        z-index: 3;
         @media (max-width:600px){
             margin-top: 45px;
         }
@@ -587,9 +596,44 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: -1;
         object-fit: cover;
-        object-position: 80%;
+    }
+    .bg1{
+        object-position: 20%;
+    }
+    .laptop{
+        object-fit: cover !important;
+        width: 100% !important;
+        height: 130% !important;
+        top: -3% !important;
+        right: -18% !important;
+        left: unset !important;
+        @media (max-width:670px) {
+            height: 60% !important;
+            top: 25% !important;
+            right: -10% !important;
+            width: 100% !important;
+            left: 0 !important;
+
+        }
+    }
+    .image-bg{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background:
+            linear-gradient(162.05deg, rgba(10, 10, 10, 0.64) 28.53%, rgba(10, 10, 10, 0) 51.19%),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%);
+        @media (max-width:600px) {
+            background: 
+            linear-gradient(168.16deg, rgba(10, 10, 10, 0.8) 13.23%, rgba(10, 10, 10, 0) 56.01%),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.8) 28.08%, rgba(10, 10, 10, 0) 53.93%);
+
+        }
+
     }
     .map_link{
         background: #0A0A0A52;
@@ -623,6 +667,7 @@
         display: flex;
         flex-direction: column;
         row-gap: 16px;
+        z-index: 3;
     }
     .tagline_info_bottom p{
         @media (max-width:600px) {

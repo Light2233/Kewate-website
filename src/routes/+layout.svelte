@@ -6,9 +6,6 @@
 
     import { onMount } from 'svelte'
     import { slide,fly } from 'svelte/transition'
-    import Countup from "svelte-countup"
-    import { draw } from 'svelte/transition';
-    import { quintOut } from 'svelte/easing';
 
     import ModileMenuModal from './ModileMenuModal.svelte'
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
@@ -31,11 +28,6 @@
     let headerClass = "header_trans";
     let waiting = true
 
-    //  Рендер
-    onMount(()=>{
-        showModal = false;
-        render= true;
-    })
 
     // Реакция на отправку формы
     $: if($isSubmit){
@@ -56,36 +48,38 @@
             
         }
     }
-
+    
     
     // Смена цвета хиддера при скролле 
     onMount(() => {
-    function handleScroll() {
-        const headerRect = header.getBoundingClientRect();
-        const sections = document.querySelectorAll('.light-background, .dark-background,.trans-background');
-        
-        sections.forEach(section => {
-            const sectionRect = section.getBoundingClientRect();
+        showModal = false;
+        render= true;
+        function handleScroll() {
+            const headerRect = header.getBoundingClientRect();
+            const sections = document.querySelectorAll('.light-background, .dark-background,.trans-background');
             
-            if (
-            headerRect.bottom > sectionRect.top+10 && 
-            headerRect.top < sectionRect.bottom
-            ) {
-            // Если хедер находится на секции, изменяем его стиль
-            if (section.classList.contains('dark-background')) {
-                headerClass = "header_white"
-            } else if (section.classList.contains('light-background')) {
-                headerClass = "header_black"
-            }
-            else if(section.classList.contains('trans-background')){
-                headerClass = "header_trans"
-            }
-            }
-        });
+            sections.forEach(section => {
+                const sectionRect = section.getBoundingClientRect();
+                
+                if (
+                (headerRect.bottom - 10) > (sectionRect.top+20) && 
+                headerRect.top < sectionRect.bottom
+                ) {
+                // Если хедер находится на секции, изменяем его стиль
+                if (section.classList.contains('dark-background')) {
+                    headerClass = "header_white"
+                } else if (section.classList.contains('light-background')) {
+                    headerClass = "header_black"
+                }
+                else if(section.classList.contains('trans-background')){
+                    headerClass = "header_trans"
+                }
+                }
+            });
         }
 
         window.addEventListener('scroll', handleScroll);
-
+        
         return () => window.removeEventListener('scroll', handleScroll);
     });
 
@@ -98,7 +92,7 @@
 
     // Контроль скролла
     let scrollable = true;
-    $: if(showModal || open || waiting) scrollable=false;
+    $: if(showModal || open) scrollable=false;
         else scrollable = true
 	
 	const wheel = (node, options) => {
@@ -133,19 +127,19 @@
 		})
 	}
 
-    // Ожидание загрузки
-    async function wait() {
+    //Ожидание загрузки
+    // async function wait() {
 
-        let promise = new Promise((resolve) =>{
-            setTimeout(()=>resolve(false),2000)
-        })
-        let result = await promise;
-        return result
-    }
+    //     let promise = new Promise((resolve) =>{
+    //         setTimeout(()=>resolve(false),2000)
+    //     })
+    //     let result = await promise;
+    //     return result
+    // }
 
-    onMount(async ()=>{
-        waiting = await wait();
-    })
+    // onMount(async ()=>{
+    //     waiting = await wait();
+    // })
 
    
     
@@ -162,9 +156,9 @@
     <ModileMenuModal bind:open/>
 {/if}
 
-<header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass}" >
+<header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass} header_trans" >
     <div class="header_content" >
-        <a href="/" class="logo" on:click={()=>{megaMenuOpen = false}}>
+        <a href="/" class="logo" on:click={()=>{megaMenuOpen = false,headerClass = "header_trans"}}>
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
                 <g clip-path="url(#clip0_30_422)" >
                     <path  d="M6.90885 7.77531C9.61777 6.18269 11.7757 5.11709 15.2208 3.71644M6.90885 7.77531C5.28222 5.02009 3.42718 2.80648 0.880371 1M6.90885 7.77531C6.90885 7.77531 10.7138 9.72597 15.2208 14.7499M6.90885 7.77531C4.00454 9.48288 -2.61564 14.7238 4.26795 14.7499C9.34449 14.7692 8.21118 9.98122 6.90885 7.77531Z" stroke="#292D32" stroke-width="2.5" />

@@ -68,12 +68,14 @@ simulateTouch={false}
         display: flex;
         column-gap: 8px;
         margin-top: 12px;
+        
     }
     .tag{
         padding: 8px 12px;
         border: 1px solid var(--Neutral_400);
         border-radius: 24px;
         line-height: 16.8px;
+        font-weight: 500;
         @media (max-width:600px) {
             padding: 5px 8px;
         }

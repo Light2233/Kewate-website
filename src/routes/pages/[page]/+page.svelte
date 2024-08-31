@@ -284,14 +284,17 @@
     on:change={({ detail }) => {
         isInView4 = detail.inView;
     }}    
-    >
+    >   
 
+        <div class="image-bg2" class:image-bg1={data.page != "multi-page-website"} class:image-bg2={data.page == "multi-page-website"}>
+        </div>
         {#if data.page == "landing-page"}
             <video autoplay muted loop id="myVideo">
                 <source src="{data.images[0]}" type="video/mp4" >
             </video>
         {:else}
-            <img src="{data.images[0]}" alt="">
+            <img src="{data.images[0]}" alt="" class:bg1={data.page == "multi-page-website" } class:bg2={data.page == "online-store" }>
+            <img src="{data.images[2]}" alt="" class:laptop={data.page == "multi-page-website"} class:laptop2={data.page == "online-store"}>
         {/if}
         {#key isInView4}
             <div class="tagline_info_bottom">
@@ -757,27 +760,49 @@
     }
     #myVideo{
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -10%;
+        right: -45%;
         object-fit: cover;
         z-index: -1;
-        width: 100%;
-        height: 100%;
-        filter: brightness(0.64);
+        height: 160%;
+        @media (max-width:900px) {
+            height: 130%;
+            width: 150%;
+            top: 10%;
+            right: -40%;
+        }
+        @media (max-width:600px) {
+            height: 130%;
+            width: 150%;
+            top: -20%;
+            right: -50%;
+        }
+        @media (max-width:400px) {
+            height: 90%;
+            width: unset;
+            top: 0;
+            right: -80%;
+        }
+        @media (max-width:300px) {
+            height: 90%;
+            width: unset;
+            top: 0;
+            right: -110%;
+        }
     }
     .tagline{
+        background:  
+            linear-gradient(0deg, #0A0A0A, #0A0A0A),
+            linear-gradient(360deg, rgb(10, 10, 10) 50%, rgba(10, 10, 10, 0.719) 53.93%),
+            linear-gradient(180deg, rgba(10, 10, 10, 1) 100%, rgb(10, 10, 10) 100.5%);
+        display: flex; 
         z-index: 2;
         padding: 68px 50px 48px 50px;
         position: relative;
         height: 54vh;
         min-height: 700px;
+        overflow: hidden;
         height: 100svh;
-        background:  
-            linear-gradient(0deg, #0A0A0A, #0A0A0A),
-            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%),
-            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%);
-        display: flex;
-        
         flex-direction: column;
         justify-content: space-between;
         position: relative;
@@ -790,19 +815,103 @@
         }
     }
     .tagline img{
+        width: 100%;
+        height: 100%;
         position: absolute;
+        object-fit: cover;
+    }
+    
+    .bg1{
+        object-position: 20%;
+        top: 0;
+        left: 0;
+    }
+    .laptop{
+        object-fit: contain !important;
+        width: 115% !important;
+        height: 115vh !important;
+        top: 12% !important;
+        right: -32% !important;
+        @media (max-width:900px) {
+            right: -30% !important;
+            height: 100% !important;
+            top: 20% !important;
+            width: 100% !important;
+        }
+       @media (max-width:600px) {
+            height: 100% !important;
+            width: 150% !important;
+            top: 0% !important;
+            right: -60% !important;
+        } 
+        @media (max-width:400px) {
+            width: 200% !important;
+            right: -100% !important;
+        }
+    }
+
+    .bg2{
+        object-position: 20%;
+        top: 0;
+        left: 0;
+        filter: grayscale(1);
+    }
+    .laptop2{
+        object-fit: contain !important;
+        width: 115% !important;
+        height: 115vh !important;
+        top: 7% !important;
+        right: -35% !important;
+
+        @media (max-width:600px) {
+            top: 0 !important;
+            height: 90vh !important;
+            width: unset !important;
+            right: -90% !important;
+        }
+        @media (max-width:340px) {
+            right: -100% !important;
+        } 
+        @media (max-width:320px) {
+            right: -120% !important;
+        } 
+    }
+
+    .image-bg1{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;    
+        background: 
+            linear-gradient(162.05deg, rgba(10, 10, 10, 0.64) 28.53%, rgba(10, 10, 10, 0) 51.19%),
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%);
+        @media (max-width:600px) {
+            background: 
+                linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%),
+                linear-gradient(0deg, #0A0A0A 20.08%, rgba(10, 10, 10, 0) 53.93%);
+        }
+
+    }
+    .image-bg2{
+        position: absolute;
+        z-index: 1;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        object-fit: cover;
-        
-        z-index: -1;
+        background:
+            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%),
+            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%);
         @media (max-width:600px) {
-            object-position: 55%;
-            scale: crop;
+            background: 
+            linear-gradient(180deg, rgba(10, 10, 10, 0.64) 0%, rgba(10, 10, 10, 0) 46.5%),
+            linear-gradient(0deg, #0A0A0A 20.08%, rgba(10, 10, 10, 0) 53.93%)
         }
+
     }
+
     .tagline p:not(.tagline_map p){
         max-width: 75%;
         margin-top: 48px;
@@ -819,6 +928,7 @@
         display: flex;
         justify-content: space-between;
         align-items: end;
+        z-index: 3;
         @media (max-width:600px){
             margin-top: 45px;
         }
@@ -857,6 +967,7 @@
         display: flex;
         flex-direction: column;
         row-gap: 16px;
+        z-index: 3;
     }
     .tagline_info_bottom p{
         @media (max-width:600px) {
