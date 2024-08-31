@@ -15,6 +15,7 @@
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import MegaMenu from './MegaMenu.svelte'
     import modalBg from '$lib/assets/application_modal_bg.png'
+    import favicon from '$lib/assets/ICO_kewate.ico'
 
     export let data;
 
@@ -149,6 +150,10 @@
    
     
 </script>
+
+<svelte:head>
+    <link rel="icon" href={favicon} type="image/x-icon" />
+</svelte:head>
 
 <svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
 
