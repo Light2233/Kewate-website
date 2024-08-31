@@ -186,6 +186,22 @@ body{
     justify-content: space-between;
 }
 
+
+
+
+header .logo svg g path:not(path:first-child){
+    fill:  var(--Neutral_100) !important;
+}
+header .logo svg g path:first-child{
+    stroke:  var(--Neutral_100) !important;
+}
+.header_white .logo svg g path:not(path:first-child){
+    fill:  var(--Neutral_1000) !important;
+}
+.header_white .logo svg g path:first-child{
+    stroke:  var(--Neutral_1000) !important;
+}
+
 @media (max-width:500px) {
     .header2{
         font-size: 20px;

@@ -1063,6 +1063,7 @@
         display: flex;
         @media (max-width:600px) {
             margin-bottom: 64px;
+            margin-right: 16pxтз;
         }
         
     }
