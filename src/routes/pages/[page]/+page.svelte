@@ -277,7 +277,7 @@
         <div class="image-bg2" class:image-bg1={data.page != "multi-page-website"} class:image-bg2={data.page == "multi-page-website"}>
         </div>
         {#if data.page == "landing-page"}
-            <video autoplay muted loop id="myVideo" preload="none" >
+            <video id="myVideo" preload="none" autoplay loop muted playsinline webkit-playinginline>
                 <source src="{data.images[0]}" type='video/mp4;codecs="avc1.42E01E, mp4a.40.2,h264'>
                 <source src="{data.images[0]}" type='video/webm;codecs="vp8, vorbis"'> 
             </video>

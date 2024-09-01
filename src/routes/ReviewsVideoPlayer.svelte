@@ -66,7 +66,8 @@
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <div class="video" class:video_active={!paused} class:video_paused={paused} >
-    <video on:mouseup={handleMouseup} bind:paused src="{url}" poster={previewVideo} bind:currentTime={time} on:mousedown={handleMousedown} bind:this={video} volume="0.2" on:click|once={()=>{startVideo=true}}>
+    <video on:mouseup={handleMouseup} bind:paused poster={previewVideo} bind:currentTime={time} on:mousedown={handleMousedown} bind:this={video} volume="0.2" on:click|once={()=>{startVideo=true}}>
+        <source src="{url}" type="video/mp4" >
         <script>
             var video = document.currentScript.parentElement;
             video.volume = 0.1;
