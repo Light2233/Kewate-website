@@ -277,8 +277,9 @@
         <div class="image-bg2" class:image-bg1={data.page != "multi-page-website"} class:image-bg2={data.page == "multi-page-website"}>
         </div>
         {#if data.page == "landing-page"}
-            <video autoplay muted loop id="myVideo" preload="metadata">
-                <source src="{data.images[0]}" type="video/mp4" >
+            <video autoplay muted loop id="myVideo" preload="none" >
+                <source src="{data.images[0]}" type='video/mp4;codecs="avc1.42E01E, mp4a.40.2,h264'>
+                <source src="{data.images[0]}" type='video/webm;codecs="vp8, vorbis"'> 
             </video>
         {:else}
             <img src="{data.images[0]}" alt="" class:bg1={data.page == "multi-page-website" } class:bg2={data.page == "online-store" }>
