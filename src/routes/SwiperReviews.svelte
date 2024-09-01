@@ -4,7 +4,6 @@
     import 'swiper/css';
     import 'swiper/css/pagination';
     import review_person from "$lib/assets/а я думала сова оригинал.mp4"
-    import rickroll from "$lib/assets/Rick Astley - Never Gonna Give You Up (Official Music Video).mp4"
     import arrow_right from "$lib/assets/arrow_right_swiper.svg"
     import { onMount } from 'svelte';
 
@@ -22,18 +21,18 @@
             name:"DA&BR",
             personName:"Павел Калашников",
             desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
-            url:rickroll
+            url:review_person
         },
         {
             name:"DA&BR",
             personName:"Павел Калашников",
             desc:"Коллеги! Хотел бы вам порекомендовать компанию Kewate. В частности разработку сайтов, потому-что мы сами заказали у них сайт и остались довольны. На текущий момент мы и дальше будем продолжать с ними сотрудничать, а также заказывать дизайн-поддержку для наших активностей.",
-            url:rickroll
+            url:review_person
         },
     ]
     let slideCnt = 1;
     let innerWidth;
-    let swiper = false
+    let swiper = false  
     onMount(()=>{
         if(innerWidth>900){
             slideCnt = 1.7

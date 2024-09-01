@@ -49,11 +49,12 @@
         }
     }
     
-    
+    let scrollY;
     // Смена цвета хиддера при скролле 
     onMount(() => {
         showModal = false;
         render= true;
+        scrollY = 0.2   ;
         function handleScroll() {
             const headerRect = header.getBoundingClientRect();
             const sections = document.querySelectorAll('.light-background, .dark-background,.trans-background');
@@ -149,14 +150,14 @@
     <link rel="icon" href={favicon} type="image/x-icon" />
 </svelte:head>
 
-<svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
+<svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}} bind:scrollY={scrollY}/>
 
 {#if render}
     <ApplicationModalWindow bind:showModal data={data} bg={modalBg} page={"/"}/>
     <ModileMenuModal bind:open/>
 {/if}
 
-<header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass} header_trans" >
+<header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass}" >
     <div class="header_content" >
         <a href="/" class="logo" on:click={()=>{megaMenuOpen = false,headerClass = "header_trans"}}>
             <svg width="92" height="16" viewBox="0 0 92 16" fill="none" xmlns="http://www.w3.org/2000/svg" >

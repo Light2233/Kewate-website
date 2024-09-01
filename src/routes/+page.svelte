@@ -1,16 +1,14 @@
 <script lang="ts">
-    import tagline_bg from "$lib/assets/tagline_bg.png"
-    import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import arrow_up from "$lib/assets/arrow_up.svg"
-    import object2 from "$lib/assets/object2.png"
-    import object3 from "$lib/assets/object3.png"
-    import object1 from "$lib/assets/object1.png"
+    import object2 from "$lib/assets/object2.webp"
+    import object3 from "$lib/assets/object3.webp"
+    import object1 from "$lib/assets/object1.webp"
     import bgModal from "$lib/assets/application_modal_bg.png"
 
-    import bg1 from "$lib/assets/taglines/tagline1_bg.png"
+    import bg1 from "$lib/assets/taglines/tagline1_bg.webp"
     import laptop from "$lib/assets/taglines/tagline1_laptop.png"
 
     import andey from "$lib/assets/command/andrey.png"
@@ -113,18 +111,8 @@
 
     
     // Ширина экрана
-
     let innerWidth;
     let showModal
-
-    let taglineBg 
-    $:  {
-        if(innerWidth <= 700){
-            taglineBg = tagline_bg_sm
-        }
-        else taglineBg = tagline_bg
-    }
-
 
     // Контроль скрола 
     

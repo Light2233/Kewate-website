@@ -1,7 +1,4 @@
 <script lang="ts">
-    import tagline_bg from "$lib/assets/tagline_bg.png"
-    import tagline_bg_sm from "$lib/assets/tagline_bg_sm.png"
-    import nikolay from "$lib/assets/nikolay.png"
     import nikolay_big from "$lib/assets/nikolay_big.png"
     import tick_circle from "$lib/assets/tick_circle.svg"
     import add from "$lib/assets/add.svg"
@@ -126,15 +123,6 @@
     
     // Ширина экрана
 
-    
-
-    // Жесткая смена фона
-    $:  {
-        if(innerWidth <= 700){
-            taglineBg = tagline_bg_sm
-        }
-        else taglineBg = tagline_bg
-    }
     
 
     // Заголовки 
@@ -289,7 +277,7 @@
         <div class="image-bg2" class:image-bg1={data.page != "multi-page-website"} class:image-bg2={data.page == "multi-page-website"}>
         </div>
         {#if data.page == "landing-page"}
-            <video autoplay muted loop id="myVideo">
+            <video autoplay muted loop id="myVideo" preload="metadata">
                 <source src="{data.images[0]}" type="video/mp4" >
             </video>
         {:else}
