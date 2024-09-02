@@ -256,6 +256,8 @@
         }
     ]
 
+    let videoBg
+
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
@@ -277,7 +279,7 @@
         <div class="image-bg2" class:image-bg1={data.page != "multi-page-website"} class:image-bg2={data.page == "multi-page-website"}>
         </div>
         {#if data.page == "landing-page"}
-            <video id="myVideo" preload="none" autoplay loop muted playsinline webkit-playinginline>
+            <video id="myVideo" preload="none" autoplay loop muted playsinline webkit-playinginline bind:this={videoBg}>
                 <source src="{data.images[0]}" type='video/mp4;codecs="avc1.42E01E, mp4a.40.2,h264'>
                 <source src="{data.images[0]}" type='video/webm;codecs="vp8, vorbis"'> 
             </video>
@@ -399,7 +401,7 @@
             {/if}
            
         </div>
-        <div class="responsibility">
+        <!-- <div class="responsibility">
             <h1 class="header1">У нас есть проектная ответст&shyвенность</h1>
             <div class="responsibility_grid">
                 <div class="responsibility_block">
@@ -421,7 +423,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
     <section class="website dark-background">
         <div class="website_content">
@@ -1010,7 +1012,7 @@
         flex-direction: column;
         justify-content: space-between;
         position: sticky;
-        top: 64px;
+        top: 128px;
         @media (max-width:1180px) {
             height: fit-content;
             row-gap: 5px;
@@ -1277,9 +1279,9 @@
     .feedback_content{
         max-width: 1280px;
         margin: 0 auto;
-        padding: 40px 50px;
+        padding: 40px 50px 0 50px;
         @media (max-width:700px) {
-            padding: 40px 16px;
+            padding: 40px 16px 0px 16px;
         }
     }
     .responsibility{
@@ -1316,7 +1318,11 @@
     }
     .responsibility_block p{
         color: #737373;
-        margin-top: 12px;
+        margin-top: 6px;
+        font-weight: 500;
+    }
+    .responsibility_block h2{
+        font-weight: 500;
     }
     .responsibility h1{
         font-weight: 500;
@@ -1770,8 +1776,42 @@
     .tab img{
         width: 24px;
     }
-
-    
+    .cross {
+        position: relative;
+        width: 13.5px;
+        height: 13.5px;
+        cursor: pointer;
+        
+        &.tab_open {
+            &:before {
+                transform: translatey(-50%) rotate(-90deg);
+                opacity: 0;
+            }
+            &:after {
+                transform: translatey(-50%) rotate(0);
+            }
+        }
+        
+        &:before , &:after {
+            content: "";
+            display: block;
+            background-color: #333;
+            position: absolute;		
+            top: 50%; left: 0;
+            transition: .35s;
+            width: 100%;
+            height: 2px;
+        }
+        
+        &:before {		
+            transform: translatey(-50%);
+        }
+        
+        &:after {
+            transform: translatey(-50%) rotate(90deg);
+        }
+        
+    }    
     
     /* Application */
     .application{

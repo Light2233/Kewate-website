@@ -126,10 +126,13 @@
         cursor: pointer;
     }
     .image_block{
-        height: 187px;
+        height: 179px;
         border-radius: 12px;
         overflow: hidden;
         position: relative;
+        @media (max-width:400px) {
+            height: 170px;
+        }
         
     }
     .image_block img:not(.close){
@@ -154,7 +157,7 @@
         display: flex;
         flex-direction: column;
         justify-content: end;
-        row-gap: 16px;
+        row-gap: 2px;
         align-items: center;
         height: 100%;
         padding: 16px;
