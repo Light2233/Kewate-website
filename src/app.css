@@ -153,7 +153,7 @@ body{
 
 
 .main_btn_white{
-    background: var(--Neutral_100);
+    background: #FFFFFF;
     border-radius: 12px;
     padding: 12px 16px;
     color: var(--Neutral_900);
@@ -170,6 +170,18 @@ body{
     cursor: pointer;
     line-height: 17.6px;
     margin-left: 16px;
+}
+.main_btn_black:hover{
+    background: #171717;
+}
+.main_btn_black:active{
+    background: #525252;
+}
+.main_btn_white:hover{
+    background: #FAFAFA;
+}
+.main_btn_white:active{
+    background: #F5F5F5;
 }
 .total_black{
     color: var(--Neutral_1000);

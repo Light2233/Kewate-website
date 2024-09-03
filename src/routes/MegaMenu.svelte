@@ -26,9 +26,9 @@
     <nav transition:slide class:black={color!="header_white"} class:white={color=="header_white"}> 
         <div class="nav_block">
             <h3 class="header3 total_black">Веб-сайты</h3>
-            <a href="/pages/landing-page" class="main_sm_16 service_link total_black" on:click={linkClick} >Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
-            <a href="/pages/multi-page-website" class="main_sm_16 service_link total_black" on:click={linkClick}>Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
-            <a href="/pages/online-store" class="main_sm_16 service_link total_black" on:click={linkClick}>Интернет-магазин <img src="{ arrow_up }" alt=""></a>
+            <a href="/landing" class="main_sm_16 service_link total_black" on:click={linkClick} >Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
+            <a href="/multi-page" class="main_sm_16 service_link total_black" on:click={linkClick}>Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
+            <a href="/store" class="main_sm_16 service_link total_black" on:click={linkClick}>Интернет-магазин <img src="{ arrow_up }" alt=""></a>
         </div>
         <!-- <div class="nav_block">
             <h3 class="header3 total_black">Цифровые продукты</h3>

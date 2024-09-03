@@ -1,18 +1,27 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
+    import { imask } from '@imask/svelte';
 
     import close from "$lib/assets/close.svg"
     import { isSubmit } from "$lib/client/PostApplicationStore"
-    
-    export let showModal = false;
-    export let data;
-    let dialog
 
-    let form
+    export let data;
+    
+    export let bg: string;
+    export let page : string  = '';
+    export let showModal : boolean = false;
+
+    let dialog: HTMLDialogElement;
+
+    let form : HTMLFormElement
 	$: if (dialog && showModal) dialog.showModal();
 
-    export let bg
-    export let page  = ''
+
+
+    
+    import { options } from "$lib/client/formarters"
+    
+    let value : string = '';
 
 </script>
 
@@ -49,7 +58,7 @@
                 </div>
                 <div class="input_place">
                     <h4 class="header4 total_black">Телефон</h4>
-                    <input type="text" name="phone" placeholder="+7 (900) 000–00–00" required>
+                    <input type="text" name="phone" placeholder="+7 (900) 000–00–00" required bind:value={value} use:imask={options}>
                 </div>
                 <button type="submit"  class="main_sm_16 main_btn_black">Оставить заявку</button>
             </form>

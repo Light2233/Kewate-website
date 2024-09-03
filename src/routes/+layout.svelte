@@ -26,7 +26,6 @@
     let megaMenuOpen= false;
     let header;
     let headerClass = "header_trans";
-    let waiting = true
 
 
     // Реакция на отправку формы
@@ -190,7 +189,7 @@
             <a href="/" class="nav_link">О студии</a>
         </nav>
         {#if innerWidth >600}
-            <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
+            <button class="main_sm_16 " class:main_btn_black={headerClass == "header_white"}  class:main_btn_white={headerClass != "header_white"} on:click={()=>{showModal=true}}>Обсудить задачу</button>
         {:else}
             <button class="burger_menu" on:click={()=>{open = true}}>
                 <div class="line1"></div>
@@ -253,7 +252,7 @@
 
 {#if alert}
     <div class="post_application" transition:slide>
-        <p class="main_sm_16">Заявка успешно отправлена — мы перезвоним Вам в течение дня</p>
+        <p class="main_sm_16" style="text-align: center;">Заявка успешно отправлена — мы перезвоним Вам в течение дня</p>
     </div>
 {/if}
 
@@ -465,10 +464,6 @@
     }
     .header_trans{
         background: transparent;
-    }
-    .header_white .main_btn_white{
-        color: white;
-        background: var(--Neutral_1000);
     }
     
     .black{

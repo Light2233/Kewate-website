@@ -11,10 +11,11 @@
     import bg1 from "$lib/assets/taglines/tagline1_bg.webp"
     import laptop from "$lib/assets/taglines/tagline1_laptop.png"
 
-    import andey from "$lib/assets/command/andrey.png"
+    import andey from "$lib/assets/command/andrey.webp"
     import nikita from "$lib/assets/command/nikita.jfif"
     import daniil from "$lib/assets/command/daniil.jfif"
-    import nikolayBig from "$lib/assets/command/nikolay.jfif"
+    import nikolayBig from "$lib/assets/command/nikolay.webp"
+    import maxim from "$lib/assets/command/maxim.webp"
 
 
     import Countup from "svelte-countup"
@@ -31,7 +32,13 @@
 
     // Список проектов
 
-    let projects = [
+    interface Project{
+        id: number,
+        name: string,
+        tags: string[]
+    }
+
+    let projects : Array<Project> = [
         {
             id:1,
             name: "Manuspect — сервис для анализа продаж",
@@ -67,15 +74,17 @@
     let isInView3 = false;
     let isInView4 = false
     let isInView5 = false
-    let isInView6 = false
-    let isInView7 = false
-    let isInView8 = false
-    let isInView9 = false
+
+
+    interface Person{
+        name: string,
+        speciality: string,
+        url: string
+    }
 
 
     //  Список команды
-
-    let command = [
+    let command : Array<Person> = [
         {
             name: "Николай Ковальчук",
             speciality : "CEO Kewate",
@@ -89,7 +98,7 @@
         {
             name: "Максим Дёмин",
             speciality : "Backend–разработчик",
-            url : null
+            url : maxim
         },
         {
             name: "Даниил Микитчук",
@@ -105,18 +114,18 @@
 
     // Заявка 
 
-    let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
-    let budgetSelected;
-    let form;
+    let budget = ["До 50 тыс. ₽", "50 – 200 тыс. ₽", "200 – 500 тыс. ₽", "от 500 тыс. ₽"];
+    let budgetSelected : string;
+    let form : HTMLFormElement;
 
     
     // Ширина экрана
-    let innerWidth;
-    let showModal
+    let innerWidth : number;
+    let showModal : boolean
 
     // Контроль скрола 
     
-    let scrollable = true;
+    let scrollable : boolean = true;
     $: if(showModal) scrollable=false;
 	
 	const wheel = (node, options) => {
@@ -137,6 +146,17 @@
 			}
 		};
     };
+
+
+
+    // Маска масконосец
+
+    import { imask } from '@imask/svelte';
+    const options = {
+            mask: '{+7} (000) 000-00-00',
+            lazy: true
+        };
+    let value = '';
     
 </script>
 
@@ -173,7 +193,7 @@
             <div class="map_links">
                 <a class="map_link main_sm_16" href="/pages/online-store">Интернет-магазины</a>
                 <a class="map_link main_sm_16" href="/pages/landing-page">Лендинги</a>
-                <!-- <a class="map_link main_sm_16" href="#services">UI/UX дизайн</a> -->
+                <a class="map_link main_sm_16" href="/pages/multi-page-website">Многостраничный сайт</a>
             </div>
         </div>
     </section>
@@ -358,7 +378,7 @@
                     <div class="map">
                         <div class="websites link_ul">
                             <h3 class="header3">Веб-сайты</h3>
-                            <a href="" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
+                            <a href="/landin" class="main_sm_16 service_link">Одностраничный сайт<img src="{ arrow_up }" alt=""></a>
                             <a href="" class="main_sm_16 service_link">Многостраничный сайт <img src="{ arrow_up }" alt=""></a>
                             <a href="" class="main_sm_16 service_link">Интернет-магазин<img src="{ arrow_up }" alt=""></a>
                         </div>
@@ -454,7 +474,7 @@
                     <div class="input_place">
                         <div class="">
                             <h4 class="header4 total_black">Телефон</h4>
-                            <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required>
+                            <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required bind:value={value} use:imask={options}>
                         </div>
                         <div class="">
                             <h4 class="header4 total_black">E-mail</h4>
@@ -908,9 +928,7 @@
     .person_block .image_block img{
         object-fit: cover;
         width: 100%;
-        height: 100%;
-        filter: grayscale(1);
-         
+        height: 100%; 
     }
     .person_block:nth-child(2) .image_block img{
         transform: scale(2);  
