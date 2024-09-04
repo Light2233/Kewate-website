@@ -1,6 +1,7 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
     import { imask } from '@imask/svelte';
+    import notificationStore from "$lib/client/notificationStore"
 
     import close from "$lib/assets/close.svg"
     import { isSubmit } from "$lib/client/PostApplicationStore"
@@ -15,6 +16,29 @@
 
     let form : HTMLFormElement
 	$: if (dialog && showModal) dialog.showModal();
+
+    const sendApp = async () => {
+        var formData = new FormData(form);
+        var data = Object.fromEntries(formData);
+
+        const response = await fetch("/api/sendApp", {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        const jsonResponse : {
+            success: boolean,
+            message?: string
+        } = await response.json();
+
+        $notificationStore.success = jsonResponse.success;
+        $notificationStore.message = jsonResponse.message;
+        $notificationStore.show = true;
+        form.reset()
+    }
 
 
 
@@ -44,7 +68,7 @@
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
-            <form action="?/sendApp" method="post" use:enhance bind:this={form} on:submit={()=>{$isSubmit = true;dialog.close();showModal=false}}>
+            <form method="post" on:submit|preventDefault={sendApp} bind:this={form}>
                 <input type="hidden" name="page" value="Главная">
                 <input type="hidden" name="source" value="Модальное окно в хидере">
                 <input type="hidden" name="utm" value="{JSON.stringify(data?.utm)}">

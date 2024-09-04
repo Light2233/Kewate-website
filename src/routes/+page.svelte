@@ -1,7 +1,7 @@
 <script lang="ts">
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
     import nikolay from "$lib/assets/nikolay.png"
-    import nikolay_big from "$lib/assets/nikolay_big.png"
+   
     import arrow_up from "$lib/assets/arrow_up.svg"
     import object2 from "$lib/assets/object2.webp"
     import object3 from "$lib/assets/object3.webp"
@@ -14,55 +14,55 @@
     import andey from "$lib/assets/command/andrey.webp"
     import nikita from "$lib/assets/command/nikita.jfif"
     import daniil from "$lib/assets/command/daniil.jfif"
-    import nikolayBig from "$lib/assets/command/nikolay.webp"
     import maxim from "$lib/assets/command/maxim.webp"
+    import nikolayBig from "$lib/assets/command/nikolay.webp"
 
 
     import Countup from "svelte-countup"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
+    import { page } from '$app/stores'
     
-    import SwiperReviews from "./SwiperReviews.svelte"
+    import SwiperReviews from "$lib/client/components/SwiperReviews.svelte"
     import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
-    import ProjectSwiper from "./ProjectSwiper.svelte"
+    import WelcomeBlock from "$lib/client/components/WelcomeBlock.svelte"
+    import ProjectsBlock from "$lib/client/components/ProjectsBlock.svelte"
+    import TeamBlock from "$lib/client/components/TeamBlock.svelte"
+    import ApplicationBlock from "$lib/client/components/ApplicationBlock.svelte"
 
     export let data;
 
     // Список проектов
 
     interface Project{
-        id: number,
         name: string,
-        tags: string[]
+        tags: {
+            name:string
+        }[]
     }
 
-    let projects : Array<Project> = [
+    let projects: Project[] = [
         {
-            id:1,
             name: "Manuspect — сервис для анализа продаж",
-            tags:["Сервис","Продуктовый дизайн"]
+            tags:[{name: "Сервис"},{name: "Продуктовый дизайн"}]
         },
         {
-            id:2,
             name: "RusStroj — строительство элитных домов в Сербии",
-            tags:["Сайты"]
+            tags:[{name: "Сайты"}]
         },
         {
-            id:3,
             name: "SomeBrand — повышение конверсии после редизайна интернет-магазина",
-            tags:["Интернет-магазин","Продуктовый дизайн"]
+            tags:[{name: "Интернет-магазин"},{name: "Продуктовый дизайн"}]
         },
         {
-            id:4,
             name: "DA&BR — Повысили конверсию на 120 % с помощью редизайна сайта",
-            tags:["Сайты","Продуктовый дизайн"]
+            tags:[{name: "Сайты"},{name: "Продуктовый дизайн"}]
         },
         {
-            id:5,
             name: "DA&BR — Повысили конверсию на 120 % с помощью редизайна сайта",
-            tags:["Сайты","Продуктовый дизайн"]
+            tags:[{name: "Сайты"},{name: "Продуктовый дизайн"}]
         },     
     ]
 
@@ -114,9 +114,7 @@
 
     // Заявка 
 
-    let budget = ["До 50 тыс. ₽", "50 – 200 тыс. ₽", "200 – 500 тыс. ₽", "от 500 тыс. ₽"];
-    let budgetSelected : string;
-    let form : HTMLFormElement;
+   
 
     
     // Ширина экрана
@@ -149,14 +147,9 @@
 
 
 
-    // Маска масконосец
+   
 
-    import { imask } from '@imask/svelte';
-    const options = {
-            mask: '{+7} (000) 000-00-00',
-            lazy: true
-        };
-    let value = '';
+   
     
 </script>
 
@@ -168,38 +161,8 @@
 </svelte:head>
 
 <main class="main_content">
-    <section class="tagline trans-background"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-    on:change={({ detail }) => {
-        isInView4 = detail.inView;
-    }}
-    >
-        <div class="image-bg">
-        </div>
-        
-        <img src="{bg1}" alt="" class="bg1">
-        <img src="{laptop}" alt="" class="laptop">
-        {#key isInView4}
-            <div class="tagline_info_bottom">
-                <p class="display2 white" in:fly={{duration: 750,y:100}} class:hidden={!isInView4} >Удобство для пользователей<br> — прибыль для бизнеса</p>
-                {#if innerWidth < 600}
-                    <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
-                    <button class="main_sm_16 main_btn_white" on:click={()=>{showModal=true}}>Обсудить задачу</button>
-                {/if}
-            </div>
-        {/key}
-        <div class="tagline_map">
-            <p class="main_sm_16">Улучшаем пользовательский опыт для продуктов по всему миру</p>
-            <div class="map_links">
-                <a class="map_link main_sm_16" href="/pages/online-store">Интернет-магазины</a>
-                <a class="map_link main_sm_16" href="/pages/landing-page">Лендинги</a>
-                <a class="map_link main_sm_16" href="/pages/multi-page-website">Многостраничный сайт</a>
-            </div>
-        </div>
-    </section>
-    <section class="business_objectives dark-background"
-    
-    >
+    <WelcomeBlock images={[bg1,'',laptop]} page={'/'} taglineDesc={"Улучшаем пользовательский опыт для продуктов по всему миру"}/>
+    <section class="business_objectives dark-background">
         <h3 class="display3 total_black">Решаем задачи бизнеса</h3>
         <div class="objectives">
             <div class="object" style="background: url({object1});background-size: cover;background-repeat:no-repeat;background-position: right;" >
@@ -228,27 +191,7 @@
             </div>
         </div>
     </section>
-    <section class="command dark-background" id="command">
-        <div class="command_info">
-            <div class="info_block">
-                <h3 class="display3 total_black">Наши специалисты решат задачи</h3>
-                <p class="main_sm_16 total_black op50">Команда специалистов, которые показывают явный результат </p>
-            </div>
-        </div>
-        <div class="command_table">
-            {#each command  as person}
-                <div class="person_block">
-                    <div class="image_block">
-                        <img src="{ person.url }" alt="">
-                    </div>
-                    <div class="person_info">
-                        <h3 class="header3 total_black">{person.name}</h3>
-                        <p class="main_sm_14 total_black op50">{person.speciality}</p>
-                    </div>
-                </div>
-            {/each}
-        </div>
-    </section>
+    <TeamBlock team={command}/>
     <section class="facts light-background">
         <div class="facts_content">
             <div class="about_company">
@@ -298,74 +241,7 @@
             </div>
         </div>
     </section>
-    <section class="section_pd projects dark-background" id="projects"
-    use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
-    on:change={({ detail }) => {
-        isInView1 = detail.inView;
-    }}>
-        {#key isInView1}
-            <h3 class="display3 total_black" in:fly={{duration: 750,x:100,delay:0}} class:hidden={!isInView1}>Реализовали более 100 проектов</h3>
-            <div class="project_selected" in:fade={{duration: 750,delay:500}} class:hidden={!isInView1}>
-                <div class="project_image">
-
-                </div>
-                <div class="project_info">
-                    <p class="header2 total_black" class:hidden={!isInView1}>Manuspect — сервис для анализа продаж</p>
-                    <div class="tags">
-                        {#each projects[0].tags as tag}
-                            <div class="tag main_sm_14 total_black">
-                                {tag}
-                            </div>
-                        {/each}
-                    </div>
-                </div>
-                
-            </div>       
-        {/key}
-            {#if innerWidth <= 600}
-                <ProjectSwiper {projects} />
-            {:else}
-                <div class="modile_apps"
-                use:inview={{ unobserveOnEnter: true, rootMargin: '-40%' }}
-                on:change={({ detail }) => {
-                    isInView2 = detail.inView;
-                }}
-                >
-                    {#each projects as project, index}
-                        
-                        {#if index !== 0}
-                            {#key isInView2}
-                                <div class="app" in:fly={{duration: 750,y:100,delay: index*300}} class:hidden={!isInView2}>
-                                    
-                                        <div class="img_box">
-
-                                        </div>
-                                        <div class="app_info">
-                                            <div class="">
-                                                <h2 class="header2 total_black">{project.name}</h2>
-                                            </div>
-                                            <div class="tags">
-                                                {#each project.tags as tag}
-                                                    <div class="tag main_sm_14 total_black">
-                                                        {tag}
-                                                    </div>
-                                                {/each}
-                                            </div>
-                                        </div>
-                                    
-                                </div>
-                            {/key}
-                        {/if}
-                        
-                    
-                    {/each}
-                </div>
-            {/if}
-            
-                
-            
-        
-    </section>
+    <ProjectsBlock {projects} />
     <div class="services light-background" id="services">
         <div class="services_content">
             <div class="services_title">
@@ -411,7 +287,7 @@
     <section class="swiper_section dark-background" >
         <SwiperReviews/>
     </section>
-    
+    <ApplicationBlock utm={data.utm}/>
     <section class="tg dark-background">
         <div class="tg_block_info">
             <h3 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h3>
@@ -425,88 +301,6 @@
         <a href="https://t.me/kewateru" class="tg_link" target="_blank">
             <span href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</span>
         </a>
-    </section>
-    <section class="application dark-background">
-        <div class="ceo">
-            <div class="ceo_info">
-                <div class="ceo_image">
-                    <img src="{ nikolay_big }" alt="">
-                </div>
-                <div class="ceo_desc">
-                    <h2 class="header2 total_black">Николай Ковальчук</h2>
-                    <p class="main_sm_16 total_black">— CEO Kewate, ответственный за коммуникацию</p>
-                </div>
-            </div>
-            <div class="contacts_div">
-                {#if innerWidth<= 980}
-                    <h3 class="header3 total_black">Контакты</h3>
-                {/if}
-                <div class="contacts">
-                    <a href="mailto: main@kewate.ru" class="main_sm_16 total_black" style="text-decoration: underline;">main@kewate.ru</a>
-                    <a href="tel: +79850123407" class="main_sm_16 total_black" style="text-decoration: underline;">+7 985 012-34-07</a>
-                </div>
-            </div>
-        </div>
-        <form action="?/sendApp" method="post" use:enhance on:submit={()=>{$isSubmit = true}} bind:this={form}>
-            <input type="hidden" name="page" value="Главная">
-            <input type="hidden" name="source" value="Последний блок с Колей">
-            <input type="hidden" name="utm" value="{JSON.stringify(data.utm)}">
-            <div class="application_title">
-                <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
-                <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
-            </div>
-            <div class="application_form">
-                <div class="row">
-                    <p class="main_sm_16 gray" style="font-weight: 600;">Основное</p>
-                    <div class="input_place">
-                        <div class="">
-                            <h4 class="header4 total_black">Имя</h4>
-                            <input name="name" required type="text" placeholder="Как к вам обращаться?">
-                        </div>
-                        <div class="">
-                            <h4 class="header4 total_black">Компания</h4>
-                            <input name="company" type="text" placeholder="Необязательное поле">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="main_sm_16 gray" style="font-weight: 600;">Контакты</p>
-                    <div class="input_place">
-                        <div class="">
-                            <h4 class="header4 total_black">Телефон</h4>
-                            <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required bind:value={value} use:imask={options}>
-                        </div>
-                        <div class="">
-                            <h4 class="header4 total_black">E-mail</h4>
-                            <input name="email" type="text" placeholder="Необязательное поле">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="main_sm_16 gray" style="font-weight: 600;">Бюджет</p>
-                    <div class="budget">
-
-                        {#each budget as money ,index}
-                            <div class="budget_section main_sm_16 total_black" class:budget_selected={budgetSelected === money}>
-                                <input type="radio" name="budget" value="{money}" bind:group={budgetSelected} required>
-                                {money}
-                            </div>
-                            {#if index+1 != budget.length}
-                                <div class="line"></div>
-                            {/if}
-                        {/each}
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="send_app">
-                <div class="empty"></div>
-                <div class="send_app_btn">
-                    <button class="main_sm_16 main_btn_black" type="submit">Оставить заявку</button>
-                    <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>  
-                </div>
-            </div>
-        </form>
     </section>
 </main>
 
@@ -530,167 +324,12 @@
     .white{
         color: white;
     }
-    .total_black{
-        color: var(--Neutral_1000);
-    }
+    
     .black{
         color: var(--Neutral_900);
     }
     .whiteop{
         color: rgba(255, 255, 255, 0.5);
-    }
-    .tagline{
-        z-index: 2;
-        padding: 68px 50px 48px 50px;
-        position: relative;
-        height: 54vh;
-        min-height: 700px;
-        height: 100svh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        background-image: 
-            linear-gradient(162.05deg, rgba(10, 10, 10, 0.64) 28.53%, rgba(10, 10, 10, 0) 51.19%),
-            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%);
-
-        @media (max-width:800px) {
-            padding: 24px 16px;
-            min-height: unset;
-        }
-        @media (max-width:600px){
-            flex-direction: column-reverse;
-        }
-    }
-    .tagline p:not(.tagline_map p){
-        max-width: 75%;
-        margin-top: 48px;
-        @media (max-width:800px) {
-            max-width: 100%;
-        }
-        @media (max-width:600px) {
-            max-width: 100%;
-            margin-top: 16px;
-        }
-    }
-    .tagline_map{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        z-index: 3;
-        @media (max-width:600px){
-            margin-top: 45px;
-        }
-    }
-    .tagline_map p{
-        @media (max-width:600px){
-            display: none;
-        }
-    }
-    .map_links{
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-        align-items: end;
-        @media (max-width:600px){
-            flex-direction: row;
-            column-gap: 8px;
-            flex-wrap: wrap;
-        }
-    }
-    .tagline img{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        object-fit: cover;
-    }
-    .bg1{
-        object-position: 20%;
-    }
-    .laptop{
-        object-fit: cover !important;
-        width: 100% !important;
-        height: 130% !important;
-        top: -3% !important;
-        right: -18% !important;
-        left: unset !important;
-        @media (max-width:670px) {
-            height: 60% !important;
-            top: 25% !important;
-            right: -10% !important;
-            width: 100% !important;
-            left: 0 !important;
-
-        }
-    }
-    .image-bg{
-        position: absolute;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background:
-            linear-gradient(162.05deg, rgba(10, 10, 10, 0.64) 28.53%, rgba(10, 10, 10, 0) 51.19%),
-            linear-gradient(360deg, rgba(10, 10, 10, 0.32) 0%, rgba(10, 10, 10, 0) 53.93%);
-        @media (max-width:600px) {
-            background: 
-            linear-gradient(168.16deg, rgba(10, 10, 10, 0.8) 13.23%, rgba(10, 10, 10, 0) 56.01%),
-            linear-gradient(360deg, rgba(10, 10, 10, 0.8) 28.08%, rgba(10, 10, 10, 0) 53.93%);
-
-        }
-
-    }
-    .map_link{
-        background: #0A0A0A52;
-        backdrop-filter: blur(10px);
-        padding: 16px;
-
-        width: fit-content;
-        border-radius: 24px;
-        @media (max-width:600px){
-            padding: 8px 12px;
-            font-size: 14px;
-            line-height: 15.4px;
-        }
-
-    }
-    .tagline div:first-child{
-        display: flex;
-        flex-direction: column;
-        row-gap: 16px;
-    }
-    .tagline div:first-child p{
-        @media (max-width:600px) {
-            margin-top: 0; 
-        }
-        
-    }
-    .tagline div:first-child button{
-        margin-left: 0;
-    }
-    .tagline_info_bottom{
-        display: flex;
-        flex-direction: column;
-        row-gap: 16px;
-        z-index: 3;
-    }
-    .tagline_info_bottom p{
-        @media (max-width:600px) {
-            margin-top: 0; 
-        }
-        
-    }
-    .tagline_info_bottom button{
-        margin-left: 0;
-    }
-    .tagline .display2{
-       @media (max-width:600px) {
-            font-size: 32px;
-            line-height: 35.2px;
-       }
     }
 
     /* business_objectives */
@@ -834,112 +473,6 @@
     }
 
 
-    /* Command section */
-
-    .image_block{
-        width: 280px;
-        height: 320px;
-        background: var(--Neutral_900);
-        border-radius: 16px;
-        @media (max-width:980px) {
-            height: 250px;
-            max-width: 250px;
-        }
-        @media (max-width: 553px) {
-            height: 180px;
-            width: 100%;
-        }
-    }
-    .command{
-        display: flex;
-        justify-content: space-between;
-        padding: 150px 50px;
-        max-width: 1280px;
-        margin: 0 auto;
-        column-gap: 20px;
-        @media (max-width:1180px) {
-            flex-direction: column;
-        }
-        @media (max-width:700px) {
-            padding: 40px 16px;
-        }
-        
-    }
-    .info_block{
-        height: 390px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: sticky;
-        top: 64px;
-        @media (max-width:1180px) {
-            height: fit-content;
-            row-gap: 5px;
-        }
-    }
-    .command_info{
-        width: 100%;
-    }
-    .command_table{
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 40px 20px;
-        @media (max-width:1180px) {
-            grid-template-columns: repeat(3,1fr);
-            margin-top: 40px;
-        }
-        @media (max-width:900px) {
-            grid-template-columns: repeat(2,1fr);
-        }
-        @media (max-width:400px) {
-            gap: 24px 8px;
-        }
-    }
-    .person_block{
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-        @media (max-width:900px) {
-            align-items: center;
-        }
-        @media (max-width:400px) {
-            row-gap: 16px;
-        }
-    }
-    .person_info{
-        display: flex;
-        flex-direction: column;
-        row-gap: 5px;
-        @media (max-width:400px) {
-            row-gap: 12px;
-        }
-    }
-    .person_block h3{
-        @media (max-width:400px) {
-            font-size: 20px;
-            line-height: 24px;
-        }
-    }
-    .person_block .image_block{
-        border-radius: 16px;
-        overflow: hidden;
-    }
-    .person_block .image_block img{
-        object-fit: cover;
-        width: 100%;
-        height: 100%; 
-    }
-    .person_block:nth-child(2) .image_block img{
-        transform: scale(2);  
-    }
-    .person_block:nth-child(4) .image_block img{
-        transform: scale(1.5);  
-    }
-    .person_block:nth-child(5) .image_block img{
-        transform: scale(1.3);
-        object-position: 50%;  
-    }
 
     /* Facts (Second section) */
 
@@ -1088,146 +621,6 @@
         }
     }
 
-
-    /* Projects (Therd section) */
-
-    .section_pd{
-        padding: 0 50px;
-        @media (max-width:1000px) {
-            padding: 0 16px;
-        }
-        @media (max-width:600px) {
-            padding: 0 0 0 16px;
-        }
-    }
-    .projects{
-        padding-top: 172px;
-        padding-bottom: 160px;
-        max-width: 1280px;
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
-        @media (max-width:800px) {
-            padding-top: 64px;
-            padding-bottom: 64px;
-        }
-    }
-    .projects_grid{
-        @media (max-width:900px) {
-            display: none;
-        }
-    }
-    .project_image{
-        background-color: var(--Neutral_1000);
-        width: 100%;
-        max-height: 600px;
-        height: 100vh;
-        border-radius: 16px;
-       
-    }
-    .project_selected .project_image{
-        @media (max-width:600px) {
-            max-height: 480px;
-        }
-    }
-    .project_info{
-        margin-top: 32px;
-    }
-    .project_selected{
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        border-radius: 24px;
-        display: flex;
-        @media (max-width:600px) {
-            margin-bottom: 64px;
-            margin-right: 16px;
-        }
-        
-    }
-    .modile_apps{
-        margin-top: 80px;
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        column-gap: 20px;
-        row-gap: 40px;
-        margin-bottom: 80px;
-        overflow-y: hidden;
-        @media (max-width:900px) {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-    .app{
-        display: flex;
-        flex-direction: column;
-        row-gap: 16px;
-        @media (max-width:900px) {
-            max-width: 500px;
-        }
-    }
-    .img_box{
-        height: 480px;
-        border-radius: 16px;
-        background-color: var(--Neutral_1000);
-        @media (max-width:900px) {
-            height: 300px;
-        }
-    }
-    .app_info {
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-        flex-grow: 1;
-        justify-content: space-between;
-    }
-    .tags{
-        display: flex;
-        column-gap: 8px;
-        margin-top: 12px;
-    }
-    .tag{
-        padding: 8px 12px;
-        border: 1px solid var(--Neutral_400);
-        border-radius: 24px;
-        line-height: 16.8px;
-        @media (max-width:600px) {
-            padding: 5px 8px;
-        }
-    }
-    .app_info .header3{
-        @media (max-width:900px) {
-            font-size: 24px !important;
-            line-height: 30px !important;
-            font-weight: 700 !important;
-        }
-    }
-    .project{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 32px 0px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.24);
-        cursor: pointer;
-        position: relative;
-    }
-    .project:hover .project_name{
-        color: var(--blue);
-    }
-    .project_img{
-        position: absolute;
-        height: 280px;
-        border-radius: 24px 24px 0px 0px;
-        background: var(--dark);
-        width: 280px;
-        bottom: 0;
-        right: 18%;
-    }
-
-
-
     /* Services */
 
     .services{
@@ -1366,250 +759,7 @@
         object-fit: cover;
     }
 
-    /* Application */
-
-    .application{
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 0 50px;
-        display: flex;
-        justify-content: space-between;
-        padding-top: 100px;
-        padding-bottom: 100px;
-        column-gap: 120px;
-        @media (max-width:980px) {
-            flex-direction: column-reverse;
-        }
-        @media (max-width:700px) {
-            padding: 100px 16px;
-        }
-    }
-    .ceo{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        row-gap: 20px;
-        width: 30%;
-        @media (max-width:980px) {
-            width: 100%;
-            margin-top: 64px;
-            row-gap: 32px;
-        }
-    }
-    .ceo_info{
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-        @media (max-width:980px) {
-            flex-direction: row;
-            column-gap: 16px;
-        }
-    }
-    .ceo_image{
-        width: 180px;
-        height: 180px;
-        @media (max-width:980px) {
-            width: 50px;
-            height: 50px;
-        }
-    }
-    .ceo_desc h2{
-        margin-bottom: 8px; 
-    }
-    .contacts{
-        display: flex;
-        flex-direction: column;
-        row-gap: 16px;
-    }
-    .contacts a:hover{
-        opacity: 0.8;
-    }
-    .contacts_div{
-        @media (max-width:980px) {
-            display: flex;
-            flex-direction: row;
-            column-gap: 16px;
-            justify-content: space-between;
-        }  
-    }
-    .application input[type="text"]{
-        background: var(--Neutral_100);
-        border: 1px solid var(--Neutral_300);
-        padding: 12px;
-        outline: none;
-        border-radius: 12px;
-        width: 100%;
-        margin-top: 8px;
-    }
-    form{
-        display: flex;
-        flex-direction: column;
-        row-gap: 64px;
-        width: 100%;
-        max-width: 780px;
-        @media (max-width:980px) {
-            max-width: unset;
-        }
-    }
-    .application_title{
-        display: flex;
-        flex-direction: column;
-        row-gap: 12px;
-        align-items: end;
-        @media (max-width:1250px) {
-            align-items: start;
-        }
-    }
-    .application_title h3{
-        margin-right: 10px;
-    }
-    .application_form{
-        display: flex;
-        flex-direction: column;
-        row-gap: 40px;
-        
-    }
-    .row{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        @media (max-width:1250px) {
-            flex-direction: column;
-            align-items: start;
-            row-gap: 12px;
-        }
-    }
-    .row p{
-        flex-grow: 2;
-    }
-    .input_place{
-        flex-grow: 3;
-        display: flex;
-        column-gap: 28px;
-        justify-content: space-between;
-        @media (max-width:1250px) {
-            width: 100%;
-        }
-        @media (max-width:500px) {
-            flex-direction: column;
-            row-gap: 20px;
-        }
-    }
-    .input_place div{
-        width: 100%;
-    }
-    .budget{
-        display: flex;
-        align-items: center;
-        flex-grow: 2;
-        height: 100%;
-        justify-content: end;
-        max-width: 590px;
-        @media (max-width:1250px) {
-            width: 100%;
-            max-width: 780px;
-        }
-        @media (max-width:980px) {
-            max-width: 100%;
-        }
-        @media (max-width:680px) {
-            flex-direction: column;
-            border: 1px solid var(--Neutral_300);
-            border-radius: 16px;
-        }
-    }
-    .budget_section{
-        position: relative;
-        height: 100%;
-        width: 100%;
-        max-width: 144px;
-        display: flex;
-        height: 55px;
-        justify-content: center;
-        align-items: center;
-        border-top: 1px solid var(--Neutral_300);
-        border-bottom: 1px solid var(--Neutral_300);
-        text-align: center;
-        cursor: pointer;
-        font-weight: 650;
-        @media (max-width:1250px) {
-            max-width: 100%;
-        }
-        @media (max-width:680px) {
-            border: none;
-        }
-    }
-    .budget_section input{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .budget_section:first-child{
-        padding: 0px 0px 0px 0px;
-        border-radius: 12px 0px 0px 12px;
-        border-left: 1px solid var(--Neutral_300);
-        @media (max-width:680px) {
-            border: none;
-            border-radius: 12px 12px 0px 0px;
-        }
-    }
-    .budget_section:last-child{
-        padding: 0px 0px 0px 0px;
-        border-radius:  0px 12px 12px 0px;
-        border-right: 1px solid var(--Neutral_300);
-        @media (max-width:680px) {
-            border: none;
-            border-radius:  0px 0px 12px 12px;
-        }
-    }
-    .line{
-        height: 100%;
-        width: 1px;
-        background: #FAFAFA;
-    }
-    .budget_selected{
-        background: var(--Neutral_1000);
-        color: white;
-        font-weight: 500;
-    }
-    .send_app{
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        
-      
-    }
-    .empty{
-        flex-grow: 3;
-        height: 100%;
-        @media (max-width:1250px) {
-            display: none;
-        }
-    }
-    .send_app_btn{
-        display: flex;
-        flex-grow: 2;
-        align-items: center;
-        column-gap: 32px;
-        @media (max-width:980px) {
-            width: 100%;
-            flex-direction: column;
-            row-gap: 16px;
-        }
-    }
-    .send_app_btn button{
-        @media (max-width:1250px) {
-            margin-left: 0;
-        }
-        @media (max-width:980px) {
-            width: 100%;
-        }
-    }
-
+    
     /* Swiper section */
 
     .swiper_section{

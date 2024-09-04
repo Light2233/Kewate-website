@@ -9,10 +9,12 @@
 
     import ModileMenuModal from './ModileMenuModal.svelte'
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
-    import { isSubmit } from "$lib/client/PostApplicationStore"
+    import PostApplicationAlert from './PostApplicationAlert.svelte'
     import MegaMenu from './MegaMenu.svelte'
     import modalBg from '$lib/assets/application_modal_bg.png'
     import favicon from '$lib/assets/ICO_kewate.ico'
+    import { isSubmit } from "$lib/client/PostApplicationStore"
+
 
     export let data;
 
@@ -225,6 +227,8 @@
 </div>
 {/if} -->
 
+<PostApplicationAlert />
+
 
 <slot/>
 
@@ -250,11 +254,6 @@
 </footer>
 
 
-{#if alert}
-    <div class="post_application" transition:slide>
-        <p class="main_sm_16" style="text-align: center;">Заявка успешно отправлена — мы перезвоним Вам в течение дня</p>
-    </div>
-{/if}
 
 
     
@@ -418,17 +417,7 @@
             line-height: 17.5px ;
         }
     }
-    .post_application{
-        background: #19C68D;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        position: fixed;
-        bottom: 0;
-        z-index: 999;
-    }
+    
     .burger_menu{
         width: 20px;
         height: 20px;

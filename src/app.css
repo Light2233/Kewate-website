@@ -215,6 +215,13 @@ header .logo svg g path:first-child{
     stroke:  var(--Neutral_1000) !important;
 }
 
+.hidden{
+    visibility: hidden;
+}
+.total_black{
+    color: var(--Neutral_1000);
+}
+
 
 
 @media (max-width:500px) {

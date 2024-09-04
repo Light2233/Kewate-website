@@ -39,7 +39,7 @@
 {/if}
 
 
-<style>
+<style lang="less">
 
 .gantt-chart-container {
         width: 100%;

@@ -1,7 +1,7 @@
 import { sendApplication } from "$lib/server/bot";
 import appFormValidate from "$lib/validators/appFormValidate";
 import { error } from "@sveltejs/kit";
-import type { Actions  } from './$types';
+import type { Actions } from './$types';
 
 // createPay: async ({request}) => {
 //     let data: any = Object.fromEntries(await request.formData());
@@ -12,10 +12,11 @@ import type { Actions  } from './$types';
 //     const amount = await retailCRM.getOffersAmount(offerIdToCount, offers);
 //     let deliveryCost = Number(data.deliverySelected);
 
+
 export const actions = {
     sendApp: async ({ request }) => {
         let data = Object.fromEntries(await request.formData());
-        
+
         const err = appFormValidate(data);
         if (err.error?.message)
             error(400, {message: err.error?.message});
