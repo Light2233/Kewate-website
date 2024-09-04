@@ -1,5 +1,5 @@
 <script lang="ts">
-    import nikolay_big from "$lib/assets/nikolay_big.png"
+    import nikolay_big from "$lib/assets/command/nikolay.webp"
    
 
 

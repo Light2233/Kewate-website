@@ -5,11 +5,9 @@
     let successMessage = "Заявка успешно отправлена - мы перезвоним Вам в течение дня";
 
     $: if($notificationStore.show) {
-
         setTimeout(()=>{
             $notificationStore.show = false; 
         },3000)
-        
     }
 
 </script>

@@ -34,7 +34,8 @@
         $notificationStore.success = jsonResponse.success;
         $notificationStore.message = jsonResponse.message;
         $notificationStore.show = true;
-        form.reset()
+        if (jsonResponse.success) 
+            form.reset()
     }
 
 

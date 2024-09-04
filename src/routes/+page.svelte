@@ -1,6 +1,5 @@
 <script lang="ts">
     import arrow_circle_right from "$lib/assets/arrow_circle_right.svg"
-    import nikolay from "$lib/assets/nikolay.png"
    
     import arrow_up from "$lib/assets/arrow_up.svg"
     import object2 from "$lib/assets/object2.webp"
@@ -293,7 +292,7 @@
             <h3 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h3>
             <div class="nikolay">
                 <div class="nikolay_image">
-                    <img src="{ nikolay }" alt="">
+                    <img src="{ nikolayBig }" alt="">
                 </div>
                 <h3 class="header3 total_black">Расскажет Николай Ковальчук <span class="gray"> — CEO Kewate</span></h3>
             </div>
@@ -752,6 +751,8 @@
         width: 80px;
         height: 80px;
         flex-shrink: 0;
+        border-radius: 16px;
+        overflow: hidden;
     }
     .nikolay_image img{
         width: 100%;
