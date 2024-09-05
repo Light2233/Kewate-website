@@ -4,12 +4,12 @@
 
 
 <section class="command dark-background" id="command">
-    <div class="command_info">
+    <aside class="command_info">
         <div class="info_block">
-            <h3 class="display3 total_black">Наши специалисты решат задачи</h3>
+            <h3 class="disp lay3 total_black">Наши специалисты решат задачи</h3>
             <p class="main_sm_16 total_black op50">Команда специалистов, которые показывают явный результат </p>
         </div>
-    </div>
+    </aside>
     <div class="command_table">
         {#each team as person}
             <div class="person_block">
@@ -26,6 +26,9 @@
 </section>
 
 <style lang="less">
+    .op50{
+        opacity: 0.5;
+    }
     .image_block{
         width: 280px;
         height: 320px;

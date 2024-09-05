@@ -1,4 +1,4 @@
-<div class="policy light-background">
+<article class="policy light-background">
     <div class="policy_content">
         <h3 class="display3">Политика в отношении обработки персональных данных</h3>
         <div class="block">
@@ -138,7 +138,7 @@
             </p>
         </div>
     </div>
-</div>
+</article>
 
 
 <style lang="less">

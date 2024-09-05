@@ -28,7 +28,7 @@
     class:hidden={!open}
 >
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="dialog_content">
+    <main class="dialog_content">
         <div class="menu">
             
             <div class="title">
@@ -55,16 +55,16 @@
             </div>
             {#if !servicesOpen} 
                 {#key open}
-                    <div class="modal_content">
+                    <nav class="modal_content">
                         <button class="display3" on:click={()=>{servicesOpen=true}} in:fly={{delay:200}}>Услуги <img src="{arrow_right_modal}" alt=""></button>
                         <a href="#projects" class="display3" in:fly={{delay:300}} on:click={()=>{open=false;dialog.close()}}>Проекты</a>
                         <a href="#command" class="display3" in:fly={{delay:400}} on:click={()=>{open=false;dialog.close()}}>Команда</a>
                         <a href="" class="display3" in:fly={{delay:500}}>Контакты</a>
                         <a href="" class="display3" in:fly={{delay:600}}>О студии</a>
-                    </div>
+                    </nav>
                 {/key}
             {:else}
-                <div class="services_table" in:fly>
+                <nav class="services_table" in:fly>
                     <button class="display3" on:click={()=>{servicesOpen=false}}><img src="{arrow_right_modal}" alt="" class="rotate"> Услуги</button>
                     <div class="development services_row">
                         <h2 class="header2">Разработка</h2>
@@ -98,13 +98,13 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
+                </nav>
             {/if}
         </div>
         {#if !servicesOpen}
             <button class="main_sm_16 main_btn_white last_btn" on:click={()=>{showModal=true}}>Обсудить задачу</button>
         {/if}
-    </div>
+    </main>
     
 </dialog>
 

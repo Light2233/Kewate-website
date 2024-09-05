@@ -12,7 +12,8 @@ interface WebsiteInfo {
     }[],
     cost : number,
     taglineDesc : string,
-    images : string[]
+    images : string[],
+    pageTitle : string
 }
 
 type Websites = Map<WebsiteCategory, WebsiteInfo>;

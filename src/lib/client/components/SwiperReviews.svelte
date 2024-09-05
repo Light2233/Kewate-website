@@ -64,7 +64,7 @@
 
 <div class="swiper">
     <div class="title">
-        <p class="display3 black">Нас рекомендуют</p>
+        <h3 class="display3 black">Нас рекомендуют</h3>
         {#if innerWidth>=700}
         <div class="swiper_btn">
             <button class="prev"><img src="{ arrow_right }" alt=""></button>
@@ -97,11 +97,11 @@
                         <div class="review_info">
                             <div class="review_person_info">
                                 <h3 class="header3 total_black">{item.personName}</h3>
-                                <p class="header3 gray">{item.name}</p>
+                                <h3 class="header3 gray">{item.name}</h3>
                             </div>
-                            <div class="">
+                            <article class="">
                                 <p class="main_sm_16 op50 total_black">{ item.desc }</p>
-                            </div>
+                            </article>
                         </div>
                     </div>
                 </SwiperSlide>
@@ -144,11 +144,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 40px;
+        margin-bottom: 35px;
         margin-right: 50px;
     }
     .slide_content{
-        padding: 24px;
         display: flex;
         justify-content: space-between;
         row-gap: 20px;

@@ -6,6 +6,7 @@
     import object3 from "$lib/assets/object3.webp"
     import object1 from "$lib/assets/object1.webp"
     import bgModal from "$lib/assets/application_modal_bg.png"
+    import tg_bg from "$lib/assets/tg_blok_bg.png"
 
     import bg1 from "$lib/assets/taglines/tagline1_bg.webp"
     import laptop from "$lib/assets/taglines/tagline1_laptop.png"
@@ -157,12 +158,14 @@
 
 <svelte:head>
     <title>Главная</title>
+    <meta name="keywords" content="готовые сайты для бизнеса, купить сайт, продажа сайтов, лендинги, интернет-магазины">
+    <meta name="description" content="Kewate.ru – профессиональная платформа для покупки готовых сайтов, включая лендинги, многостраничные проекты и интернет-магазины. Мы предлагаем комплексные решения для малого и среднего бизнеса, готовые сайты с адаптивным дизайном и высокой скоростью загрузки. Поддержка клиентов, уникальные предложения и быстрый запуск – все это поможет вам начать или развивать онлайн-бизнес без лишних усилий. Откройте для себя возможности вместе с Kewate!">
 </svelte:head>
 
 <main class="main_content">
     <WelcomeBlock images={[bg1,'',laptop]} page={'/'} taglineDesc={"Улучшаем пользовательский опыт для продуктов по всему миру"}/>
     <section class="business_objectives dark-background">
-        <h3 class="display3 total_black">Решаем задачи бизнеса</h3>
+        <h1 class="display3 total_black">Решаем задачи бизнеса</h1>
         <div class="objectives">
             <div class="object" style="background: url({object1});background-size: cover;background-repeat:no-repeat;background-position: right;" >
                 <div class="object_info">
@@ -194,7 +197,7 @@
     <section class="facts light-background">
         <div class="facts_content">
             <div class="about_company">
-                <p class="display3 white">Факты, которые говорят сами за себя</p>
+                <h3 class="display3 white">Факты, которые говорят сами за себя</h3>
             </div>
             <div class="more_details">
                 <div class="more_details_info">
@@ -244,7 +247,7 @@
     <div class="services light-background" id="services">
         <div class="services_content">
             <div class="services_title">
-                <h3 class="display3">Услуги</h3>
+                <h1 class="display3">Услуги</h1>
                 <p class="main_sm_16" style="color:#737373;">Комплексный подход к разработке цифровых продуктов</p>
             </div>
             <div class="services_table">
@@ -286,10 +289,9 @@
     <section class="swiper_section dark-background" >
         <SwiperReviews/>
     </section>
-    <ApplicationBlock utm={data.utm}/>
     <section class="tg dark-background">
         <div class="tg_block_info">
-            <h3 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h3>
+            <h1 class="display3 total_black">Наш телеграм — о бизнесе и интерфейсах</h1>
             <div class="nikolay">
                 <div class="nikolay_image">
                     <img src="{ nikolayBig }" alt="">
@@ -297,10 +299,11 @@
                 <h3 class="header3 total_black">Расскажет Николай Ковальчук <span class="gray"> — CEO Kewate</span></h3>
             </div>
         </div>
-        <a href="https://t.me/kewateru" class="tg_link" target="_blank">
+        <a href="https://t.me/kewateru" class="tg_link" target="_blank" style="background:url({tg_bg })">
             <span href="https://t.me/kewateru" class="main_btn_white main_sm_16" target="_blank">Перейти в Telegram</span>
         </a>
     </section>
+    <ApplicationBlock utm={data.utm}/>
 </main>
 
 <style lang="less">
@@ -334,7 +337,7 @@
     /* business_objectives */
 
     .business_objectives{
-        padding: 50px;
+        padding: 120px 50px 50px 50px;
         max-width: 1280px;
         margin: 0 auto;
         @media (max-width:700px) {
@@ -358,6 +361,7 @@
         align-items: end;
         position: relative;
         overflow: hidden;
+        
 
     }
     .object .img1{
@@ -425,6 +429,9 @@
     .object_info{
         max-width: 400px;
         z-index: 6;
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px;
     }
     .gradient1{
         display: none;   
@@ -650,6 +657,7 @@
         display: flex;
         align-items: center;
         column-gap: 8px;
+        justify-content: start;
         text-wrap: nowrap;
     }
     .service_link:hover{
@@ -718,6 +726,9 @@
     }
     .tg_link{
         background: var(--Neutral_1000);
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: 50% !important;
         width: 100%;
         max-width: 580px;
         height: 342px;

@@ -35,7 +35,8 @@ websites.set("landing", {
     ],
     cost : 60000,
     taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна",
-    images:[landing_tagline_bg,landing_bg]
+    images:[landing_tagline_bg,landing_bg],
+    pageTitle : "Одностраничный сайт"
 });
 
 websites.set("multi-page", {
@@ -59,7 +60,8 @@ websites.set("multi-page", {
     ],
     cost : 80000,
     taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна",
-    images:[bg2,landing_bg,pc]
+    images:[bg2,landing_bg,pc],
+    pageTitle : "Многостраничный сайт"
 });
 
 websites.set("store", {
@@ -83,7 +85,8 @@ websites.set("store", {
     ],
     cost : 150000,
     taglineDesc : "Повысим продажи и конверсию с помощью грамотного дизайна",
-    images: [bg3,landing_bg,laptop] 
+    images: [bg3,landing_bg,laptop],
+    pageTitle : "Интернет-магазин"
 });
 
 

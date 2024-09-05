@@ -59,7 +59,7 @@
 
     >
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="dialog_content">
+        <main class="dialog_content">
             
             <div class="image_block" class:min_height={page!="/"}>
                 <img src="{ bg }" alt="">
@@ -87,7 +87,7 @@
                 </div>
                 <button type="submit"  class="main_sm_16 main_btn_black">Оставить заявку</button>
             </form>
-        </div>
+        </main>
     </dialog>
 {/if}
 

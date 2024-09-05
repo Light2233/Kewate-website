@@ -228,7 +228,10 @@
         }
     }
     .application_title h3{
-        margin-right: 10px;
+        margin-right: 40px;
+        @media (max-width:500px) {
+            margin-right: 0;
+        }
     }
     .application_form{
         display: flex;
@@ -248,6 +251,7 @@
     }
     .row p{
         flex-grow: 2;
+        opacity: 0.4;
     }
     .input_place{
         flex-grow: 3;

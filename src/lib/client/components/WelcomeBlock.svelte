@@ -59,14 +59,14 @@
             {/if}
         </div>
     {/key}
-    <div class="tagline_map">
+    <aside class="tagline_map">
         <p class="main_sm_16">{taglineDesc}</p>
-        <div class="map_links">
+        <nav class="map_links">
             <a class="map_link main_sm_16" href="/store">Интернет-магазины</a>
             <a class="map_link main_sm_16" href="/landing">Лендинги</a>
             <a class="map_link main_sm_16" href="/multi-page">Многостраничный сайт</a>
-        </div>
-    </div>
+        </nav>
+    </aside>
 </section>
 
 
@@ -133,7 +133,7 @@
         justify-content: space-between;
         position: relative;
         @media (max-width:800px) {
-            padding: 24px 16px;
+            padding: 48px 16px 24px 16px;
             min-height: unset;
         }
         @media (max-width:600px){
@@ -282,7 +282,6 @@
     }
 
     .tagline p:not(.tagline_map p){
-        max-width: 75%;
         margin-top: 48px;
         @media (max-width:800px) {
             max-width: 100%;
@@ -339,6 +338,7 @@
         z-index: 3;
     }
     .tagline_info_bottom p{
+       
         @media (max-width:600px) {
             margin-top: 0; 
         }
@@ -348,6 +348,7 @@
         margin-left: 0;
     }
     .tagline .display2{
+        max-width: 75%;
        @media (max-width:600px) {
             font-size: 32px;
             line-height: 35.2px;

@@ -13,9 +13,9 @@
 </script>
 
 {#if $notificationStore.show}
-    <div class="post_application" transition:slide on:animationend={() => {$notificationStore.readed = true}} class:error={!$notificationStore.success} class:successfull={$notificationStore.success}>
+    <aside class="post_application" transition:slide on:animationend={() => {$notificationStore.readed = true}} class:error={!$notificationStore.success} class:successfull={$notificationStore.success}>
         <p class="main_sm_16" style="text-align: center;">{$notificationStore.success ? successMessage : $notificationStore.message}</p>
-    </div>
+    </aside>
 {/if}
 
 

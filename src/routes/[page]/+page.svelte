@@ -100,6 +100,12 @@
             open : false
         }
     ]
+    
+    let metaTeg = {
+        "landing" : ["Ищете качественный лендинг для бизнеса? На Kewate.ru доступны готовые лендинги с адаптивным дизайном, созданные для быстрой конверсии и привлечения клиентов. Легкий запуск и максимальная отдача от вашего проекта.","купить лендинг, готовые лендинги, продажа лендингов, лендинги для бизнеса, создание лендингов"],
+        "multi-page" : ["Многостраничные сайты на Kewate.ru – комплексные решения для компаний, которым нужна обширная онлайн-платформа. Полностью адаптивные, SEO-оптимизированные сайты с функциональностью для бизнеса любой сложности.","многостраничные сайты, корпоративные сайты, купить многостраничный сайт, разработка многостраничных сайтов"],
+        "store" : ["Интернет-магазины на Kewate.ru – идеальные решения для электронной коммерции. Платежные системы, удобная навигация, адаптивный дизайн и готовность к масштабированию помогут быстро начать онлайн-продажи","интернет-магазин, купить интернет-магазин, готовый магазин, интернет-торговля, сайт для интернет-магазина"]
+    }
 
 </script>
 
@@ -107,7 +113,9 @@
 <ApplicationModalWindow bind:showModal bg={websiteInfo.images[1]} page={pageName}/>
 
 <svelte:head>
-    <title>Главная</title>
+    <title>{websiteInfo.pageTitle}</title>
+    <meta name="keywords" content="{metaTeg[pageName][1]}">
+    <meta name="description" content="На Kewate.ru представлены готовые решения для бизнеса – от лендингов до интернет-магазинов. Запустите проект легко и быстро. {metaTeg[pageName][0]}">
 </svelte:head>
 
 
@@ -116,7 +124,7 @@
     <section class="facts dark-background">
         <div class="facts_content">
             <div class="about_company">
-                <h3 class="display3 total_black">Факты, которые говорят сами за себя</h3>
+                <h1 class="display3 total_black">Факты, которые говорят сами за себя</h1>
             </div>
             <div class="more_details">
                 <div class="more_details_info">
@@ -168,7 +176,7 @@
         </div>
     </section>
     <section class="working dark-background">
-        <h3 class="display3 total_black">Методы работы</h3>
+        <h1 class="display3 total_black">Методы работы</h1>
         <div class="working_grid">
             <div class="method">
                 <h2 class="header2 total_black">Исследуем рынок</h2>
