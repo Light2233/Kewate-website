@@ -1,7 +1,7 @@
 import { sendApplication } from "$lib/server/bot";
 import appFormValidate from "$lib/validators/appFormValidate";
 import { error } from "@sveltejs/kit";
-import type { Actions } from './$types';
+import type { Actions } from '../$types';
 
 // createPay: async ({request}) => {
 //     let data: any = Object.fromEntries(await request.formData());

@@ -1,4 +1,4 @@
-import type { LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from '../$types';
 
 // Assets
 import nikolay from "$lib/assets/nikolay.png"
