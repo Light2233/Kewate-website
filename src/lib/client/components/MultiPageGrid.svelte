@@ -107,7 +107,7 @@
         background-color: #6AEEC7;
     }
     .bar:not(.bar:last-child) p{
-        font-weight: 400;
+        font-weight: 300;
         white-space: nowrap;
         position: relative;
         z-index: 1;
@@ -115,7 +115,7 @@
         color: white;
     }
     .bar:last-child p{
-        font-weight: 700;
+        font-weight: 500;
     }
 
     .bar:nth-child(1) { left: 0px; top: -20px; width: 200px; }

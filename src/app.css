@@ -221,7 +221,9 @@ header .logo svg g path:first-child{
 .total_black{
     color: var(--Neutral_1000);
 }
-
+.whiteop{
+    color: rgba(255, 255, 255, 0.5);
+}
 
 
 @media (max-width:500px) {

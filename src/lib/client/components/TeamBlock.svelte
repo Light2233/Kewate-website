@@ -6,7 +6,7 @@
 <section class="command dark-background" id="command">
     <aside class="command_info">
         <div class="info_block">
-            <h3 class="disp lay3 total_black">Наши специалисты решат задачи</h3>
+            <h3 class="display3 total_black">Наши специалисты решат задачи</h3>
             <p class="main_sm_16 total_black op50">Команда специалистов, которые показывают явный результат </p>
         </div>
     </aside>
@@ -110,7 +110,7 @@
     }
     .person_block h3{
         @media (max-width:400px) {
-            font-size: 20px;
+      wwww      font-size: 20px;
             line-height: 24px;
         }
     }

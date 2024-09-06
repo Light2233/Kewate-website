@@ -43,14 +43,10 @@
         team = data.team;
     }
 
-
-
-
     let render : boolean = false
-
-
     let innerWidth : number;
     let showModal : boolean = false;
+    let tabSelected : number = undefined;
 
 
     // Тригерры при скролле
@@ -67,39 +63,41 @@
         {
             name:"Как проходит согласование проекта?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"На чём разрабатывается сайт?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"Используется ли авторский контент?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"Из чего складывается стоимость сайта?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"Как производится оплата работ?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"Можно ли будет редактировать сайт после разработки?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         },
         {
             name:"Будет ли техническая поддержка?",
             content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-            open : false
         }
     ]
+
+    function tabOpen (index : number){
+        if(tabSelected == index){
+            tabSelected = undefined;
+            return;
+        }
+        tabSelected = index;
+    }
+
     
     let metaTeg = {
         "landing" : ["Ищете качественный лендинг для бизнеса? На Kewate.ru доступны готовые лендинги с адаптивным дизайном, созданные для быстрой конверсии и привлечения клиентов. Легкий запуск и максимальная отдача от вашего проекта.","купить лендинг, готовые лендинги, продажа лендингов, лендинги для бизнеса, создание лендингов"],
@@ -128,7 +126,7 @@
             </div>
             <div class="more_details">
                 <div class="more_details_info">
-                    <p class="main_sm_16 total_blac whiteop">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.</p>
+                    <p class="main_sm_16 total_blac gray">Наша амбиция — создать передовой, удобный и продающий продукт для нашего клиента. Мы помогаем компаниям развивать цифровые продукты, делая их простыми для понимания.</p>
                 </div>
                 <div class="more_details_link">
                     <a href="/" class="total_black main_sm_16">
@@ -147,9 +145,9 @@
                 {#key isInView5}
                 <table>
                     <thead  in:fade={{duration: 750,delay:0}} class:hidden={!isInView5}>
-                        <th class="main_sm_16 whiteop first_th">ФАКТ</th>
+                        <th class="main_sm_16 gray first_th">ФАКТ</th>
                         <th class="empty"></th>
-                        <th class="main_sm_16 whiteop">ПОКАЗАТЕЛЬ</th>
+                        <th class="main_sm_16 gray">ПОКАЗАТЕЛЬ</th>
                     </thead>
                     <tbody class:hidden={!isInView5}>
                         <tr>
@@ -254,10 +252,10 @@
             <h3 class="display3 total_black">Частые вопросы</h3>
         </div>
         <div class="tabs_block">
-            {#each tabs as tab}
+            {#each tabs as tab, index}
                 <div class="tab">
-                    <button class="main_sm_16 total_black" on:click={()=>{tab.open = !tab.open}} >{tab.name}<div class="cross" class:tab_open={tab.open}></div></button>
-                    {#if tab.open}
+                    <button class="main_sm_16 total_black" on:click={()=>{tabOpen(index+1)}}>{tab.name}<div class="cross" class:tab_open={tabSelected == index+1}></div></button>
+                    {#if tabSelected==index+1}
                         <div class="tab_content main_sm_16 total_black" transition:slide>
                             {tab.content}
                         </div>
@@ -538,7 +536,7 @@
         }
     }
     .responsibility_block:first-child h2{
-        font-weight: 700;
+        font-weight: 600;
     }
     .responsibility_block:not(:first-child) h2{
         font-weight: 500;

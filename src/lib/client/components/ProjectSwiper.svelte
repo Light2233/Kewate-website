@@ -30,7 +30,7 @@ simulateTouch={false}
                         <div class="tags">
                             {#each project.tags as tag}
                                 <div class="tag main_sm_14 total_black">
-                                    {tag}
+                                    {tag.name}
                                 </div>
                             {/each}
                         </div>

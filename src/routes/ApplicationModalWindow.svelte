@@ -64,7 +64,7 @@
             <div class="image_block" class:min_height={page!="/"}>
                 <img src="{ bg }" alt="">
                 <div class="application_title">
-                    <h2 class="header2">{page == "/" ? "Давайте обсудим задачу" : "Оставить заявку"}</h2>
+                    <h2 class="header2" class:bid={page!="/"}>{page == "/" ? "Давайте обсудим задачу" : "Оставить заявку"}</h2>
                     <p class="main_sm_14 gray">{page == "/" ? "Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы" : "Мы свяжемся с Вами в течение дня"} </p>
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
@@ -239,5 +239,8 @@
     }
     .min_height{
         max-height: 162px;
+    }
+    .bid{
+        margin-bottom: 8px;
     }
 </style>
