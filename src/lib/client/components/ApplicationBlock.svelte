@@ -302,7 +302,7 @@
         border-bottom: 1px solid var(--Neutral_300);
         text-align: center;
         cursor: pointer;
-        font-weight: 650;
+        font-weight: 500;
         @media (max-width:1250px) {
             max-width: 100%;
         }

@@ -552,7 +552,7 @@
         font-size: 18px;
         font-weight: 500;
         line-height: 22.5px;   
-        justify-content: space-between;
+        justify-content: end;
         cursor: pointer;
     }
     .more_details_link a:hover{
