@@ -554,6 +554,9 @@
         line-height: 22.5px;   
         justify-content: end;
         cursor: pointer;
+        @media (max-width:800px){
+            justify-content: start;
+        } 
     }
     .more_details_link a:hover{
         opacity: 0.8;

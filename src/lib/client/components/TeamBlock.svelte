@@ -104,13 +104,17 @@
         display: flex;
         flex-direction: column;
         row-gap: 5px;
+        @media (max-width:900px) {
+            width: 100%;
+            max-width: 250px;
+        }
         @media (max-width:400px) {
             row-gap: 12px;
         }
     }
     .person_block h3{
         @media (max-width:400px) {
-      wwww      font-size: 20px;
+            font-size: 20px;
             line-height: 24px;
         }
     }

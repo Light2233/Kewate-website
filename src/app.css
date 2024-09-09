@@ -137,6 +137,7 @@ body{
 }
 
 :root{
+    --Neutral_50: #FAFAFA;
     --Neutral_100: #ffffff;
     --Neutral_150: #FAFAFA;
     --Neutral_200: #F1F1F1;

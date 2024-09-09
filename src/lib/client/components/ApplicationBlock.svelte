@@ -144,11 +144,14 @@
         padding-top: 100px;
         padding-bottom: 100px;
         column-gap: 120px;
+        @media (max-width:900px) {
+            padding-top: 20px;
+        }
         @media (max-width:980px) {
             flex-direction: column-reverse;
         }
         @media (max-width:700px) {
-            padding: 100px 16px;
+            padding: 20px 16px 100px 16px;
         }
     }
     .ceo{
