@@ -10,20 +10,21 @@
     import PostApplicationAlert from './PostApplicationAlert.svelte';
     import MegaMenu from './MegaMenu.svelte';
     import modalBg from '$lib/assets/application_modal_bg.png';
-    import { isSubmit } from "$lib/client/PostApplicationStore";
     import { page } from "$app/stores";
-
+    import { onMount } from 'svelte';
+    import { isSubmit } from "$lib/client/PostApplicationStore";
 
     export let data;
 
-    let showModal;
+
+    let showModal: boolean;
     let alert = false;
     let render = false;
     let open = false;
-    let innerWidth;
+    let innerWidth: number;
     let blackColor = false;
     let megaMenuOpen= false;
-    let header;
+    let header: HTMLHeadElement;
     let headerClass = "header_trans";
 
 
@@ -47,7 +48,7 @@
         }
     }
     
-    let scrollY;
+    let scrollY: number;
     // Смена цвета хиддера при скролле 
     onMount(() => {
         showModal = false;
@@ -84,7 +85,7 @@
 
 
     // Ловим ивен открытия мега меню
-    function handleMessage(event) {
+    function handleMessage(event: Event) {
 		megaMenuOpen = false;
 	}
 
@@ -146,9 +147,11 @@
 
 <svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}} bind:scrollY={scrollY}/>
 
+<PostApplicationAlert />
+
 {#if render}
-    <ApplicationModalWindow bind:showModal data={data} bg={modalBg} page={"/"}/>
-    <ModileMenuModal bind:open/>
+    <ModileMenuModal bind:open utm={data.utm}/>
+    <ApplicationModalWindow bind:showModal utm={data.utm} bg={modalBg} page={"/"}/>
 {/if}
 
 <header bind:this={header} class:black={headerClass == "header_trans" && blackColor}  class="{headerClass}" >
@@ -301,7 +304,7 @@
     /* Header */
     header{
         margin: 0 auto;
-        z-index: 999999;
+        z-index: 9999;
         position: fixed;
         width: 100%;
     }

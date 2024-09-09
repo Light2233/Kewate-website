@@ -8,7 +8,7 @@
     import { options } from "$lib/client/formarters"
 
 
-    export let data;
+    export let utm;
     
     export let bg: string;
     export let page : string  = '';
@@ -23,6 +23,8 @@
 
 </script>
 
+
+
 {#if showModal}
     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
     <dialog
@@ -31,6 +33,7 @@
         on:click|self={() => dialog.close()}
 
     >
+        
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <main class="dialog_content">
             
@@ -82,6 +85,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 9;
         
 	}
     .dialog_content{

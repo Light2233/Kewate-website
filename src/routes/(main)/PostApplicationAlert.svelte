@@ -47,7 +47,7 @@
         padding: 12px;
         position: fixed;
         bottom: 0;
-        z-index: 999;
+        z-index: 9999999;
     }
     .error{
         background: #EE1E1E;
