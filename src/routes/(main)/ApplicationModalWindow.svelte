@@ -1,10 +1,12 @@
 <script lang="ts">
-    import { enhance } from '$app/forms';
     import { imask } from '@imask/svelte';
-    import notificationStore from "$lib/client/notificationStore"
+
+
+    import SendAppForm from '$lib/client/components/SendAppForm.svelte';
 
     import close from "$lib/assets/close.svg"
-    import { isSubmit } from "$lib/client/PostApplicationStore"
+    import { options } from "$lib/client/formarters"
+
 
     export let data;
     
@@ -16,35 +18,6 @@
 
     let form : HTMLFormElement
 	$: if (dialog && showModal) dialog.showModal();
-
-    const sendApp = async () => {
-        var formData = new FormData(form);
-        var data = Object.fromEntries(formData);
-
-        const response = await fetch("/api/sendApp", {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-        const jsonResponse : {
-            success: boolean,
-            message?: string
-        } = await response.json();
-
-        $notificationStore.success = jsonResponse.success;
-        $notificationStore.message = jsonResponse.message;
-        $notificationStore.show = true;
-        if (jsonResponse.success) 
-            form.reset()
-    }
-
-
-
-    
-    import { options } from "$lib/client/formarters"
     
     let value : string = '';
 
@@ -69,10 +42,8 @@
                 </div>
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
-            <form method="post" on:submit|preventDefault={sendApp} bind:this={form}>
-                <input type="hidden" name="page" value="Главная">
-                <input type="hidden" name="source" value="Модальное окно в хидере">
-                <input type="hidden" name="utm" value="{JSON.stringify(data?.utm)}">
+
+            <SendAppForm bind:form utm={data?.utm} pageName={"Главная"} source={"Модальное окно в хидере"}>
                 <div class="input_place">
                     <h4 class="header4 total_black">Имя</h4>
                     <input type="text" name="name" placeholder="Как к вам обращаться?" required>
@@ -85,8 +56,8 @@
                     <h4 class="header4 total_black">Телефон</h4>
                     <input type="text" name="phone" placeholder="+7 (900) 000–00–00" required bind:value={value} use:imask={options}>
                 </div>
-                <button type="submit"  class="main_sm_16 main_btn_black">Оставить заявку</button>
-            </form>
+                <button type="submit" class="main_sm_16 main_btn_black">Оставить заявку</button>
+            </SendAppForm>
         </main>
     </dialog>
 {/if}

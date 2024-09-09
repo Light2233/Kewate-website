@@ -1,7 +1,8 @@
 <script lang="ts">
     import { imask } from '@imask/svelte';
-    import notificationStore from "$lib/client/notificationStore"
 
+
+    import SendAppForm from './SendAppForm.svelte';
     import nikolay_big from "$lib/assets/nikolay_big.png";
 
     export let utm;
@@ -13,31 +14,6 @@
 
 
     let innerWidth : number;
-
-    const sendApp = async () => {
-        var formData = new FormData(form);
-        var data = Object.fromEntries(formData);
-
-        const response = await fetch("/api/sendApp", {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-        const jsonResponse : {
-            success: boolean,
-            message?: string
-        } = await response.json();
-
-        $notificationStore.success = jsonResponse.success;
-        $notificationStore.message = jsonResponse.message;
-        $notificationStore.show = true;
-        if (jsonResponse.success) 
-            form.reset()
-    }
-
 
     const options = {
         mask: '{+7} (000) 000-00-00',
@@ -68,10 +44,7 @@
             </div>
         </div>
     </div>
-    <form method="post" on:submit|preventDefault={sendApp} bind:this={form}>
-        <input type="hidden" name="page" value="Главная">
-        <input type="hidden" name="source" value="Последний блок с Колей">
-        <input type="hidden" name="utm" value="{JSON.stringify(utm)}">
+    <SendAppForm bind:form pageName={"Гланая"} source={"Нижний блок с Николаем"}>
         <div class="application_title">
             <h3 class="display3 total_black">Давайте обсудим Вашу задачу</h3>
             <p class="main_sm_16 gray">Проведём созвон, где расскажем о нас, обсудим задачу и выстроим планы</p>
@@ -127,7 +100,7 @@
                 <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>  
             </div>
         </div>
-    </form>
+    </SendAppForm>
 </section>
 
 <style lang="less">

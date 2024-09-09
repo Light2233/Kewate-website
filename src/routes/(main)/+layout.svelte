@@ -1,22 +1,20 @@
 <script lang="ts">
-    import tg from "$lib/assets/tg_icon.svg"
-    import vk from "$lib/assets/vk_icon.svg"
+    import tg from "$lib/assets/tg_icon.svg";
+    import vk from "$lib/assets/vk_icon.svg";
    
 
-    import { onMount } from 'svelte'
-    import { slide,fly } from 'svelte/transition'
+    import { onMount } from 'svelte';
 
-    import ModileMenuModal from './ModileMenuModal.svelte'
-    import ApplicationModalWindow from "./ApplicationModalWindow.svelte"
-    import PostApplicationAlert from './PostApplicationAlert.svelte'
-    import MegaMenu from './MegaMenu.svelte'
-    import modalBg from '$lib/assets/application_modal_bg.png'
-    import favicon from '$lib/assets/ICO_kewate.ico'
-    import { isSubmit } from "$lib/client/PostApplicationStore"
+    import ModileMenuModal from './ModileMenuModal.svelte';
+    import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
+    import PostApplicationAlert from './PostApplicationAlert.svelte';
+    import MegaMenu from './MegaMenu.svelte';
+    import modalBg from '$lib/assets/application_modal_bg.png';
+    import { isSubmit } from "$lib/client/PostApplicationStore";
+    import { page } from "$app/stores";
 
 
     export let data;
-
 
     let showModal;
     let alert = false;
@@ -35,7 +33,7 @@
         setTimeout(()=>{
             alert = false;
             $isSubmit = false; 
-        },3000)
+        }, 3000)
         
     }
 
@@ -222,7 +220,12 @@
 </div>
 {/if} -->
 
-<PostApplicationAlert />
+<PostApplicationAlert
+    success={$page.form?.success}
+    message={$page.form?.message}
+    on:shown={() => { showModal = false }}
+/>
+
 
 
 <slot/>

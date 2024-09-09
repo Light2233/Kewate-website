@@ -1,20 +1,39 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
-    import notificationStore from "$lib/client/notificationStore"
+    import { createEventDispatcher } from 'svelte'
+    import { onMount } from "svelte";
+
+    const dispatch = createEventDispatcher();
+
+    onMount(() => {
+        dispatch("mounted");
+    })
+
 
     let successMessage = "Заявка успешно отправлена - мы перезвоним Вам в течение дня";
+    export let success: boolean;
+    export let message: string | undefined;
 
-    $: if($notificationStore.show) {
-        setTimeout(()=>{
-            $notificationStore.show = false; 
-        },3000)
+    let show: boolean;
+    let showDelay = 3000; // Время показа самого алёрта в мс
+
+    // При свитче success на false или true показываем окно с ошибкой и тут же ставим таймаут на исчизновение
+    $: {
+        if (success !== undefined) {
+            show = true;
+            dispatch("shown");
+            
+            setTimeout(() => {
+                show = false
+            }, showDelay);
+        }
     }
 
 </script>
 
-{#if $notificationStore.show}
-    <aside class="post_application" transition:slide on:animationend={() => {$notificationStore.readed = true}} class:error={!$notificationStore.success} class:successfull={$notificationStore.success}>
-        <p class="main_sm_16" style="text-align: center;">{$notificationStore.success ? successMessage : $notificationStore.message}</p>
+{#if show}
+    <aside class="post_application" transition:slide class:error={ !success } class:successfull={ success }>
+        <p class="main_sm_16" style="text-align: center;">{ success ? successMessage : message }</p>
     </aside>
 {/if}
 
