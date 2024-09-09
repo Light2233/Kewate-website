@@ -46,7 +46,7 @@
                 <button on:click={() => {dialog.close(),showModal=false}} type="button"><img class="close" src="{ close }" alt=""></button>
             </div>
 
-            <SendAppForm bind:form utm={data?.utm} pageName={"Главная"} source={"Модальное окно в хидере"}>
+            <SendAppForm bind:form utm={utm} pageName={"Главная"} source={"Модальное окно в хидере"}>
                 <div class="input_place">
                     <h4 class="header4 total_black">Имя</h4>
                     <input type="text" name="name" placeholder="Как к вам обращаться?" required>
@@ -180,7 +180,7 @@
     .application_title *{
         text-align: center;
     }
-    form{
+    :global(form) {
         padding: 16px 16px 16px 16px;
         display: flex;
         flex-direction: column;
@@ -189,11 +189,15 @@
             padding: 16px 8px 12px 8px;
         }
     }
-    form h4{
+    :global(form h4){
         @media (max-width:340px) {
             font-size: 12px;
             line-height: 14.4px;
         }
+    }
+    :global(form button){
+        margin-left: 0;
+        margin-top: 12px;
     }
     .input_place{
         display: flex;
@@ -207,10 +211,6 @@
         outline: none;
         border-radius: 12px;
         width: 100%;
-    }
-    form button{
-        margin-left: 0;
-        margin-top: 12px;
     }
     .min_height{
         max-height: 162px;

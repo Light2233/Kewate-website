@@ -4,14 +4,13 @@
    
 
     import { onMount } from 'svelte';
+    import { page } from "$app/stores";
 
     import ModileMenuModal from './ModileMenuModal.svelte';
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
     import PostApplicationAlert from './PostApplicationAlert.svelte';
     import MegaMenu from './MegaMenu.svelte';
     import modalBg from '$lib/assets/application_modal_bg.png';
-    import { page } from "$app/stores";
-    import { onMount } from 'svelte';
     import { isSubmit } from "$lib/client/PostApplicationStore";
 
     export let data;
