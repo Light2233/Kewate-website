@@ -69,10 +69,6 @@
 
     // Тригерры при скролле
 
-    let isInView1 = false;
-    let isInView2 = false;
-    let isInView3 = false;
-    let isInView4 = false
     let isInView5 = false
 
 
@@ -154,7 +150,7 @@
 </script>
 
 <svelte:window bind:innerWidth={innerWidth} use:wheel={{scrollable}}/>
-<ApplicationModalWindow bind:showModal bg={bgModal} page={'main'}/>
+<ApplicationModalWindow bind:showModal bg={bgModal} page={'main'} utm={data.utm}/>
 
 <svelte:head>
     <title>Главная</title>
@@ -163,7 +159,7 @@
 </svelte:head>
 
 <main class="main_content">
-    <WelcomeBlock images={[bg1,'',laptop]} page={'/'} taglineDesc={"Улучшаем пользовательский опыт для продуктов по всему миру"}/>
+    <WelcomeBlock images={[bg1,'',laptop]} page={'/'} taglineDesc={"Улучшаем пользовательский опыт для продуктов по всему миру"} on:modalOpen={()=>{showModal=true}}/>
     <section class="business_objectives dark-background">
         <h1 class="display3 total_black">Решаем задачи бизнеса</h1>
         <div class="objectives">

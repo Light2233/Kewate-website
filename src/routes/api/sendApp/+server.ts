@@ -6,7 +6,7 @@ import appFormValidate from "$lib/validators/appFormValidate";
 
 export const POST: RequestHandler = async ({ request }) => {
 	const data = await request.json();
-
+    console.log(data)
     const err = appFormValidate(data);
     if (err.error?.message)
         return json({

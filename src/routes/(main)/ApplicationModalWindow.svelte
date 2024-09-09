@@ -4,9 +4,8 @@
     import notificationStore from "$lib/client/notificationStore"
 
     import close from "$lib/assets/close.svg"
-    import { isSubmit } from "$lib/client/PostApplicationStore"
 
-    export let data;
+    export let utm;
     
     export let bg: string;
     export let page : string  = '';
@@ -39,6 +38,8 @@
         $notificationStore.show = true;
         if (jsonResponse.success) 
             form.reset()
+        
+        showModal= false;
     }
 
 
@@ -50,6 +51,8 @@
 
 </script>
 
+
+
 {#if showModal}
     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
     <dialog
@@ -58,6 +61,7 @@
         on:click|self={() => dialog.close()}
 
     >
+        
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <main class="dialog_content">
             
@@ -72,7 +76,7 @@
             <form method="post" on:submit|preventDefault={sendApp} bind:this={form}>
                 <input type="hidden" name="page" value="Главная">
                 <input type="hidden" name="source" value="Модальное окно в хидере">
-                <input type="hidden" name="utm" value="{JSON.stringify(data?.utm)}">
+                <input type="hidden" name="utm" value="{JSON.stringify(utm)}">
                 <div class="input_place">
                     <h4 class="header4 total_black">Имя</h4>
                     <input type="text" name="name" placeholder="Как к вам обращаться?" required>
@@ -111,6 +115,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 9;
         
 	}
     .dialog_content{

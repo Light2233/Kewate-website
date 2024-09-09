@@ -50,8 +50,15 @@
         font-weight: 500;
         line-height: 16.8px;
         cursor: pointer;
+        position: relative;
     }
-    .tab_active{
-        border-bottom: 1px solid var(--Neutral_800, #0A0A0A)
+    .tab_active::after{
+        content: "";
+        height: 1px;
+        width: 100%;
+        background: var(--Neutral-800, #0A0A0A);
+        position: absolute;
+        bottom: -1px;
+        right: 0;
     }
 </style>

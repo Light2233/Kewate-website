@@ -35,3 +35,9 @@ interface TeamMember {
     speciality: string,
     url: string
 }
+
+interface ClientProject {
+    name : string,
+    steps : string,
+    url : string
+}

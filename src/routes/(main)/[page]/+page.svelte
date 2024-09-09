@@ -1,21 +1,13 @@
 <script lang="ts">
-    import nikolay_big from "$lib/assets/command/nikolay.webp"
-   
-
-
-    
     import Countup from "svelte-countup"
     import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
-    import { onMount, afterUpdate , onDestroy } from "svelte"
     import type { PageData } from './$types';
     import { page } from '$app/stores';
 
 
     
-    import { priceFormat } from "$lib/client/formarters"
-    import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "../ApplicationModalWindow.svelte";
     import LandingGrid from "$lib/client/components/LandingGrid.svelte"
     import MultiPageGrid from "$lib/client/components/MultiPageGrid.svelte"
@@ -43,20 +35,15 @@
         team = data.team;
     }
 
-    let render : boolean = false
     let innerWidth : number;
     let showModal : boolean = false;
     let tabSelected : number = undefined;
 
 
     // Тригерры при скролле
-    let isInView1 = false;
-    let isInView2 = false;
     let isInView3 = false;
     let isInView5 = false
 
-    // Заявка 
-    let budget = ["До 50 тыс. ₽","50 – 200 тыс. ₽","200 – 500 тыс. ₽","от 500 тыс. ₽"];
 
     // Открывашки по вопросам
     let tabs = [
@@ -108,7 +95,7 @@
 </script>
 
 <svelte:window bind:innerWidth={innerWidth}/>
-<ApplicationModalWindow bind:showModal bg={websiteInfo.images[1]} page={pageName}/>
+<ApplicationModalWindow bind:showModal bg={websiteInfo.images[1]} page={pageName} utm={data.utm}/>
 
 <svelte:head>
     <title>{websiteInfo.pageTitle}</title>
