@@ -1,18 +1,35 @@
 import { dev } from '$app/environment';
 
-import { error, type Handle } from '@sveltejs/kit';
-import { DEV_PASSWORD } from "$env/static/private"
+import type { Handle } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
+import { DEV_PASSWORD, DEMO } from "$env/static/private"
 
-export const handle: Handle = async ({ event, resolve }) => {
-	if (dev) {
-        let devPassword = event.cookies.get("dev-password");
-        if ( devPassword !== DEV_PASSWORD && event.url.pathname !== "/join") {
-            return new Response("Access denied");
+export const demoMode: Handle = async ({ event, resolve }) => {
+    let response: Response;
+    let isJoinDevPage = event.url.pathname === "/join";
+
+	if ( DEMO == "on" ) {
+        if ( dev ) {
+            let password = event.cookies.get("dev-password");
+
+            if ( password !== DEV_PASSWORD && !isJoinDevPage ) {
+                return new Response("Access denied");
+            }
         }
-    } else if (event.url.pathname == "/join") {
-        error(404);
-    };
+    } else if ( DEMO == "off" && isJoinDevPage) {
+        return new Response("Not found", {status: 404})
+    }
+
+    response = await resolve(event);
+    return response;
+
+};
+
+export const adminAuth: Handle = async ({ event, resolve }) => {
+    // TODO: protected routes 
 
 	const response = await resolve(event);
 	return response;
 };
+
+export const handle = sequence(demoMode, adminAuth);

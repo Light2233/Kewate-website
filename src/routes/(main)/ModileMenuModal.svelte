@@ -97,7 +97,7 @@
                 {/if}
             </div>
             {#if !servicesOpen}
-                <button class="main_sm_16 main_btn_white last_btn" on:click={()=>{showModal=true}}>Обсудить задачу</button>
+                <button type="button" classs="main_sm_16 main_btn_white last_btn" on:click={()=>{showModal=true}}>Обсудить задачу</button>
             {/if}
         </div>
         

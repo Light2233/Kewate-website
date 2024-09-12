@@ -1,10 +1,8 @@
 <script lang="ts">
     import Countup from "svelte-countup"
-    import { enhance } from '$app/forms';
     import {fade,slide,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
     import type { PageData } from './$types';
-    import { page } from '$app/stores';
 
 
     
@@ -18,7 +16,6 @@
     import SwiperReviews from "$lib/client/components/SwiperReviews.svelte";
     import ApplicationBlock from "$lib/client/components/ApplicationBlock.svelte";
     import WebsiteBlock from "$lib/client/components/WebsiteBlock.svelte";
-    import { imask } from '@imask/svelte';
 
     export let data: PageData;
 
@@ -37,7 +34,7 @@
 
     let innerWidth : number;
     let showModal : boolean = false;
-    let tabSelected : number = undefined;
+    let tabSelected : number | undefined;
 
 
     // Тригерры при скролле

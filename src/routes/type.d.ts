@@ -5,9 +5,7 @@ interface WebsiteInfo {
     name: string,
     term : string,
     purpose : string,
-    time: string,
-    advantages : {
-        title: string,
+    time: stristring,
         desc: string,
     }[],
     cost : number,
@@ -40,4 +38,47 @@ interface ClientProject {
     name : string,
     steps : string,
     url : string
+}
+
+
+
+interface Tab {
+    number: number,
+    component : ComponentType
+}
+
+
+// Кпшечка
+
+type Services = WebsiteCategory
+
+interface Task {
+    problem : string,
+    solution : string,
+    scope: string,
+    term: string,
+    price: number
+}
+
+interface UserProblem {
+    percent: string,
+    name: string,
+    desc: string,
+    solution: string
+}
+
+interface Getting{
+    name: string,
+    desc : string
+}
+
+interface CommercialOffer {
+    name: string,
+    url: string,
+    service: Services,
+    clientName : string,
+    task : Task,
+    userProblems: UserProblem[],
+    projects: string[],
+    clientGetting : Getting[]
 }

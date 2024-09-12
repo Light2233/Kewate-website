@@ -11,7 +11,6 @@
     import PostApplicationAlert from './PostApplicationAlert.svelte';
     import MegaMenu from './MegaMenu.svelte';
     import modalBg from '$lib/assets/application_modal_bg.png';
-    import { isSubmit } from "$lib/client/PostApplicationStore";
 
     export let data;
 
@@ -25,17 +24,6 @@
     let megaMenuOpen= false;
     let header: HTMLHeadElement;
     let headerClass = "header_trans";
-
-
-    // Реакция на отправку формы
-    $: if($isSubmit){
-        alert = true;
-        setTimeout(()=>{
-            alert = false;
-            $isSubmit = false; 
-        }, 3000)
-        
-    }
 
     
     //  Плавная сменацвета у хидера
@@ -223,8 +211,8 @@
 {/if} -->
 
 <PostApplicationAlert
-    success={$page.form?.success}
-    message={$page.form?.message}
+    success={ $page.form?.success }
+    message={ $page.form?.message }
     on:shown={() => { showModal = false }}
 />
 

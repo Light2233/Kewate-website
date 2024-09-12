@@ -11,7 +11,7 @@
 
 
     let successMessage = "Заявка успешно отправлена - мы перезвоним Вам в течение дня";
-    export let success: boolean;
+    export let success: boolean | undefined;
     export let message: string | undefined;
 
     let show: boolean;
@@ -25,8 +25,10 @@
             
             setTimeout(() => {
                 show = false
+                success = undefined;
             }, showDelay);
         }
+        
     }
 
 </script>

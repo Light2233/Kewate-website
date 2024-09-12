@@ -25,7 +25,6 @@
     import { page } from '$app/stores'
     
     import SwiperReviews from "$lib/client/components/SwiperReviews.svelte"
-    import { isSubmit } from "$lib/client/PostApplicationStore"
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
     import WelcomeBlock from "$lib/client/components/WelcomeBlock.svelte"
     import ProjectsBlock from "$lib/client/components/ProjectsBlock.svelte"

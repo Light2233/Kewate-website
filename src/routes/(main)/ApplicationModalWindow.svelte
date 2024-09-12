@@ -19,7 +19,6 @@
     let form : HTMLFormElement
 	$: if (dialog && showModal) dialog.showModal();
     
-    let value : string = '';
 
 </script>
 
@@ -57,7 +56,7 @@
                 </div>
                 <div class="input_place">
                     <h4 class="header4 total_black">Телефон</h4>
-                    <input type="text" name="phone" placeholder="+7 (900) 000–00–00" required bind:value={value} use:imask={options}>
+                    <input type="text" name="phone" placeholder="+7 (900) 000–00–00" required use:imask={options}>
                 </div>
                 <button type="submit" class="main_sm_16 main_btn_black">Оставить заявку</button>
             </SendAppForm>
@@ -128,6 +127,7 @@
 	}
 	button {
 		display: block;
+        margin-left: 0;
 	}
     .close{
         width: 26px;
@@ -203,6 +203,9 @@
         display: flex;
         flex-direction: column;
         row-gap: 11px;
+    }
+    :global(.input_place .main_btn_black){
+        margin-left: 0 !important;
     }
     input[type="text"]{
         background: var(--Neutral_100);

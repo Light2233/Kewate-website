@@ -225,6 +225,9 @@ header .logo svg g path:first-child{
 .whiteop{
     color: rgba(255, 255, 255, 0.5);
 }
+button{
+    cursor: pointer;
+}
 
 
 @media (max-width:500px) {
