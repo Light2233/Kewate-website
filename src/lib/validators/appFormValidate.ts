@@ -17,9 +17,8 @@ export default (data:any) => {
         phone: Joi.string()
             .required(),
         email: Joi.string()
-            .email(),
+            .email({tlds: {allow: false}}),
         budget: Joi.string()
     })
-
     return schema.validate(data);
 }

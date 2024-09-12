@@ -8,7 +8,6 @@
     export let utm;
 
     let form : HTMLFormElement;
-    let phoneNumber : string;
     let budget = ["До 50 тыс. ₽", "50 – 200 тыс. ₽", "200 – 500 тыс. ₽", "от 500 тыс. ₽"];
     let budgetSelected : string;
 
@@ -19,8 +18,8 @@
         mask: '{+7} (000) 000-00-00',
         lazy: true
     };
-</script>
 
+</script>
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <section class="application dark-background">
@@ -68,7 +67,7 @@
                 <div class="input_place">
                     <div class="">
                         <h4 class="header4 total_black">Телефон</h4>
-                        <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required bind:value={phoneNumber} use:imask={options}>
+                        <input name="phone" type="text" placeholder="+7 (900) 000–00–00" required use:imask={options}>
                     </div>
                     <div class="">
                         <h4 class="header4 total_black">E-mail</h4>
@@ -81,7 +80,7 @@
                 <div class="budget">
 
                     {#each budget as money ,index}
-                        <div class="budget_section main_sm_16 total_black" class:budget_selected={budgetSelected === money}>
+                        <div class="budget_section main_sm_16 total_black" class:budget_selected={ budgetSelected === money }>
                             <input type="radio" name="budget" value="{money}" bind:group={budgetSelected} required>
                             {money}
                         </div>
@@ -96,7 +95,7 @@
         <div class="send_app">
             <div class="empty"></div>
             <div class="send_app_btn">
-                <button class="main_sm_16 main_btn_black" type="submit">Оставить заявку</button>
+                <button class="main_sm_16 main_btn_black send_button" type="submit">Оставить заявку</button>
                 <p class="main_sm_16 gray">Мы перезвоним Вам в течение дня</p>  
             </div>
         </div>
@@ -184,7 +183,7 @@
         width: 100%;
         margin-top: 8px;
     }
-    form{
+    :global(.application form){
         display: flex;
         flex-direction: column;
         row-gap: 64px;
