@@ -18,11 +18,9 @@
     import nikolayBig from "$lib/assets/command/nikolay.webp"
 
 
-    import Countup from "svelte-countup"
-    import { enhance } from '$app/forms';
-    import {fade,slide,fly} from "svelte/transition"
+    import Countup from "svelte-countup";
+    import {fade,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
-    import { page } from '$app/stores'
     
     import SwiperReviews from "$lib/client/components/SwiperReviews.svelte"
     import ApplicationModalWindow from "./ApplicationModalWindow.svelte";
