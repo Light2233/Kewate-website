@@ -2,10 +2,12 @@
 type WebsiteCategory = "landing" | "multi-page" | "store";
 
 interface WebsiteInfo {
-    name: string,
+    name : string,
     term : string,
     purpose : string,
-    time: stristring,
+    time: string,
+    advantages : {
+        title: string,
         desc: string,
     }[],
     cost : number,
@@ -44,7 +46,8 @@ interface ClientProject {
 
 interface Tab {
     number: number,
-    component : ComponentType
+    component : ComponentType,
+    loadData?: any,
 }
 
 
@@ -67,7 +70,7 @@ interface UserProblem {
     solution: string
 }
 
-interface Getting{
+interface Getting {
     name: string,
     desc : string
 }

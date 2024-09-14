@@ -9,12 +9,27 @@
     let currentService = services[0]
 
 
-    let lvlCnt = 4
-    let getting = 3
+    let userProblemTemplate: UserProblem = {
+        percent: "",
+        name: "",
+        desc: "",
+        solution: ""
+    }
+
+    let gettingTemplate: Getting = {
+        name: "",
+        desc: ""
+    }
+
+    let userProblems = [{...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}];
+    let clientGettings = [{...gettingTemplate}, {...gettingTemplate}, {...gettingTemplate},]
 </script>
 
 {#if currentStep<6}
-    <form>
+    <form method="post" action="?/createOffer">
+        <input type="hidden" name="userProblems" value="{JSON.stringify(userProblems)}">
+        <input type="hidden" name="clientGettings" value="{JSON.stringify(clientGettings)}">
+
         <div class="step" in:fade> 
             <p class="step_title gray">Шаг {currentStep} из {maxStep}</p>
             {#if currentStep == 1}
@@ -23,16 +38,17 @@
                     <div class="inputs_content">
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Название КП</p>
-                            <input type="text" required>
+                            <input type="text" name="name" required>
                             <p class="main_sm_14 gray" >Будет отображаться в админке</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Адрес сайта</p>
-                            <input type="text" required>
+                            <input type="text" name="url" required>
                             <p class="main_sm_14 gray" >По этому адресу будет доступно КП</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Услуга</p>
+                            <input type="hidden" name="service" bind:value={currentService}>
                             <button class="select" type="button" on:click={()=>{dropMenu=!dropMenu}} class:drop_active={dropMenu}>{currentService} 
                                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6.00004 6.95276L0.467285 1.42027L1.46054 0.447266L6.00004 4.98652L10.5395 0.447266L11.5328 1.42027L6.00004 6.95276Z" fill="white"/>
@@ -48,7 +64,7 @@
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Имя клиента</p>
-                            <input type="text" required>
+                            <input type="text" name="clientName" required>
                         </div>
                     </div>
                     
@@ -69,45 +85,44 @@
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Сфера проекта</p>
-                            <input type="text" required>
+                            <input type="text" name="projectScope" required>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Срок разработки</p>
-                            <input type="text" required>
+                            <input type="text" name="developmentTime" required>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Стоимость работы</p>
-                            <input type="text" required>
+                            <input type="text" name="cost" required>
                         </div>
                     </div>
-                    
                 </div>
             {:else if currentStep==3}
                 <div class="step_content" in:fade>
                     <h1 class="header3 total_black">Опыт работы со сферой<p class="main_sm_16 gray">Большинство пользователей испытывают проблемы с:</p></h1>
                     
                     <div class="inputs_content lvl_content">
-                        {#each {length: lvlCnt} as _ , index}
+                        {#each {length: userProblems.length} as _ , index}
                             <div class="lvl_block">
                                 <div class="lvl_title">
                                     #{index+1}
                                     <div class="client_percent">
                                         <p class="main_sm_14 total_black">Процент пользователей</p>
-                                        <input type="text" required>
+                                        <input type="text" bind:value={userProblems[index].percent} required>
                                     </div>
                                 </div>
                                 <div class="input_grid">
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Название</p>
-                                        <textarea name="task" id="" cols="33" required></textarea>
+                                        <textarea bind:value={userProblems[index].name} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Описание</p>
-                                        <textarea name="task" id="" cols="33" required></textarea>
+                                        <textarea bind:value={userProblems[index].desc} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Возможные решения</p>
-                                        <textarea name="task" id="" cols="33" required></textarea>
+                                        <textarea bind:value={userProblems[index].solution} id="" cols="33" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +135,7 @@
                     <h1 class="header3 total_black">Что получит клиент?</h1>
                     
                     <div class="inputs_content lvl_content">
-                        {#each {length: getting } as _ , index}
+                        {#each {length: clientGettings.length } as _ , index}
                             <div class="lvl_block">
                                 <div class="lvl_title">
                                     #{index+1}
@@ -128,11 +143,11 @@
                                 <div class="input_grid getting_grid">
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Название</p>
-                                        <textarea name="task" id="" cols="33" required></textarea>
+                                        <textarea bind:value={clientGettings[index].name} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Описание</p>
-                                        <textarea name="task" id="" cols="33" required></textarea>
+                                        <textarea bind:value={clientGettings[index].desc}  id="" cols="33" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +164,7 @@
                 {#if currentStep<5}
                     <button type="button" class="main_btn_black" on:click={()=>{currentStep++}} in:fade>Далее</button>
                 {:else}
-                    <button type="button" class="main_btn_black" in:fade on:click={()=>{currentStep++}} >Создать КП</button>
+                    <button type="submit" class="main_btn_black" in:fade>Создать КП</button>
                 {/if}
             </div>
             
