@@ -1,12 +1,12 @@
 <script lang="ts">
     import { slide,fade } from "svelte/transition";
+    import { enhance } from "$app/forms";
+    import { serviceVerboseMap } from "$lib/client/formarters";
 
     export let currentStep = 1;
     let maxStep = 5
 
     let dropMenu = false
-    let services = ["Одностраничный сайт", "Bamcing", "Dancing"]
-    let currentService = services[0]
 
 
     let userProblemTemplate: UserProblem = {
@@ -21,16 +21,33 @@
         desc: ""
     }
 
-    let userProblems = [{...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}];
-    let clientGettings = [{...gettingTemplate}, {...gettingTemplate}, {...gettingTemplate},]
+    let formSendData: CommercialOffer = {
+        name: "",
+        url: "",
+        service : "landing",
+        clientName : "",
+        task : {
+            problem : "",
+            solution : "",
+            scope: "",
+            term: "",
+            price: 0,
+        },
+        userProblems: [{...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}, {...userProblemTemplate}],
+        clientGettings: [{...gettingTemplate}, {...gettingTemplate}, {...gettingTemplate},]
+    }
+
+    let confirm = false;
+
 </script>
 
-{#if currentStep<6}
-    <form method="post" action="?/createOffer">
-        <input type="hidden" name="userProblems" value="{JSON.stringify(userProblems)}">
-        <input type="hidden" name="clientGettings" value="{JSON.stringify(clientGettings)}">
 
-        <div class="step" in:fade> 
+
+{#if currentStep < 6}
+    <form method="post" action="?/createOffer" use:enhance>
+        <input type="hidden" name="formSendData" value="{JSON.stringify(formSendData)}">
+
+        <div class="step" in:fade>  
             <p class="step_title gray">Шаг {currentStep} из {maxStep}</p>
             {#if currentStep == 1}
                 <div class="step_content" in:fade>
@@ -38,36 +55,34 @@
                     <div class="inputs_content">
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Название КП</p>
-                            <input type="text" name="name" required>
+                            <input type="text" name="name" required bind:value={formSendData.name}>
                             <p class="main_sm_14 gray" >Будет отображаться в админке</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Адрес сайта</p>
-                            <input type="text" name="url" required>
+                            <input type="text" name="url" required bind:value={formSendData.url}>
                             <p class="main_sm_14 gray" >По этому адресу будет доступно КП</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Услуга</p>
-                            <input type="hidden" name="service" bind:value={currentService}>
-                            <button class="select" type="button" on:click={()=>{dropMenu=!dropMenu}} class:drop_active={dropMenu}>{currentService} 
+                            <button class="select" type="button" on:click={()=>{dropMenu=!dropMenu}} class:drop_active={dropMenu}>{serviceVerboseMap.get(formSendData.service)} 
                                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6.00004 6.95276L0.467285 1.42027L1.46054 0.447266L6.00004 4.98652L10.5395 0.447266L11.5328 1.42027L6.00004 6.95276Z" fill="white"/>
                                 </svg>          
                             </button>
                             {#if dropMenu}
                                 <div class="drop_menu" transition:slide>
-                                    {#each services as item}
-                                        <button type="button" on:click={()=>{currentService = item;dropMenu= false}} >{item}</button>
+                                    {#each serviceVerboseMap as item}
+                                        <button type="button" on:click={()=>{formSendData.service = item[0]; dropMenu= false}} >{item[1]}</button>
                                     {/each}
                                 </div>
                             {/if}
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Имя клиента</p>
-                            <input type="text" name="clientName" required>
+                            <input type="text" name="clientName" required bind:value={formSendData.clientName}>
                         </div>
                     </div>
-                    
                 </div>
             {:else if currentStep == 2}
                 <div class="step_content" in:fade>
@@ -75,25 +90,25 @@
                     <div class="inputs_content">
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Боль</p>
-                            <textarea name="pain" id="" cols="33" required></textarea>
+                            <textarea name="pain" id="" cols="33" required bind:value={formSendData.task.problem}></textarea>
                             <p class="main_sm_14 gray" >Будет отображаться в админке</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Задача</p>
-                            <textarea name="task" id="" cols="33" required></textarea>
+                            <textarea name="task" id="" cols="33" required bind:value={formSendData.task.solution}></textarea>
                             <p class="main_sm_14 gray" >По этому адресу будет доступно КП</p>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Сфера проекта</p>
-                            <input type="text" name="projectScope" required>
+                            <input type="text" name="projectScope" required bind:value={formSendData.task.scope}>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Срок разработки</p>
-                            <input type="text" name="developmentTime" required>
+                            <input type="text" name="developmentTime" required bind:value={formSendData.task.term}>
                         </div>
                         <div class="input_place">
                             <p class="main_sm_14 total_black">Стоимость работы</p>
-                            <input type="text" name="cost" required>
+                            <input type="text" name="cost" required bind:value={formSendData.task.price}>
                         </div>
                     </div>
                 </div>
@@ -102,27 +117,27 @@
                     <h1 class="header3 total_black">Опыт работы со сферой<p class="main_sm_16 gray">Большинство пользователей испытывают проблемы с:</p></h1>
                     
                     <div class="inputs_content lvl_content">
-                        {#each {length: userProblems.length} as _ , index}
+                        {#each {length: formSendData.userProblems.length} as _ , index}
                             <div class="lvl_block">
                                 <div class="lvl_title">
                                     #{index+1}
                                     <div class="client_percent">
                                         <p class="main_sm_14 total_black">Процент пользователей</p>
-                                        <input type="text" bind:value={userProblems[index].percent} required>
+                                        <input type="text" bind:value={formSendData.userProblems[index].percent} required>
                                     </div>
                                 </div>
                                 <div class="input_grid">
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Название</p>
-                                        <textarea bind:value={userProblems[index].name} id="" cols="33" required></textarea>
+                                        <textarea bind:value={formSendData.userProblems[index].name} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Описание</p>
-                                        <textarea bind:value={userProblems[index].desc} id="" cols="33" required></textarea>
+                                        <textarea bind:value={formSendData.userProblems[index].desc} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Возможные решения</p>
-                                        <textarea bind:value={userProblems[index].solution} id="" cols="33" required></textarea>
+                                        <textarea bind:value={formSendData.userProblems[index].solution} id="" cols="33" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +150,7 @@
                     <h1 class="header3 total_black">Что получит клиент?</h1>
                     
                     <div class="inputs_content lvl_content">
-                        {#each {length: clientGettings.length } as _ , index}
+                        {#each {length: formSendData.clientGettings.length } as _ , index}
                             <div class="lvl_block">
                                 <div class="lvl_title">
                                     #{index+1}
@@ -143,11 +158,11 @@
                                 <div class="input_grid getting_grid">
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Название</p>
-                                        <textarea bind:value={clientGettings[index].name} id="" cols="33" required></textarea>
+                                        <textarea bind:value={formSendData.clientGettings[index].name} id="" cols="33" required></textarea>
                                     </div>
                                     <div class="input_place">
                                         <p class="main_sm_14 total_black">Описание</p>
-                                        <textarea bind:value={clientGettings[index].desc}  id="" cols="33" required></textarea>
+                                        <textarea bind:value={formSendData.clientGettings[index].desc}  id="" cols="33" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -254,31 +269,9 @@
         background: none;
         border: 1px solid var(--Neutral_300);
     }
-    .select{
-        background: var(--Neutral_100);
-        border: 1px solid var(--Neutral_300);
-        padding: 9px;
-        outline: none;
-        border-radius: 12px;
-        width: 100%;
-        text-align: start;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 17.6px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .select svg{
-        width: 20px;
-    }
-    .select svg path{ 
-        fill: #C4C4C4;
-    }
-    .drop_active{
-        border-radius: 12px 12px 0px 0px;
-    }
+    
+    
+    
     .drop_menu{
         position: absolute;
         background: var(--Neutral_100);
@@ -416,5 +409,25 @@
     .created_complete_title p{
         text-align: center;
         margin-top: 8px;
+    }
+    .select{
+        background: var(--Neutral_100);
+        border: 1px solid var(--Neutral_300);
+        padding: 9px;
+        outline: none;
+        border-radius: 12px;
+        width: 100%;
+        text-align: start;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 17.6px;
+        margin-top: 0 !important;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .drop_active{
+        border-radius: 12px 12px 0px 0px;
     }
 </style>

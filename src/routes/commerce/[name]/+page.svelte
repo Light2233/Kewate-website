@@ -3,6 +3,7 @@
     import {fade,slide,fly} from "svelte/transition"
     import { inview } from 'svelte-inview'
     import type { PageData } from './$types';
+    import { serviceVerboseMap, priceFormat } from "$lib/client/formarters";
 
 
         
@@ -14,7 +15,7 @@
 
 
     
-    import ApplicationModalWindow from "../../../(main)/ApplicationModalWindow.svelte";
+    import ApplicationModalWindow from "../../(main)/ApplicationModalWindow.svelte";
     import LandingGrid from "$lib/client/components/LandingGrid.svelte"
     import ProjectsBlock from "$lib/client/components/ProjectsBlock.svelte";
     import TeamBlock from "$lib/client/components/TeamBlock.svelte";
@@ -22,6 +23,7 @@
 
     export let data: PageData;
 
+    let commerceOffer = data.commercialOffer;
 
     let innerWidth : number;
     let showModal : boolean = false;
@@ -33,38 +35,6 @@
     let isInView5 = false
     let isInView2= false
 
-
-    // Открывашки по вопросам
-    let tabs = [
-        {
-            name:"Как проходит согласование проекта?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"На чём разрабатывается сайт?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"Используется ли авторский контент?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"Из чего складывается стоимость сайта?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"Как производится оплата работ?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"Можно ли будет редактировать сайт после разработки?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        },
-        {
-            name:"Будет ли техническая поддержка?",
-            content:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste deserunt illo tempore minima deleniti suscipit aperiam, vitae quos ut sequi, sunt accusantium! Illum voluptates esse praesentium nisi eligendi optio!',
-        }
-    ]
 
     var projects: Project[] = [
         {
@@ -116,7 +86,7 @@
             url: andey
         },
     ]
-    
+    $: console.log(commerceOffer?.task)
 
 </script>
 
@@ -149,7 +119,7 @@
                 <h2 class="header2">Николай Ковальчук</h2>
                 <p class="main_sm_16">CEO Kewate, ответственный за коммуникацию</p>
             </div>
-            <h2 class="display2">— Здравствуйте, Николай!</h2>
+            <h2 class="display2">— Здравствуйте, {commerceOffer?.clientName}!</h2>
         </div>
         <aside class="tagline_map">
             <p class="main_sm_16">Это Ваше персональное коммерческое предложение от студии Kewate</p>
@@ -161,24 +131,24 @@
         <div class="about_task_grid">
             <div class="task_block">
                 <h2 class="header2 total_black">Боль</h2>
-                <p class="main_sm_16 gray">Из-за интернет-магазина мы теряем большинство потенциальных клиентов</p>
+                <p class="main_sm_16 gray">{commerceOffer?.task?.problem}</p>
             </div>
             <div class="task_block">
                 <h2 class="header2 total_black">Задача</h2>
-                <p class="main_sm_16 gray">Редизайн и разработка нового интернет-магазина</p>
+                <p class="main_sm_16 gray">{commerceOffer?.task?.["solution"]}</p>
             </div>
             <div class="task_block">
                 <div class="task_mini">
                     <p class="main_sm_16 total_black">Тип проекта</p>
-                    <p class="main_sm_16 gray">Интернет-магазин</p>
+                    <p class="main_sm_16 gray">{serviceVerboseMap.get(commerceOffer?.service)}</p>
                 </div>
                 <div class="task_mini">
                     <p class="main_sm_16 total_black">Сфера проекта</p>
-                <p class="main_sm_16 gray">Промышленность</p>
+                    <p class="main_sm_16 gray">{commerceOffer?.task["scope"]}</p>
                 </div>
                 <div class="task_mini">
                     <p class="main_sm_16 total_black">Срок разработки</p>
-                <p class="main_sm_16 gray">2 месяца</p>
+                <p class="main_sm_16 gray">{commerceOffer?.task?.term}</p>
                 </div>
                 
             </div>
@@ -193,66 +163,24 @@
             </div>
             <div class="problems_grid">
                 <!-- Тут надо ичить -->
-                <div class="problem">
-                    <h2 class="header2 total_black">50%</h2>
-                    <div class="problem_info">
-                        <div class="problem_name">
-                            <h2 class="header2 total_black">Процессом регистрации</h2>
-                            <p class="main_sm_16 gray">Пользователи отметили, что процесс регистрации сложный.</p>
-                        </div>
-                        <div class="solution">
-                            <p class="main_sm_16 gray" style="font-weight: 600;">Возможные решения: </p>
-                            <p class="gray main_sm_16" style="text-align: start;">
-                                Убрать обязательную регистрацию и дать возможность покупки без неё путём создания аккаунта во время оформления заказа
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="problem">
-                    <h2 class="header2 total_black">50%</h2>
-                    <div class="problem_info">
-                        <div class="problem_name">
-                            <h2 class="header2 total_black">Процессом регистрации</h2>
-                            <p class="main_sm_16 gray">Пользователи отметили, что процесс регистрации сложный.</p>
-                        </div>
-                        <div class="solution">
-                            <p class="main_sm_16 gray" style="font-weight: 600;">Возможные решения: </p>
-                            <p class="gray main_sm_16" style="text-align: start;">
-                                Убрать обязательную регистрацию и дать возможность покупки без неё путём создания аккаунта во время оформления заказа
-                            </p>
+
+                {#each commerceOffer?.userProblems as problem}
+                    <div class="problem">
+                        <h2 class="header2 total_black">{problem?.percent}</h2>
+                        <div class="problem_info">
+                            <div class="problem_name">
+                                <h2 class="header2 total_black">{problem?.name}</h2>
+                                <p class="main_sm_16 gray">{problem?.desc}</p>
+                            </div>
+                            <div class="solution">
+                                <p class="main_sm_16 gray" style="font-weight: 600;">Возможные решения: </p>
+                                <p class="gray main_sm_16" style="text-align: start;">
+                                    {problem?.solution}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="problem">
-                    <h2 class="header2 total_black">50%</h2>
-                    <div class="problem_info">
-                        <div class="problem_name">
-                            <h2 class="header2 total_black">Процессом регистрации</h2>
-                            <p class="main_sm_16 gray">Пользователи отметили, что процесс регистрации сложный.</p>
-                        </div>
-                        <div class="solution">
-                            <p class="main_sm_16 gray" style="font-weight: 600;">Возможные решения: </p>
-                            <p class="gray main_sm_16" style="text-align: start;">
-                                Убрать обязательную регистрацию и дать возможность покупки без неё путём создания аккаунта во время оформления заказа
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="problem">
-                    <h2 class="header2 total_black">50%</h2>
-                    <div class="problem_info">
-                        <div class="problem_name">
-                            <h2 class="header2 total_black">Процессом регистрации</h2>
-                            <p class="main_sm_16 gray">Пользователи отметили, что процесс регистрации сложный.</p>
-                        </div>
-                        <div class="solution">
-                            <p class="main_sm_16 gray" style="font-weight: 600;">Возможные решения: </p>
-                            <p class="gray main_sm_16" style="text-align: start;">
-                                Убрать обязательную регистрацию и дать возможность покупки без неё путём создания аккаунта во время оформления заказа
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                {/each}
             </div>
         </div>
     </section>
@@ -267,7 +195,7 @@
                 <h3 class="display3">Держим в курсе разработки</h3>
                 <div class="title_desc">
                     <p class="main_sm_16 gray">Уделяем большое внимание контролю сроков</p>
-                    <p class="main_sm_16 gray">22</p>
+                    <p class="main_sm_16 gray">{serviceVerboseMap.get(commerceOffer?.service)} будет готов через {commerceOffer?.task?.term}</p>
                 </div>
             </div>
             <LandingGrid />
@@ -357,18 +285,12 @@
     <section class="about_task getting dark-background">
         <h3 class="display3 total_black">Резюмируем: что вы получите</h3>
         <div class="about_task_grid getting">
-            <div class="task_block getting_tabs_block ">
-                <h2 class="header2 total_black">Готовый к работе интернет-магазин</h2>
-                <p class="main_sm_16 gray">Настроим и подготовим сайт к работе</p>
-            </div>
-            <div class="task_block getting_tabs_block ">
-                <h2 class="header2 total_black">Консультацию по использованию</h2>
-                <p class="main_sm_16 gray">Отправим понятную инструкцию, при необходимости созвонимся и обучим сотрудников.</p>
-            </div>
-            <div class="task_block getting_tabs_block ">
-                <h2 class="header2 total_black">Бесплатную поддержку</h2>
-                <p class="main_sm_16 gray">В течение месяца после сдачи проекта будем тщательно следить за работой сайта.</p>
-            </div>
+            {#each commerceOffer?.clientGettings as block}
+                <div class="task_block getting_tabs_block ">
+                    <h2 class="header2 total_black">{block?.name}</h2>
+                    <p class="main_sm_16 gray">{block?.desc}</p>
+                </div>
+            {/each}
         </div>
     </section>
     <section class="price_block">
@@ -379,11 +301,12 @@
             <div class="price">
                 <div class="">
                     <h3 class="header3">Стоимость работы:</h3>
-                    <h1 class="display1">200 000 ₽</h1>
+                    <h1 class="display1">{priceFormat(commerceOffer?.task?.price)}</h1>
                 </div>
+                <div class="line"></div>
                 <div class="">
                     <h3 class="header3">Срок разработки:</h3>
-                    <h1 class="display1">2 месяца</h1>
+                    <h1 class="display1">{commerceOffer?.task?.term}</h1>
                 </div>
             </div>
         </div>
@@ -1075,7 +998,7 @@
         max-height: 98px;
         
     }
-    .price div{
+    .price div:not(.line){
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -1092,6 +1015,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    .line{
+        height: 100%;
+        width: 1px;
+        background: #FFFFFF;
+        opacity: 0.5;
+        margin: 0 40px;
     }
 
 </style>

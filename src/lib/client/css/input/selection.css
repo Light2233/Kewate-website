@@ -1,0 +1,61 @@
+.input_place{
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+.drop_menu{
+    position: absolute;
+    background: var(--Neutral_100);
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    padding: 12px 12px 20px 12px;
+    border-radius: 0px 0px 16px 16px;
+    border: 1px solid var(--Neutral_300);
+    border-top: none;
+    width: 100%;
+    top: 68px;
+}
+.drop_menu button{
+    text-align: start;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17.6px;
+}
+
+.select{
+    background: var(--Neutral_100);
+    border: 1px solid var(--Neutral_300);
+    padding: 9px;
+    outline: none;
+    border-radius: 12px;
+    width: 100%;
+    text-align: start;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17.6px;
+    margin-top: 0 !important;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.drop_active{
+    border-radius: 12px 12px 0px 0px;
+}
+
+.select svg{
+    width: 20px;
+}
+.select svg path{ 
+    fill: #C4C4C4;
+}
+.drop_active svg{
+    rotate: -180deg;
+}
+.drop_active svg path{
+    fill: var(--Neutral_1000);
+}

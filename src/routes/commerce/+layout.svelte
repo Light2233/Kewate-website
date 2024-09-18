@@ -11,9 +11,6 @@
     import MegaMenu from '../(main)/MegaMenu.svelte';
     import modalBg from '$lib/assets/application_modal_bg.png';
 
-    export let data
-
-
     let showModal: boolean;
     let alert = false;
     let render = false;
@@ -207,13 +204,13 @@
     </div>
 </div>
 {/if} -->
-
+<!-- 
 <PostApplicationAlert
     success={ $page.form?.success }
     message={ $page.form?.message }
     on:shown={() => { showModal = false }}
 />
-
+ -->
 
 
 <slot/>

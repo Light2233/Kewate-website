@@ -18,15 +18,12 @@ datasource db {
 model CommercialOffer {
   id              Int     @id @default(autoincrement())
   name            String
-  clientName      String
-  service         String
-  projectScope    String
-  developmentTime String
-  cost            String
   url             String
+  service         String
+  clientName      String
+  task            Json
   userProblems    Json[]
-  projects        String[]
-  clientGetting   Json[]
+  clientGettings  Json[]
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 }

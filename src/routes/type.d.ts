@@ -82,6 +82,5 @@ interface CommercialOffer {
     clientName : string,
     task : Task,
     userProblems: UserProblem[],
-    projects: string[],
-    clientGetting : Getting[]
+    clientGettings : Getting[]
 }

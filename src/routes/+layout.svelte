@@ -9,16 +9,16 @@
 		<script>
 			SmoothScroll({
 			// Время скролла 400 = 0.4 секунды
-			animationTime : 800,
+			animationTime : 4000,
 			// Размер шага в пикселях
-			stepSize : 50,
+			stepSize : 40,
 
 			// Дополнительные настройки:
 
 			// Ускорение
-			accelerationDelta : 40,
+			accelerationDelta : 20,
 			// Максимальное ускорение
-			accelerationMax : 120,
+			accelerationMax : 20,
 
 			// Поддержка клавиатуры
 			keyboardSupport : true,
@@ -28,8 +28,8 @@
 			// Pulse (less tweakable)
 			// ratio of "tail" to "acceleration"
 			pulseAlgorithm : true,
-			pulseScale : 7,
-			pulseNormalize : 7,
+			pulseScale : 3,
+			pulseNormalize : 3,
 
 			// Поддержка тачпада
 			touchpadSupport : true,

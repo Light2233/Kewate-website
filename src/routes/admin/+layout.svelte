@@ -1,17 +1,21 @@
 <script lang="ts">
-    import { setContext } from "svelte";
-    import { writable } from "svelte/store";
-
-    export const currentPageIndex = writable(1);
-    setContext("TabActive", currentPageIndex);
+    import { page } from "$app/stores";
 
     let currentPage = 'Проекты';
-    let navMenu : string[] = [
-        "Проекты",
-        "Редактор сайта",
-        "Редактор КП"
+    let navMenu = [
+        {
+            name: "Проекты",
+            url : "projects"
+        },
+        {
+            name: "Редактор сайта",
+            url : "site-editor"
+        },
+        {
+            name: "Редактор КП",
+            url : "offer-editor"
+        }
     ]
-
 </script>
 
 
@@ -39,14 +43,14 @@
         <div class="header_menu">
             <nav>
                 {#each navMenu as link, index}
-                    <button type="button" class="nav_link total_black" class:nav_active={currentPage == link} on:click={()=>{currentPage=link;currentPageIndex.set(index+1)}}>{link}</button>
+                    <a href="{link.url}" class="nav_link total_black" class:nav_active={$page.url.pathname == `/admin/${link.url}`} >{link.name}</a>
                 {/each}
                 <a href="/" class="nav_link total_black">Kewate.ru</a>
             </nav>
         </div>
          
     </div>
-</header>=
+</header>
 
 
 <slot/>
@@ -61,6 +65,7 @@
         width: 100%;
         height: 64px;
         background: #FFFFFF;
+        top: 0;
         
     }
     .logo svg path:not(:first-child){

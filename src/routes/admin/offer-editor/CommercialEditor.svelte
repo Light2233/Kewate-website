@@ -2,17 +2,21 @@
     import { fade } from "svelte/transition";
     import Offer from "./Offer.svelte";
     import CreateOffer from "./CreateOffer.svelte";
-    let activeKP = 10
+
+    export let offersData;
+
     let createOffer = false
     let currentStep : number
-    $: if(currentStep==0) createOffer = false;
+    
+
+    
 </script>
 
 {#if currentStep!=6}
     <header>
         <div class="header_content">
             {#if !createOffer}
-                <h1 class="header3 total_black">Активно {activeKP} КП</h1>
+                <h1 class="header3 total_black">Активно {offersData.length} КП</h1>
                 <button class="main_btn_black" on:click={()=>{createOffer=true}}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 12.75H6C5.59 12.75 5.25 12.41 5.25 12C5.25 11.59 5.59 11.25 6 11.25H18C18.41 11.25 18.75 11.59 18.75 12C18.75 12.41 18.41 12.75 18 12.75Z" fill="#0A0A0A"/>
@@ -21,7 +25,11 @@
                     Создать КП
                 </button>
             {:else}
-                <button class="header3 total_black" on:click={()=>{createOffer= false}}>Создать новое КП</button>
+                <button class="header3 total_black back" on:click={()=>{createOffer= false}}>  
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.00004 6.95276L0.467285 1.42027L1.46054 0.447266L6.00004 4.98652L10.5395 0.447266L11.5328 1.42027L6.00004 6.95276Z" fill="white"/>
+                    </svg>
+                    Создать новое КП</button>
             {/if}
         </div>
     </header>
@@ -37,8 +45,8 @@
                 <th colspan="4"></th>
             </thead>
             <tbody>
-                {#each {length: activeKP} as _}
-                    <Offer/>
+                {#each offersData as offer}
+                    <Offer offerData={offer}/>
                 {/each}
             </tbody>
         </table>
@@ -48,6 +56,19 @@
 {/if}
 
 <style lang="less">
+    .back svg path{
+        fill: black;
+    }
+    .back svg{
+        width: 12px;
+        height: 12px;
+        rotate: 90deg;
+    }
+    .back{
+        display: flex;
+        column-gap: 8px;
+        align-items: center;
+    }
     .header3{
         font-size: 18px;
     }

@@ -1,22 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { redirect } from "@sveltejs/kit";
+import type { PageLoad } from "./$types";
 
-const prisma = new PrismaClient()
-
-/** @type {import('./$types').PageServerLoad} */
-export const load = async () => {
-    const commercialOffers = await prisma.commercialOffer.findMany();
-    await prisma.$disconnect()
-
-    return {
-        commercialOffers
-    }
-}
-
-
-/** @type {import('./$types').Actions} */
-export const actions = {
-    createOffer : async ({ request }) => {
-        const data = await request.formData()
-        console.log(data)
-    }
-}
+export const load: PageLoad = () => {
+    redirect(307, "/admin/projects")
+};
